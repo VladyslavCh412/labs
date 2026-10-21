@@ -4,9 +4,11 @@ import sqlite3
 import uuid
 from pathlib import Path
 from .domain import Trip
+from .observers import TripEventPublisher
 
 class TripsRepository:
-    def __init__(self, path):
+    def __init__(self, path, publisher=None):
+        self.publisher = publisher or TripEventPublisher()
         self.path = str(Path(path))
         Path(self.path).parent.mkdir(parents=True, exist_ok=True)
         with sqlite3.connect(self.path) as db:
@@ -54,8 +56,7 @@ class TripsRepository:
             db.execute('BEGIN IMMEDIATE')
             for event_id, payload in db.execute('SELECT event_id, payload FROM outbox WHERE delivered=0 ORDER BY rowid').fetchall():
                 event = json.loads(payload)
-                db.execute('INSERT OR IGNORE INTO notification_inbox (event_id, trip_id, message) VALUES (?, ?, ?)',
-                           (event_id, event['data']['id'], 'Заплановано рейс ' + event['data']['id']))
+                self.publisher.publish(db, event)
                 db.execute('UPDATE outbox SET delivered=1 WHERE event_id=?', (event_id,))
                 processed += 1
         return processed
