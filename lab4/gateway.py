@@ -2,6 +2,7 @@
 import os
 import httpx
 from fastapi import FastAPI, HTTPException, Request, Response
+from gateway_routing import resolve_target
 
 app = FastAPI(title='API Gateway — Автопарк ЛР3', version='1.0.0', description='Єдина точка входу до Fleet і Trips')
 FLEET_URL = os.getenv('FLEET_URL', 'http://127.0.0.1:8101')
@@ -13,11 +14,8 @@ async def health():
 
 @app.api_route('/{rest:path}', methods=['GET', 'POST', 'PATCH'])
 async def proxy(rest: str, request: Request):
-    if rest.startswith(('vehicles/', 'drivers/')):
-        target = FLEET_URL
-    elif rest == 'trips' or rest.startswith(('trips/', 'events/', 'notifications')):
-        target = TRIPS_URL
-    else:
+    target = resolve_target(rest, FLEET_URL, TRIPS_URL)
+    if target is None:
         raise HTTPException(404, detail='unknown_endpoint')
     try:
         async with httpx.AsyncClient(timeout=1.0) as client:
