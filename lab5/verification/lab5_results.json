@@ -1,0 +1,62 @@
+{
+  "migration_stages": [
+    {
+      "stage": 1,
+      "applied": [
+        1
+      ]
+    },
+    {
+      "stage": 2,
+      "applied": [
+        1,
+        2
+      ]
+    },
+    {
+      "stage": 3,
+      "applied": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "stage": 4,
+      "applied": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ],
+  "observed_event_lag_ms": 28.712,
+  "cache_measurement": {
+    "method": "local Python repository lookup vs in-process cache hit (not HTTP RTT)",
+    "iterations_per_group": 1000,
+    "without_cache_mean_ms": 0.11424,
+    "without_cache_p95_ms": 0.215735,
+    "with_cache_mean_ms": 0.0002,
+    "with_cache_p95_ms": 0.00022,
+    "speedup_mean": 571.05,
+    "cache_stats": {
+      "hits": 1000,
+      "misses": 1,
+      "ttl_seconds": 60.0,
+      "entries": 1
+    }
+  },
+  "checks": [
+    "ЛР5 - архітектура даних (FastAPI + SQLite), справжні локальні HTTP-сервери",
+    "PASS: 4 етапи expand / dual-write / switch-read / contract застосовано; дані збережено.",
+    "PASS: Fleet та Trips запущено окремими процесами, health=200.",
+    "PASS: кеш Fleet: hits=1, misses=1, TTL=30.0 с.",
+    "PASS: PATCH змінює статус; наступний GET бачить новий статус (кеш інвалідовано).",
+    "PASS: VehicleStatusChanged доставлено через HTTP: Trips зберіг копію; затримка 28.712 мс.",
+    "PASS: повтор тієї ж події: applied=false; дублювання відсутнє.",
+    "PASS: сценарій ЛР3 збережено: створення рейсу через HTTP повертає 201.",
+    "CACHE benchmark (Python-level, not HTTP): 0.11424 мс -> 0.0002 мс (571.05x).",
+    "ВАЖЛИВО: максимальної гарантованої межі eventual consistency немає під час тривалої відмови worker або мережі."
+  ]
+}

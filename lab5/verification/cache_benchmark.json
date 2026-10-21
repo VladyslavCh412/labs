@@ -1,0 +1,15 @@
+{
+  "method": "local Python repository lookup vs in-process cache hit (not HTTP RTT)",
+  "iterations_per_group": 1000,
+  "without_cache_mean_ms": 0.11424,
+  "without_cache_p95_ms": 0.215735,
+  "with_cache_mean_ms": 0.0002,
+  "with_cache_p95_ms": 0.00022,
+  "speedup_mean": 571.05,
+  "cache_stats": {
+    "hits": 1000,
+    "misses": 1,
+    "ttl_seconds": 60.0,
+    "entries": 1
+  }
+}
