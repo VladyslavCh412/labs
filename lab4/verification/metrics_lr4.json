@@ -1,0 +1,8 @@
+{
+  "gateway_proxy_if_count_before": 2,
+  "gateway_proxy_if_count_after": 1,
+  "fleet_client_foreign_json_subscripts_before": 3,
+  "fleet_client_foreign_json_subscripts_after": 0,
+  "app_direct_constructors_before": 2,
+  "app_direct_constructors_after": 0
+}
