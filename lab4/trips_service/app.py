@@ -4,8 +4,8 @@ import sqlite3
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from .domain import Trip
-from .repository import TripsRepository
-from .fleet_client import FleetClient, FleetRejected, FleetUnavailable
+from .fleet_client import FleetRejected, FleetUnavailable
+from .factory import TripsComponentsFactory
 
 class TripInput(BaseModel):
     id: str = Field(min_length=1)
@@ -13,9 +13,13 @@ class TripInput(BaseModel):
     driver_id: str = Field(min_length=1)
     route_id: str = Field(min_length=1)
 
-def create_app(db_path=None, fleet_url=None, fleet_transport=None):
-    repo = TripsRepository(db_path or os.getenv('TRIPS_DB_PATH', 'data/trips.sqlite'))
-    client = FleetClient(fleet_url or os.getenv('FLEET_URL', 'http://127.0.0.1:8101'), timeout=0.35, transport=fleet_transport)
+def create_app(db_path=None, fleet_url=None, fleet_transport=None, factory=None):
+    components = (factory or TripsComponentsFactory()).build(
+        db_path or os.getenv('TRIPS_DB_PATH', 'data/trips.sqlite'),
+        fleet_url or os.getenv('FLEET_URL', 'http://127.0.0.1:8101'),
+        fleet_transport,
+    )
+    repo, client = components.repository, components.fleet_client
     app = FastAPI(title='Trips — ЛР3', version='1.0.0', description='Власник даних про рейси та маршрути')
 
     @app.get('/health', tags=['Сервіс'])
