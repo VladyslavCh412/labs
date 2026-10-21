@@ -1,5 +1,6 @@
 """Sync service boundary: Trips sees Fleet only through its public HTTP API."""
 import httpx
+from .fleet_adapter import FleetResponseAdapter
 
 class FleetUnavailable(Exception):
     pass
@@ -9,8 +10,9 @@ class FleetRejected(Exception):
         self.status_code, self.message = status_code, message
 
 class FleetClient:
-    def __init__(self, base_url, timeout=0.35, transport=None):
+    def __init__(self, base_url, timeout=0.35, transport=None, adapter=None):
         self.base_url, self.timeout, self.transport = base_url.rstrip('/'), timeout, transport
+        self.adapter = adapter or FleetResponseAdapter()
 
     async def get_json(self, path):
         try:
@@ -29,8 +31,10 @@ class FleetClient:
     async def check_vehicle_and_driver(self, vehicle_id, driver_id):
         vehicle = await self.get_json('/vehicles/' + vehicle_id)
         driver = await self.get_json('/drivers/' + driver_id)
-        if vehicle['status'] != 'available':
+        availability = self.adapter.vehicle(vehicle)
+        permission = self.adapter.driver(driver)
+        if availability.status != 'available':
             raise FleetRejected(409, 'vehicle_not_available')
-        if not driver['active'] or not driver['license_valid']:
+        if not permission.active or not permission.license_valid:
             raise FleetRejected(409, 'driver_not_allowed')
         return vehicle, driver
