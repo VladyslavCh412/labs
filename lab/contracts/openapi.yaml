@@ -1,0 +1,25 @@
+openapi: 3.0.3
+info: {title: Fleet service contract, version: '1.0.0'}
+paths:
+  /vehicles/{vehicle_id}:
+    get:
+      description: Sync vehicle availability; 350ms client timeout; retry only safe GET.
+      parameters:
+        - {in: path, name: vehicle_id, required: true, schema: {type: string}}
+      responses:
+        '200':
+          description: Vehicle
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [id, plate, status]
+                properties:
+                  id: {type: string}
+                  plate: {type: string}
+                  status: {type: string, enum: [available, in_trip, maintenance]}
+        '401': {description: Missing credentials}
+        '403': {description: Access denied}
+        '404': {description: Vehicle not found}
+        '429': {description: Rate limit reached}
+        '503': {description: Service unavailable}

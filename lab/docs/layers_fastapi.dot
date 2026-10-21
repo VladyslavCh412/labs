@@ -1,0 +1,13 @@
+digraph Layers {
+ graph [rankdir=TB, bgcolor="white", pad=0.25, nodesep=0.65, ranksep=0.45];
+ node [shape=box,style="rounded,filled",fontname="DejaVu Sans",fontsize=13,margin="0.26,0.14",color="#253c51", penwidth=1.2];
+ edge [color="#425a70", penwidth=1.5, fontname="DejaVu Sans", fontsize=10];
+ P [label="Presentation\nFastAPI / Pydantic",fillcolor="#dceefa"];
+ A [label="Application\nFleetUseCases",fillcolor="#deede9"];
+ D [label="Domain\nVehicle • Driver • Route • Trip\nRepository Protocol",fillcolor="#e5f4e4"];
+ I [label="Infrastructure\nSQLite + InMemory adapters",fillcolor="#f5e9dc"];
+ P->A [label="виклик сценарію"];
+ A->D [label="бізнес-правила"];
+ I->D [style=dashed, label="реалізація Protocol"];
+ {rank=same; I; D}
+}

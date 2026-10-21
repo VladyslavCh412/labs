@@ -1,0 +1,25 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________________ test_fitness_domain_imports_not_infrastructure ________________
+
+    def test_fitness_domain_imports_not_infrastructure():
+        for path in (ROOT/'fleet/domain').rglob('*.py'):
+            tree=ast.parse(path.read_text())
+            for node in ast.walk(tree):
+                if isinstance(node,ast.ImportFrom) and node.module:
+>                   assert not node.module.startswith(('fleet.infrastructure','fleet.presentation','rest_framework','django')), (path,node.module)
+E                   AssertionError: (PosixPath('/mnt/data/ЛР_2-8_Варіант_12/Проєкт_Автопарк/fleet/domain/models.py'), 'fleet.infrastructure.repositories')
+E                   assert not True
+E                    +  where True = <built-in method startswith of str object at 0x7fc06589a420>(('fleet.infrastructure', 'fleet.presentation', 'rest_framework', 'django'))
+E                    +    where <built-in method startswith of str object at 0x7fc06589a420> = 'fleet.infrastructure.repositories'.startswith
+E                    +      where 'fleet.infrastructure.repositories' = <ast.ImportFrom object at 0x7fc063057f90>.module
+
+tests/test_fitness.py:9: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_fitness.py::test_fitness_domain_imports_not_infrastructure - AssertionError: (PosixPath('/mnt/data/ЛР_2-8_Варіант_12/Проєкт_Автопарк/fleet/domain/models.py'), 'fleet.infrastructure.repositories')
+assert not True
+ +  where True = <built-in method startswith of str object at 0x7fc06589a420>(('fleet.infrastructure', 'fleet.presentation', 'rest_framework', 'django'))
+ +    where <built-in method startswith of str object at 0x7fc06589a420> = 'fleet.infrastructure.repositories'.startswith
+ +      where 'fleet.infrastructure.repositories' = <ast.ImportFrom object at 0x7fc063057f90>.module
+1 failed in 0.06s
+

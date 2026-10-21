@@ -1,0 +1,7 @@
+GET /health -> HTTP 200 {"status": "ok", "storage": "SQLite"}
+GET /vehicles/v-1 -> HTTP 200 {"id": "v-1", "plate": "BH1234AA", "mileage_km": 0, "status": "available"}
+POST /trips -> HTTP 201 {"id": "lr2-demo-1", "vehicle_id": "v-1", "driver_id": "d-1", "route_id": "r-1", "status": "planned"}
+POST /trips/lr2-demo-1/start -> HTTP 200 {"id": "lr2-demo-1", "vehicle_id": "v-1", "driver_id": "d-1", "route_id": "r-1", "status": "active"}
+POST /trips/lr2-demo-1/complete -> HTTP 200 {"id": "lr2-demo-1", "vehicle_id": "v-1", "driver_id": "d-1", "route_id": "r-1", "status": "completed"}
+GET /trips/lr2-demo-1 -> HTTP 200 {"id": "lr2-demo-1", "vehicle_id": "v-1", "driver_id": "d-1", "route_id": "r-1", "status": "completed"}
+GET /vehicles/v-1 -> HTTP 200 {"id": "v-1", "plate": "BH1234AA", "mileage_km": 25, "status": "available"}

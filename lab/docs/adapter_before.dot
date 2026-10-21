@@ -1,0 +1,1 @@
+digraph G{rankdir=LR;graph[bgcolor=white];node[shape=record fontname="DejaVu Sans" fontsize=10];a[label="TripPlanner\nзнає get_route(dict)"];b[label="LegacyMapsClient\nget_route(dict)"];a->b[label="жорстка залежність"]; }

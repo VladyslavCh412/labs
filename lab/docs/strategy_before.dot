@@ -1,0 +1,1 @@
+digraph G{rankdir=TB;graph[bgcolor=white];node[shape=record fontname="DejaVu Sans" fontsize=10];c[label="{TripPricing|quote(km, tariff)|if tariff==standard → 20*km\\nelse if express → 30*km}"]; }

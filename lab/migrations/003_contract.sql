@@ -1,0 +1,3 @@
+-- Phase 3: contract. Execute only after verification no previous app version reads plate.
+-- PostgreSQL target schema: ALTER TABLE vehicles DROP COLUMN plate;
+-- Retaining old column in local SQLite demo for reversible offline validation.
