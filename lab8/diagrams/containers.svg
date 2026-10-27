@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="500" height="300" preserveAspectRatio="xMinYMin meet" viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="500" height="300"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-300)" style="clip-path: url(#clip)">
+		<g transform="">
+			<text x="10" y="283" style="font-family: Arial; font-size: 14px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,566) scale(1,-1)">C4 L2  Контейнери та власники даних</text>
+			<rect x="5" y="213" width="110" height="42" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,94%,84%); fill-rule: evenodd;"/>
+			<text x="40.80322265625" y="237.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,475) scale(1,-1)">Браузер</text>
+			<text x="27.4951171875" y="224.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,449) scale(1,-1)">HTML CSS JS</text>
+			<rect x="168" y="213" width="160" height="42" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(91%,94%,96%); fill-rule: evenodd;"/>
+			<text x="207.5556640625" y="237.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,475) scale(1,-1)">Dashboard + Auth</text>
+			<text x="216.3154296875" y="224.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,449) scale(1,-1)">FastAPI :8000</text>
+			<path d="M 115,234 L 168,234 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="168 234, 163.6121 236.3971, 163.6121 231.6029" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
+			<text x="124" y="245" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,490) scale(1,-1)">HTTP</text>
+			<rect x="28" y="112" width="150" height="54" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(91%,94%,96%); fill-rule: evenodd;"/>
+			<text x="68.53466796875" y="142.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,285) scale(1,-1)">Fleet API :8101</text>
+			<text x="52.716796875" y="129.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,259) scale(1,-1)">FastAPI / JWT / RBAC</text>
+			<rect x="320" y="112" width="170" height="54" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(91%,94%,96%); fill-rule: evenodd;"/>
+			<text x="370.53955078125" y="142.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,285) scale(1,-1)">Trips API :8102</text>
+			<text x="354.716796875" y="129.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,259) scale(1,-1)">FastAPI / JWT / RBAC</text>
+			<path d="M 200,213 L 102,166 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="102 166, 106.993 165.7361, 104.9198 170.0589" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
+			<text x="42" y="190" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,380) scale(1,-1)">Bearer / HTTP</text>
+			<path d="M 297,213 L 403,166 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="403 166, 399.9604 169.97, 398.0171 165.5872" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
+			<text x="355" y="190" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,380) scale(1,-1)">Bearer / HTTP</text>
+			<path d="M 320,145 L 178,145 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="178 145, 182.3879 142.6029, 182.3879 147.3971" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
+			<text x="183" y="154" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,308) scale(1,-1)">GET vehicle + driver</text>
+			<rect x="17" y="22" width="150" height="45" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(90%,95%,91%); fill-rule: evenodd;"/>
+			<text x="64.20947265625" y="48.0" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,96) scale(1,-1)">Fleet SQLite</text>
+			<text x="43.36962890625" y="35.0" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,70) scale(1,-1)">Vehicle Driver Outbox</text>
+			<rect x="337" y="22" width="150" height="45" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(90%,95%,91%); fill-rule: evenodd;"/>
+			<text x="384.21435546875" y="48.0" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,96) scale(1,-1)">Trips SQLite</text>
+			<text x="352.52001953125" y="35.0" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,70) scale(1,-1)">Trip Route Snapshot Inbox</text>
+			<path d="M 92,112 L 92,67 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="92 67, 94.39713 71.38791, 89.60287 71.38791" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
+			<text x="101" y="88" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,176) scale(1,-1)">SQL</text>
+			<path d="M 414,112 L 414,67 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="414 67, 416.3971 71.38791, 411.6029 71.38791" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
+			<text x="424" y="88" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,176) scale(1,-1)">SQL</text>
+			<rect x="196" y="24" width="110" height="43" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(91%,94%,96%); fill-rule: evenodd;"/>
+			<text x="225.23486328125" y="48.5" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,97) scale(1,-1)">Event Bridge</text>
+			<text x="222.72998046875" y="36.5" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,73) scale(1,-1)">Python polling</text>
+			<path d="M 155,112 L 222,67 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="222 67, 219.694 71.43646, 217.0209 67.45656" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
+			<text x="162" y="87" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,174) scale(1,-1)">HTTP outbox</text>
+			<path d="M 290,67 L 342,112 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="342 112, 337.1134 110.9413, 340.2506 107.316" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
+			<text x="298" y="80" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,160) scale(1,-1)">HTTP event</text>
+			<text x="5" y="3" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,6) scale(1,-1)">Легенда: жовтий - клієнт; синій - процес; зелений - сховище; стрілки - протокол.</text>
+		</g>
+	</g>
+</svg>

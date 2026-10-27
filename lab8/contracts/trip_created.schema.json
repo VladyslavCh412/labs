@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TripCreated",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_id", "type", "data"],
+  "properties": {
+    "event_id": {"type": "string", "format": "uuid"},
+    "type": {"const": "TripCreated"},
+    "data": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "vehicle_id", "driver_id", "route_id"],
+      "properties": {
+        "id": {"type": "string"},
+        "vehicle_id": {"type": "string"},
+        "driver_id": {"type": "string"},
+        "route_id": {"type": "string"}
+      }
+    }
+  }
+}
