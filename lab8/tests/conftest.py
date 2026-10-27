@@ -15,7 +15,7 @@ def pytest_collection_modifyitems(items):
     import pytest
     for item in items:
         name=item.nodeid
-        if 'test_domain' in name: level='unit'
+        if 'test_domain' in name or ('test_read_cache' in name and 'test_trip_write' not in name): level='unit'
         elif 'test_contract' in name: level='contract'
         elif 'test_fitness' in name: level='architecture'
         elif 'test_security' in name or 'test_dashboard' in name: level='integration'

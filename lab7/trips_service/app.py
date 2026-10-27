@@ -1,3 +1,4 @@
+from .read_cache import TripPageCache
 from fastapi.responses import JSONResponse
 from security import install_security
 """Trips API. Run: python -m uvicorn trips_service.app:app --port 8102"""
@@ -37,6 +38,8 @@ def create_app(db_path=None, fleet_url=None, fleet_transport=None, factory=None)
     app = FastAPI(title='Trips — ЛР3', version='1.0.0', description='Власник даних про рейси та маршрути')
 
     app.state.repository=repo
+    page_cache=TripPageCache()
+    app.state.trip_page_cache=page_cache
 
     @app.get('/health', tags=['Сервіс'])
     def health():
@@ -46,7 +49,10 @@ def create_app(db_path=None, fleet_url=None, fleet_transport=None, factory=None)
     def list_trips(response: Response, limit: int=Query(50,ge=1,le=100), offset: int=Query(0,ge=0), active: bool=False):
         import time
         started=time.perf_counter()
-        result=repo.trip_page(limit,offset,active,optimized=os.getenv('TRIPS_READ_MODE','optimized')!='baseline')
+        if os.getenv('TRIPS_READ_MODE','optimized')=='baseline':
+            result=repo.trip_page(limit,offset,active,optimized=False)
+        else:
+            result=page_cache.get((limit,offset,active),lambda:repo.trip_page(limit,offset,active,optimized=True))
         timing=f'repository;dur={(time.perf_counter()-started)*1000:.3f}'
         if os.getenv('TRIPS_READ_MODE','optimized')=='baseline':
             response.headers['Server-Timing']=timing
@@ -88,6 +94,7 @@ def create_app(db_path=None, fleet_url=None, fleet_transport=None, factory=None)
             event = repo.create_trip_and_publish(trip)
         except sqlite3.IntegrityError as exc:
             raise HTTPException(409, detail='duplicate_trip_id') from exc
+        page_cache.invalidate()
         return {'id': trip.id, 'status': trip.status, 'event_id': event['event_id']}
 
     @app.get('/events/outbox', tags=['Події'])
