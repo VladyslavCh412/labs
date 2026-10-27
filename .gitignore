@@ -18,3 +18,18 @@
 **/jwt.key
 **/users.json
 **/LOCAL_ACCOUNTS.txt
+
+# Submission files and generated evidence are delivered outside Git.
+*.pdf
+*.docx
+*.pptx
+*.bat
+*.cmd
+*.zip
+*.log
+**/docs/*.png
+**/diagrams/*.png
+**/verification/*.json
+**/verification/*.xml
+**/verification/*.txt
+**/benchmarks_results.json

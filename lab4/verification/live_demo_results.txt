@@ -1,9 +1,0 @@
-ЛР3 — реальний HTTP-експеримент (FastAPI + SQLite)
-Запуск: незалежні процеси Fleet, Trips, Gateway; подію доставляє окремий worker.
-PASS: три незалежні процеси запущено; health=200 на всіх.
-PASS: POST /trips через gateway при доступному Fleet => HTTP 201, status=planned.
-PASS: подію TripCreated записано в outbox (delivered=false); notification поки немає.
-PASS: Fleet зупинено; POST /trips => HTTP 503, незавершений рейс не створено.
-PASS: при зупиненому Fleet окремий worker доставив TripCreated; notification збережено.
-PASS: асинхронна подія не залежить від доступності Fleet після створення рейсу.
-Обмеження: це локальний інтеграційний експеримент, не навантажувальний тест та не зовнішній брокер.

@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="5.379" timestamp="2026-10-27T12:21:42.625111+02:00" hostname="DESKTOP-UMT83MS"><testcase classname="tests.test_fitness" name="test_dynamic_http_p95_at_100_users" time="5.354" /></testsuite></testsuites>

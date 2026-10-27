@@ -5,7 +5,7 @@
 **Закрийте попередні три термінали** з Fleet, Trips та Event Bridge (Ctrl+C). Дані у папці `data/` зберігаються.
 
 1. Відкрийте папку `C:\lab5` у VS Code.
-2. Подвійний клік на **`СТАРТ_FleetFlow.bat`** у Провіднику **або** запуск у PowerShell:
+2. Запуск у PowerShell:
    ```powershell
    cd C:\lab5
    .\.venv\Scripts\python.exe launch.py
