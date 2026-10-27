@@ -1,0 +1,20 @@
+# Local runtime files are not source artifacts.
+**/.venv/
+**/venv/
+**/__pycache__/
+**/.pytest_cache/
+**/htmlcov/
+**/.coverage
+**/data/
+*.py[cod]
+*.sqlite*
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+.env
+.env.*
+!*.example
+**/jwt.key
+**/users.json
+**/LOCAL_ACCOUNTS.txt

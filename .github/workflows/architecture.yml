@@ -1,0 +1,24 @@
+name: FleetFlow architecture
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  architecture:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [lab7, lab8]
+    defaults:
+      run:
+        working-directory: ${{ matrix.project }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install -r requirements-lock.txt
+      - run: python verification/pipeline.py
+      - run: python verification/negative_pipeline.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evidence-${{ matrix.project }}
+          path: ${{ matrix.project }}/verification/
