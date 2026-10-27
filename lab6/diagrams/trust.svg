@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="500" height="300" preserveAspectRatio="xMinYMin meet" viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="500" height="300"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-300)" style="clip-path: url(#clip)">
+		<g transform="">
+			<text x="10" y="283" style="font-family: Arial; font-size: 14px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,566) scale(1,-1)">Межі довіри FleetFlow</text>
+			<rect x="20" y="215" width="460" height="42" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,94%,84%); fill-rule: evenodd;"/>
+			<text x="135.37841796875" y="233.0" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,466) scale(1,-1)">Недовірений клієнт: пароль / Bearer token / JSON</text>
+			<path d="M 10,196 L 490,196 Z" style="stroke: rgb(100%,0%,0%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="15" y="181" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,362) scale(1,-1)">B1: вхід до застосунку; login rate limit, Argon2id, JWT 15 хв</text>
+			<rect x="125" y="120" width="250" height="42" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(91%,94%,96%); fill-rule: evenodd;"/>
+			<text x="211.08642578125" y="144.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,289) scale(1,-1)">Dashboard / Auth</text>
+			<text x="144.267578125" y="131.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,263) scale(1,-1)">Пересилає ідентичність без підвищення прав</text>
+			<path d="M 250,215 L 250,162 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="250 162, 252.3971 166.3879, 247.6029 166.3879" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
+			<path d="M 10,100 L 490,100 Z" style="stroke: rgb(100%,0%,0%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="15" y="85" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,170) scale(1,-1)">B2: API власників перевіряють JWT і права незалежно від шлюзу</text>
+			<rect x="20" y="20" width="200" height="43" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(91%,94%,96%); fill-rule: evenodd;"/>
+			<text x="76.92626953125" y="45.0" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,90) scale(1,-1)">Fleet / Fleet SQLite</text>
+			<text x="56.04248046875" y="32.0" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,64) scale(1,-1)">Менеджер змінює автопарк</text>
+			<rect x="280" y="20" width="200" height="43" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(91%,94%,96%); fill-rule: evenodd;"/>
+			<text x="336.93603515625" y="45.0" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,90) scale(1,-1)">Trips / Trips SQLite</text>
+			<text x="322.73193359375" y="32.0" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,64) scale(1,-1)">Диспетчер планує рейси</text>
+			<path d="M 180,120 L 120,63 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="120 63, 124.8323 64.28426, 121.5302 67.76009" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
+			<path d="M 320,120 L 380,63 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="380 63, 378.4698 67.76009, 375.1677 64.28426" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
+			<text x="15" y="3" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,6) scale(1,-1)">B3: процес - власна БД; B4: bridge - event API, окрема службова роль.</text>
+			<rect x="10" y="178" width="480" height="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="15" y="181" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,362) scale(1,-1)">B1: вхід до застосунку; login rate limit, Argon2id, JWT 15 хв</text>
+			<rect x="10" y="82" width="480" height="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="15" y="85" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,170) scale(1,-1)">B2: API власників перевіряють JWT і права незалежно від шлюзу</text>
+		</g>
+	</g>
+</svg>

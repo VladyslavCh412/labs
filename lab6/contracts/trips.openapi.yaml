@@ -1,0 +1,63 @@
+openapi: 3.0.3
+info:
+  title: Trips service (LR3)
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8102
+paths:
+  /trips:
+    post:
+      summary: Plan a trip (requires synchronous Fleet checks; creates TripCreated outbox event)
+      description: |
+        Client must use a stable unique trip id. A repeated id returns 409.
+        Client calls to Fleet are individually limited to 350 ms.
+        Failed/unreachable Fleet returns 503 without creating a trip.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [id, vehicle_id, driver_id, route_id]
+              properties:
+                id: {type: string, minLength: 1}
+                vehicle_id: {type: string, minLength: 1}
+                driver_id: {type: string, minLength: 1}
+                route_id: {type: string, minLength: 1}
+      responses:
+        '201':
+          description: Trip planned and event enqueued
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [id, status, event_id]
+                properties:
+                  id: {type: string}
+                  status: {type: string, enum: [planned]}
+                  event_id: {type: string, format: uuid}
+        '404': {description: Unknown route or Fleet entity}
+        '409': {description: Duplicate trip or vehicle/driver unavailable}
+        '422': {description: Validation error}
+        '503': {description: Fleet unavailable or timed out}
+  /trips/{trip_id}:
+    get:
+      summary: Read a planned trip
+      parameters:
+        - name: trip_id
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        '200': {description: Trip record}
+        '404': {description: Trip not found}
+  /events/outbox:
+    get:
+      summary: Read local outbox status (demo only)
+      responses:
+        '200': {description: List of published events and delivery states}
+  /notifications:
+    get:
+      summary: Read local notification sink (demo only)
+      responses:
+        '200': {description: Delivered event log}
