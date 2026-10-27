@@ -1,0 +1,123 @@
+Static fitness: PASS
+...................................................................      [100%]
+============================== warnings summary ===============================
+..\.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\bruh1\Documents\Codex\2026-10-26\c\work\architecture_labs\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/test_lab3.py::test_fleet_vehicles_drivers
+  <string>:2: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001C082A15A80>
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_lab3.py::test_fleet_vehicles_drivers
+  <string>:2: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001C082A14B80>
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_lab3.py::test_unknown_route_is_404
+  C:\Users\bruh1\Documents\Codex\2026-10-26\c\work\architecture_labs\.venv\Lib\site-packages\pydantic\_internal\_generate_schema.py:2797: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001C0FF373D30>
+    def __init__(self) -> None:
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_lab5.py::test_cache_explicit_invalidation_on_write
+  C:\Users\bruh1\Documents\Codex\2026-10-26\c\work\architecture_labs\.venv\Lib\site-packages\starlette\routing.py:658: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001C0829B3100>
+    app: Any = scope.get("app")
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_lab5.py::test_cache_explicit_invalidation_on_write
+  C:\Users\bruh1\Documents\Codex\2026-10-26\c\work\architecture_labs\.venv\Lib\site-packages\starlette\routing.py:658: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001C0829B33D0>
+    app: Any = scope.get("app")
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_lab5.py::test_cache_explicit_invalidation_on_write
+  C:\Users\bruh1\Documents\Codex\2026-10-26\c\work\architecture_labs\.venv\Lib\site-packages\starlette\routing.py:658: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001C0829B0E50>
+    app: Any = scope.get("app")
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_lab5.py::test_cache_explicit_invalidation_on_write
+  C:\Users\bruh1\Documents\Codex\2026-10-26\c\work\architecture_labs\.venv\Lib\site-packages\starlette\routing.py:658: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001C082AB63E0>
+    app: Any = scope.get("app")
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_lab5.py::test_cache_explicit_invalidation_on_write
+  C:\Users\bruh1\Documents\Codex\2026-10-26\c\work\architecture_labs\.venv\Lib\site-packages\starlette\routing.py:658: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001C082AB45E0>
+    app: Any = scope.get("app")
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_lab5.py::test_post_migration_old_lab_3_trip_still_operates
+  C:\Users\bruh1\AppData\Local\Programs\Python\Python313\Lib\contextlib.py:485: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001C0FF458220>
+    def __init__(self):
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_lab5.py::test_post_migration_old_lab_3_trip_still_operates
+  C:\Users\bruh1\AppData\Local\Programs\Python\Python313\Lib\contextlib.py:485: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001C082946F20>
+    def __init__(self):
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=============================== tests coverage ================================
+______________ coverage: platform win32, python 3.13.14-final-0 _______________
+
+Name                      Stmts   Miss  Cover   Missing
+-------------------------------------------------------
+fleet_service\domain.py      41      0   100%
+trips_service\domain.py      32      0   100%
+-------------------------------------------------------
+TOTAL                        73      0   100%
+Coverage JSON written to file verification/coverage.json
+Required test coverage of 95% reached. Total coverage: 100.00%
+============================== slowest durations ==============================
+0.70s call     tests/test_lab3.py::test_fleet_down_returns_503_and_no_trip
+0.69s call     tests/test_security.py::test_login_hashing_and_rate_limit
+0.33s call     tests/test_dashboard.py::test_dashboard_endpoints_work_with_independent_services
+0.17s call     tests/test_lab5.py::test_local_vehicle_copy_and_idempotent_replay
+0.15s call     tests/test_security.py::test_roles_at_both_owners_and_internal_event_boundary
+0.12s call     tests/test_lab5.py::test_cache_explicit_invalidation_on_write
+0.11s call     tests/test_lab5.py::test_post_migration_old_lab_3_trip_still_operates
+0.11s call     tests/test_security.py::test_proxy_forwards_identity_and_does_not_bypass_ownership
+0.09s call     tests/test_contract.py::test_provider_satisfies_independent_consumer_contract
+0.09s setup    tests/test_lab3.py::test_async_notification_after_fleet_offline
+0.09s setup    tests/test_lab3.py::test_outbox_preserved_while_worker_offline
+0.08s setup    tests/test_lab3.py::test_unavailable_vehicle_rejected
+0.08s call     tests/test_lab3.py::test_openapi_contract_and_event_schema
+0.08s setup    tests/test_lab3.py::test_independent_databases_are_distinct
+0.08s call     tests/test_security.py::test_direct_owner_rejects_missing_forged_and_expired_tokens[fleet-/vehicles/v-1]
+0.08s setup    tests/test_lab3.py::test_create_trip_sync_and_atomic_outbox
+0.08s setup    tests/test_lab3.py::test_fleet_vehicles_drivers
+0.07s setup    tests/test_lab3.py::test_unknown_route_is_404
+0.07s call     tests/test_security.py::test_denial_is_audited_without_token_or_password
+0.07s call     tests/test_lab5.py::test_all_four_migrations_and_backward_compatibility
+0.06s call     tests/test_security.py::test_invalid_claims_rejected[role-root]
+0.06s call     tests/test_security.py::test_invalid_claims_rejected[aud-other]
+0.06s call     tests/test_security.py::test_invalid_claims_rejected[iss-other]
+0.05s call     tests/test_security.py::test_direct_owner_rejects_missing_forged_and_expired_tokens[trips-/trips]
+0.04s call     tests/test_fitness.py::test_static_no_cycles
+0.04s call     tests/test_lab3.py::test_create_trip_sync_and_atomic_outbox
+0.04s call     tests/test_lab3.py::test_async_notification_after_fleet_offline
+0.04s call     tests/test_pagination.py::test_optimization_preserves_page_projection_order_and_filter
+0.03s call     tests/test_lab3.py::test_unavailable_vehicle_rejected
+0.03s call     tests/test_characterization.py::test_gateway_routes_existing_urls_without_changing_responses
+0.03s call     tests/test_lab3.py::test_outbox_preserved_while_worker_offline
+0.03s call     tests/test_characterization.py::test_trip_event_notification_text_and_idempotence
+0.03s call     tests/test_extension_points.py::test_observer_notifies_subscribers_without_duplicate_delivery
+0.02s call     tests/test_extension_points.py::test_factory_builds_separate_components
+0.02s call     tests/test_lab3.py::test_fleet_vehicles_drivers
+0.01s call     tests/test_lab3.py::test_unknown_route_is_404
+0.01s call     tests/test_contract.py::test_consumer_uses_contract_without_running_provider
+0.01s setup    tests/test_characterization.py::test_trip_event_notification_text_and_idempotence
+0.01s call     tests/test_fitness.py::test_rule_detects_injected_import_and_cycle
+
+(162 durations < 0.005s hidden.  Use -vv to show these durations.)
+67 passed, 1 deselected, 11 warnings in 5.27s
+optimized {"users": 100, "duration_s": 3.211, "requests": 850, "errors": 0, "error_rate": 0.0, "p50_ms": 365.554, "p95_ms": 405.547, "repository_p95_ms": 48.406, "requests_per_s": 264.7, "statuses": {"200": 850}, "target_met": true}
+.
+1 passed in 5.38s

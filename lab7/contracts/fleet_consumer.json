@@ -1,0 +1,12 @@
+{
+  "name": "Trips consumer expectations of Fleet v1",
+  "provider": "Fleet",
+  "consumer": "Trips",
+  "interactions": [
+    {"path": "/vehicles/v-1", "schema": {"type":"object", "required":["id","plate","status","version"], "properties":{"id":{"type":"string"},"plate":{"type":"string"},"status":{"enum":["available","in_trip","maintenance"]},"version":{"type":"integer","minimum":1}}}},
+    {"path": "/drivers/d-1", "schema": {"type":"object", "required":["id","name","active","license_valid"], "properties":{"id":{"type":"string"},"name":{"type":"string"},"active":{"type":"boolean"},"license_valid":{"type":"boolean"}}}}
+  ],
+  "missing_resource_status": 404,
+  "unavailable_status": 503,
+  "availability_timeout_seconds": 0.35
+}
