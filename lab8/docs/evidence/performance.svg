@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="491" height="245" preserveAspectRatio="xMinYMin meet" viewBox="0 0 491 245" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="491" height="245"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-245)" style="clip-path: url(#clip)">
+		<g transform="">
+			<g transform="">
+				<g transform="">
+					<g transform="">
+						<path d="M 52,38 L 467,38 Z" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1;"/>
+					</g>
+					<g transform="">
+						<path d="M 52,38 L 52,33 Z" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1;"/>
+						<path d="M 135,38 L 135,33 Z" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1;"/>
+						<path d="M 218,38 L 218,33 Z" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1;"/>
+						<path d="M 301,38 L 301,33 Z" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1;"/>
+						<path d="M 384,38 L 384,33 Z" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1;"/>
+						<path d="M 467,38 L 467,33 Z" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1;"/>
+					</g>
+					<g transform="">
+						<g transform=" matrix(1,0,0,1,52,33)">
+							<text x="-2.224609375" y="-8.0" style="font-family: Body; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,-16) scale(1,-1)">0</text>
+						</g>
+						<g transform=" matrix(1,0,0,1,135,33)">
+							<text x="-6.673828125" y="-8.0" style="font-family: Body; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,-16) scale(1,-1)">100</text>
+						</g>
+						<g transform=" matrix(1,0,0,1,218,33)">
+							<text x="-6.673828125" y="-8.0" style="font-family: Body; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,-16) scale(1,-1)">200</text>
+						</g>
+						<g transform=" matrix(1,0,0,1,301,33)">
+							<text x="-6.673828125" y="-8.0" style="font-family: Body; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,-16) scale(1,-1)">300</text>
+						</g>
+						<g transform=" matrix(1,0,0,1,384,33)">
+							<text x="-6.673828125" y="-8.0" style="font-family: Body; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,-16) scale(1,-1)">400</text>
+						</g>
+						<g transform=" matrix(1,0,0,1,467,33)">
+							<text x="-6.673828125" y="-8.0" style="font-family: Body; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,-16) scale(1,-1)">500</text>
+						</g>
+					</g>
+				</g>
+				<g transform="">
+					<g transform="">
+						<path d="M 52,38 L 52,228 Z" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1;"/>
+					</g>
+					<g transform="">
+						<path d="M 52,38 L 47,38 Z" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1;"/>
+						<path d="M 52,85.5 L 47,85.5 Z" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1;"/>
+						<path d="M 52,133 L 47,133 Z" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1;"/>
+						<path d="M 52,180.5 L 47,180.5 Z" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1;"/>
+						<path d="M 52,228 L 47,228 Z" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1;"/>
+					</g>
+					<g transform="">
+						<g transform=" matrix(1,0,0,1,47,38)">
+							<text x="-4.44921875" y="-3.2" style="font-family: Body; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,-6) scale(1,-1)">0</text>
+						</g>
+						<g transform=" matrix(1,0,0,1,47,85.5)">
+							<text x="-13.34765625" y="-3.2" style="font-family: Body; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,-6) scale(1,-1)">300</text>
+						</g>
+						<g transform=" matrix(1,0,0,1,47,133)">
+							<text x="-13.34765625" y="-3.2" style="font-family: Body; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,-6) scale(1,-1)">600</text>
+						</g>
+						<g transform=" matrix(1,0,0,1,47,180.5)">
+							<text x="-13.34765625" y="-3.2" style="font-family: Body; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,-6) scale(1,-1)">900</text>
+						</g>
+						<g transform=" matrix(1,0,0,1,47,228)">
+							<text x="-17.796875" y="-3.2" style="font-family: Body; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,-6) scale(1,-1)">1200</text>
+						</g>
+					</g>
+				</g>
+				<g transform="">
+					<polyline points="52.83 38.44333, 60.3 41.0096, 93.5 52.30668, 135 66.48955, 218 95.44998, 301 122.6155, 467 181.9529" style="stroke: rgb(8%,62%,52%); stroke-linecap: round; stroke-width: 1.6; fill: None; fill-rule: evenodd;"/>
+					<polyline points="52.83 38.51158, 60.3 41.69756, 93.5 54.02444, 135 72.44225, 218 100.4715, 301 137.8977, 467 214.0491" style="stroke: rgb(20%,35%,80%); stroke-linecap: round; stroke-width: 1.6; fill: None; fill-rule: evenodd;"/>
+					<polyline points="52.83 117.1667, 467 117.1667" style="stroke: rgb(83%,29%,25%); stroke-linecap: round; stroke-width: 1.6; fill: None; fill-rule: evenodd; stroke-dasharray: 4, 3;"/>
+				</g>
+			</g>
+			<text x="9" y="230" style="font-family: Body; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,460) scale(1,-1)">мс</text>
+			<text x="178" y="6" style="font-family: Body; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,12) scale(1,-1)">Одночасні користувачі</text>
+			<path d="M 65,22 L 83,22 Z" style="stroke: rgb(8%,62%,52%); stroke-linecap: butt; stroke-width: 2;"/>
+			<text x="89" y="18" style="font-family: Body; font-size: 8.5px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,36) scale(1,-1)">p50</text>
+			<path d="M 185,22 L 203,22 Z" style="stroke: rgb(20%,35%,80%); stroke-linecap: butt; stroke-width: 2;"/>
+			<text x="209" y="18" style="font-family: Body; font-size: 8.5px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,36) scale(1,-1)">p95</text>
+			<path d="M 300,22 L 318,22 Z" style="stroke: rgb(83%,29%,25%); stroke-linecap: butt; stroke-width: 2;"/>
+			<text x="324" y="18" style="font-family: Body; font-size: 8.5px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,36) scale(1,-1)">Поріг 500 мс</text>
+		</g>
+	</g>
+</svg>

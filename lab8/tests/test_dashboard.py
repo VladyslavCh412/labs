@@ -25,6 +25,9 @@ def test_dashboard_endpoints_work_with_independent_services(tmp_path):
         index=client.get('/')
         assert index.status_code==200 and 'FleetFlow' in index.text
         assert client.get('/assets/app.js').status_code==200
+        assert 'type="module"' in index.text
+        assert client.get('/assets/src/app.ts').status_code==404
+        assert client.get('/assets/package.json').status_code==404
         assert client.get('/api/health').json()=={'fleet':True,'trips':True}
         vehicles=client.get('/api/fleet/vehicles').json()
         assert len(vehicles)>=3

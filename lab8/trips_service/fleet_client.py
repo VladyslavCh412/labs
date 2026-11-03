@@ -1,14 +1,10 @@
 from security import service_headers
 """Sync service boundary: Trips sees Fleet only through its public HTTP API."""
 import httpx
+from urllib.parse import quote
 from .fleet_adapter import FleetResponseAdapter
 
-class FleetUnavailable(Exception):
-    pass
-
-class FleetRejected(Exception):
-    def __init__(self, status_code, message):
-        self.status_code, self.message = status_code, message
+from .domain import FleetUnavailable, FleetRejected
 
 class FleetClient:
     def __init__(self, base_url, timeout=0.35, transport=None, adapter=None):
@@ -30,8 +26,8 @@ class FleetClient:
         return response.json()
 
     async def check_vehicle_and_driver(self, vehicle_id, driver_id):
-        vehicle = await self.get_json('/vehicles/' + vehicle_id)
-        driver = await self.get_json('/drivers/' + driver_id)
+        vehicle = await self.get_json('/vehicles/' + quote(vehicle_id, safe=''))
+        driver = await self.get_json('/drivers/' + quote(driver_id, safe=''))
         availability = self.adapter.vehicle(vehicle)
         permission = self.adapter.driver(driver)
         if availability.status != 'available':
@@ -39,3 +35,19 @@ class FleetClient:
         if not permission.active or not permission.license_valid:
             raise FleetRejected(409, 'driver_not_allowed')
         return vehicle, driver
+
+
+    async def execute_lifecycle(self, trip_id, operation, vehicle_id, driver_id, distance_km=0):
+        try:
+            async with httpx.AsyncClient(timeout=self.timeout, transport=self.transport, trust_env=False) as client:
+                response = await client.post(self.base_url + '/internal/trip-commands',
+                    headers=service_headers('trips-service'),
+                    json=dict(trip_id=trip_id, operation=operation, vehicle_id=vehicle_id,
+                              driver_id=driver_id, distance_km=distance_km))
+        except (httpx.TimeoutException, httpx.TransportError) as exc:
+            raise FleetUnavailable('fleet_service_unavailable_retry_same_command') from exc
+        if response.status_code >= 500:
+            raise FleetUnavailable('fleet_service_unavailable_retry_same_command')
+        if response.status_code >= 400:
+            raise FleetRejected(response.status_code, response.json().get('detail', 'fleet_request_rejected'))
+        return response.json()

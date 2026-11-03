@@ -1,0 +1,950 @@
+{
+  "context": {
+    "title": "C4 L1 — Контекст FleetFlow",
+    "nodes": [
+      {
+        "id": "manager",
+        "x": 40,
+        "y": 45,
+        "w": 300,
+        "h": 95,
+        "lines": [
+          "Керівник",
+          "Person: manager"
+        ],
+        "kind": "person"
+      },
+      {
+        "id": "dispatcher",
+        "x": 450,
+        "y": 45,
+        "w": 300,
+        "h": 95,
+        "lines": [
+          "Диспетчер",
+          "Person: dispatcher"
+        ],
+        "kind": "person"
+      },
+      {
+        "id": "viewer",
+        "x": 860,
+        "y": 45,
+        "w": 300,
+        "h": 95,
+        "lines": [
+          "Спостерігач",
+          "Person: viewer"
+        ],
+        "kind": "person"
+      },
+      {
+        "id": "system",
+        "x": 330,
+        "y": 285,
+        "w": 540,
+        "h": 135,
+        "lines": [
+          "FleetFlow",
+          "Software System",
+          "Автопарк, водії, маршрути, рейси"
+        ],
+        "kind": "container"
+      },
+      {
+        "id": "maps",
+        "x": 40,
+        "y": 570,
+        "w": 300,
+        "h": 95,
+        "lines": [
+          "Картографічний сервіс",
+          "External System: заплановано"
+        ],
+        "kind": "planned"
+      },
+      {
+        "id": "gps",
+        "x": 450,
+        "y": 570,
+        "w": 300,
+        "h": 95,
+        "lines": [
+          "GPS / телематика",
+          "External System: заплановано"
+        ],
+        "kind": "planned"
+      },
+      {
+        "id": "notify",
+        "x": 860,
+        "y": 570,
+        "w": 300,
+        "h": 95,
+        "lines": [
+          "SMS / e-mail",
+          "External System: заплановано"
+        ],
+        "kind": "planned"
+      }
+    ],
+    "edges": [
+      {
+        "points": [
+          [
+            190,
+            140
+          ],
+          [
+            190,
+            230
+          ],
+          [
+            430,
+            230
+          ],
+          [
+            430,
+            285
+          ]
+        ],
+        "label": "Керує ТЗ і водіями",
+        "x": 80,
+        "y": 202,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            600,
+            140
+          ],
+          [
+            600,
+            285
+          ]
+        ],
+        "label": "Планує та виконує рейси",
+        "x": 620,
+        "y": 225,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            1010,
+            140
+          ],
+          [
+            1010,
+            230
+          ],
+          [
+            790,
+            230
+          ],
+          [
+            790,
+            285
+          ]
+        ],
+        "label": "Переглядає стан",
+        "x": 885,
+        "y": 202,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            430,
+            420
+          ],
+          [
+            430,
+            500
+          ],
+          [
+            190,
+            500
+          ],
+          [
+            190,
+            570
+          ]
+        ],
+        "label": "Майбутній API",
+        "x": 100,
+        "y": 490,
+        "dash": true
+      },
+      {
+        "points": [
+          [
+            600,
+            570
+          ],
+          [
+            600,
+            420
+          ]
+        ],
+        "label": "Майбутні координати",
+        "x": 620,
+        "y": 520,
+        "dash": true
+      },
+      {
+        "points": [
+          [
+            790,
+            420
+          ],
+          [
+            790,
+            500
+          ],
+          [
+            1010,
+            500
+          ],
+          [
+            1010,
+            570
+          ]
+        ],
+        "label": "Майбутній канал",
+        "x": 860,
+        "y": 490,
+        "dash": true
+      }
+    ]
+  },
+  "containers": {
+    "title": "C4 L2 — Контейнери й власники даних",
+    "nodes": [
+      {
+        "id": "browser",
+        "x": 450,
+        "y": 20,
+        "w": 300,
+        "h": 75,
+        "lines": [
+          "Браузер",
+          "HTML / CSS / TypeScript"
+        ],
+        "kind": "person"
+      },
+      {
+        "id": "gateway",
+        "x": 410,
+        "y": 175,
+        "w": 380,
+        "h": 85,
+        "lines": [
+          "Dashboard / Gateway",
+          "FastAPI • :8000 • Auth"
+        ],
+        "kind": "container"
+      },
+      {
+        "id": "fleet",
+        "x": 50,
+        "y": 365,
+        "w": 330,
+        "h": 85,
+        "lines": [
+          "Fleet API",
+          "FastAPI • :8101"
+        ],
+        "kind": "container"
+      },
+      {
+        "id": "trips",
+        "x": 820,
+        "y": 365,
+        "w": 330,
+        "h": 85,
+        "lines": [
+          "Trips API",
+          "FastAPI • :8102"
+        ],
+        "kind": "container"
+      },
+      {
+        "id": "bridge",
+        "x": 435,
+        "y": 570,
+        "w": 330,
+        "h": 85,
+        "lines": [
+          "Event Bridge",
+          "Python • polling 0,5 с"
+        ],
+        "kind": "container"
+      },
+      {
+        "id": "fleetdb",
+        "x": 45,
+        "y": 570,
+        "w": 330,
+        "h": 85,
+        "lines": [
+          "Fleet SQLite",
+          "vehicles, drivers, usage, outbox"
+        ],
+        "kind": "database"
+      },
+      {
+        "id": "tripsdb",
+        "x": 825,
+        "y": 695,
+        "w": 330,
+        "h": 85,
+        "lines": [
+          "Trips SQLite",
+          "trips, routes, snapshots, outbox"
+        ],
+        "kind": "database"
+      },
+      {
+        "id": "worker",
+        "x": 825,
+        "y": 550,
+        "w": 330,
+        "h": 85,
+        "lines": [
+          "Trips Worker",
+          "Python • TripCreated"
+        ],
+        "kind": "container"
+      }
+    ],
+    "edges": [
+      {
+        "points": [
+          [
+            600,
+            95
+          ],
+          [
+            600,
+            175
+          ]
+        ],
+        "label": "HTTP + JWT",
+        "x": 630,
+        "y": 140,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            410,
+            215
+          ],
+          [
+            215,
+            215
+          ],
+          [
+            215,
+            365
+          ]
+        ],
+        "label": "HTTP / JWT",
+        "x": 70,
+        "y": 280,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            790,
+            215
+          ],
+          [
+            985,
+            215
+          ],
+          [
+            985,
+            365
+          ]
+        ],
+        "label": "HTTP / JWT",
+        "x": 1000,
+        "y": 280,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            820,
+            400
+          ],
+          [
+            380,
+            400
+          ]
+        ],
+        "label": "GET + команди • timeout 0,35 с",
+        "x": 412,
+        "y": 390,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            215,
+            450
+          ],
+          [
+            215,
+            570
+          ]
+        ],
+        "label": "SQL: тільки власна БД",
+        "x": 5,
+        "y": 520,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            985,
+            450
+          ],
+          [
+            1175,
+            450
+          ],
+          [
+            1175,
+            737
+          ],
+          [
+            1155,
+            737
+          ]
+        ],
+        "label": "SQL",
+        "x": 1120,
+        "y": 490,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            435,
+            610
+          ],
+          [
+            400,
+            610
+          ],
+          [
+            400,
+            480
+          ],
+          [
+            310,
+            480
+          ],
+          [
+            310,
+            450
+          ]
+        ],
+        "label": "HTTP outbox / ack",
+        "x": 410,
+        "y": 515,
+        "dash": true
+      },
+      {
+        "points": [
+          [
+            765,
+            610
+          ],
+          [
+            800,
+            610
+          ],
+          [
+            800,
+            480
+          ],
+          [
+            900,
+            480
+          ],
+          [
+            900,
+            450
+          ]
+        ],
+        "label": "HTTP подія",
+        "x": 595,
+        "y": 490,
+        "dash": true
+      },
+      {
+        "points": [
+          [
+            985,
+            635
+          ],
+          [
+            985,
+            695
+          ]
+        ],
+        "label": "SQL: own outbox",
+        "x": 1000,
+        "y": 670,
+        "dash": true
+      }
+    ]
+  },
+  "components": {
+    "title": "C4 L3 — Компоненти контейнера Trips",
+    "nodes": [
+      {
+        "id": "api",
+        "x": 425,
+        "y": 45,
+        "w": 350,
+        "h": 95,
+        "lines": [
+          "HTTP Controllers + JWT guard",
+          "FastAPI / Pydantic"
+        ],
+        "kind": "container"
+      },
+      {
+        "id": "app",
+        "x": 425,
+        "y": 265,
+        "w": 350,
+        "h": 95,
+        "lines": [
+          "TripUseCases",
+          "create / start / complete"
+        ],
+        "kind": "container"
+      },
+      {
+        "id": "domain",
+        "x": 30,
+        "y": 265,
+        "w": 330,
+        "h": 95,
+        "lines": [
+          "Domain + Ports",
+          "Trip, Route, TripStore, FleetGateway"
+        ],
+        "kind": "container"
+      },
+      {
+        "id": "http",
+        "x": 840,
+        "y": 265,
+        "w": 330,
+        "h": 95,
+        "lines": [
+          "FleetClient + Adapter",
+          "HTTP • timeout • service JWT"
+        ],
+        "kind": "container"
+      },
+      {
+        "id": "repo",
+        "x": 425,
+        "y": 505,
+        "w": 350,
+        "h": 95,
+        "lines": [
+          "TripsRepository",
+          "SQLite • inbox • receipts"
+        ],
+        "kind": "container"
+      },
+      {
+        "id": "cache",
+        "x": 30,
+        "y": 45,
+        "w": 330,
+        "h": 95,
+        "lines": [
+          "TripPageCache",
+          "TTL 1 с • single-flight"
+        ],
+        "kind": "container"
+      },
+      {
+        "id": "observer",
+        "x": 30,
+        "y": 505,
+        "w": 330,
+        "h": 95,
+        "lines": [
+          "TripEventPublisher",
+          "Observer: NotificationObserver"
+        ],
+        "kind": "container"
+      },
+      {
+        "id": "factory",
+        "x": 840,
+        "y": 505,
+        "w": 330,
+        "h": 95,
+        "lines": [
+          "TripsComponentsFactory",
+          "Composition root"
+        ],
+        "kind": "container"
+      }
+    ],
+    "edges": [
+      {
+        "points": [
+          [
+            600,
+            140
+          ],
+          [
+            600,
+            265
+          ]
+        ],
+        "label": "DTO → use case",
+        "x": 625,
+        "y": 210,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            425,
+            310
+          ],
+          [
+            360,
+            310
+          ]
+        ],
+        "label": "Залежить від портів",
+        "x": 60,
+        "y": 245,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            600,
+            360
+          ],
+          [
+            600,
+            505
+          ]
+        ],
+        "label": "Реалізація TripStore",
+        "x": 620,
+        "y": 450,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            775,
+            310
+          ],
+          [
+            840,
+            310
+          ]
+        ],
+        "label": "FleetGateway",
+        "x": 850,
+        "y": 245,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            190,
+            140
+          ],
+          [
+            190,
+            195
+          ],
+          [
+            425,
+            195
+          ],
+          [
+            425,
+            100
+          ]
+        ],
+        "label": "Кеш читання",
+        "x": 60,
+        "y": 185,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            425,
+            550
+          ],
+          [
+            360,
+            550
+          ]
+        ],
+        "label": "TripCreated",
+        "x": 100,
+        "y": 480,
+        "dash": true
+      },
+      {
+        "points": [
+          [
+            1005,
+            505
+          ],
+          [
+            1005,
+            430
+          ],
+          [
+            740,
+            430
+          ],
+          [
+            740,
+            360
+          ]
+        ],
+        "label": "DI",
+        "x": 1015,
+        "y": 440,
+        "dash": false
+      }
+    ]
+  },
+  "trust": {
+    "title": "Межі довіри — локальний стенд",
+    "nodes": [
+      {
+        "id": "browser",
+        "x": 60,
+        "y": 80,
+        "w": 350,
+        "h": 100,
+        "lines": [
+          "Браузер",
+          "JWT у пам’яті"
+        ],
+        "kind": "person"
+      },
+      {
+        "id": "auth",
+        "x": 740,
+        "y": 80,
+        "w": 350,
+        "h": 100,
+        "lines": [
+          "Gateway / Auth",
+          "Argon2id • login limiter"
+        ],
+        "kind": "container"
+      },
+      {
+        "id": "owners",
+        "x": 740,
+        "y": 350,
+        "w": 350,
+        "h": 110,
+        "lines": [
+          "Fleet / Trips",
+          "JWT + RBAC у власника"
+        ],
+        "kind": "container"
+      },
+      {
+        "id": "files",
+        "x": 60,
+        "y": 350,
+        "w": 350,
+        "h": 110,
+        "lines": [
+          "Локальні файли та SQLite",
+          "Права ОС • gitignore"
+        ],
+        "kind": "database"
+      }
+    ],
+    "edges": [
+      {
+        "points": [
+          [
+            410,
+            130
+          ],
+          [
+            740,
+            130
+          ]
+        ],
+        "label": "HTTP loopback: пароль / JWT",
+        "x": 425,
+        "y": 110,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            915,
+            180
+          ],
+          [
+            915,
+            350
+          ]
+        ],
+        "label": "JWT + DTO",
+        "x": 940,
+        "y": 275,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            740,
+            405
+          ],
+          [
+            410,
+            405
+          ]
+        ],
+        "label": "SQL / ключ / audit",
+        "x": 445,
+        "y": 390,
+        "dash": false
+      }
+    ]
+  },
+  "data-model": {
+    "title": "Модель даних — незалежні сховища",
+    "nodes": [
+      {
+        "id": "vehicles",
+        "x": 40,
+        "y": 70,
+        "w": 500,
+        "h": 170,
+        "lines": [
+          "Fleet: Vehicle + Driver",
+          "id • registration_number • status • version",
+          "Driver: id • name • active • license_valid"
+        ],
+        "kind": "database"
+      },
+      {
+        "id": "usage",
+        "x": 40,
+        "y": 430,
+        "w": 500,
+        "h": 170,
+        "lines": [
+          "Fleet: usage + receipts + outbox",
+          "vehicle_id • mileage_km • active_trip_id",
+          "command_id • request_json • response_json"
+        ],
+        "kind": "database"
+      },
+      {
+        "id": "trips",
+        "x": 660,
+        "y": 70,
+        "w": 500,
+        "h": 170,
+        "lines": [
+          "Trips: Trip + Route",
+          "id • vehicle_id • driver_id • route_id • status",
+          "Route: id • stops_json"
+        ],
+        "kind": "database"
+      },
+      {
+        "id": "projection",
+        "x": 660,
+        "y": 430,
+        "w": 500,
+        "h": 170,
+        "lines": [
+          "Trips: snapshot + inbox + operations",
+          "id • plate • status • version • updated_at",
+          "event_id UNIQUE • (trip_id, operation) UNIQUE"
+        ],
+        "kind": "database"
+      }
+    ],
+    "edges": [
+      {
+        "points": [
+          [
+            290,
+            240
+          ],
+          [
+            290,
+            430
+          ]
+        ],
+        "label": "Власні записи Fleet",
+        "x": 310,
+        "y": 340,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            910,
+            240
+          ],
+          [
+            910,
+            430
+          ]
+        ],
+        "label": "Власні записи Trips",
+        "x": 930,
+        "y": 340,
+        "dash": false
+      },
+      {
+        "points": [
+          [
+            540,
+            510
+          ],
+          [
+            660,
+            510
+          ]
+        ],
+        "label": "HTTP подія",
+        "x": 545,
+        "y": 490,
+        "dash": true
+      }
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Trips — ЛР3",
+    "title": "Trips — FleetFlow",
     "description": "Власник даних про рейси та маршрути",
     "version": "1.0.0"
   },
@@ -85,11 +85,20 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "503": {
+            "description": "Fleet unavailable; retry the same command"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       },
@@ -127,11 +136,23 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "409": {
+            "description": "Domain or idempotency conflict"
+          },
+          "503": {
+            "description": "Fleet unavailable; retry the same command"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       }
@@ -151,11 +172,20 @@
                 "schema": {}
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "503": {
+            "description": "Fleet unavailable; retry the same command"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       },
@@ -193,11 +223,23 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "409": {
+            "description": "Domain or idempotency conflict"
+          },
+          "503": {
+            "description": "Fleet unavailable; retry the same command"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       }
@@ -238,11 +280,144 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "503": {
+            "description": "Fleet unavailable; retry the same command"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
+          }
+        ]
+      }
+    },
+    "/trips/{trip_id}/start": {
+      "post": {
+        "tags": [
+          "Рейси"
+        ],
+        "summary": "Start Trip",
+        "operationId": "start_trip_trips__trip_id__start_post",
+        "parameters": [
+          {
+            "name": "trip_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Trip Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "409": {
+            "description": "Domain or idempotency conflict"
+          },
+          "503": {
+            "description": "Fleet unavailable; retry the same command"
+          }
+        },
+        "security": [
+          {
+            "BearerJWT": []
+          }
+        ]
+      }
+    },
+    "/trips/{trip_id}/complete": {
+      "post": {
+        "tags": [
+          "Рейси"
+        ],
+        "summary": "Complete Trip",
+        "operationId": "complete_trip_trips__trip_id__complete_post",
+        "parameters": [
+          {
+            "name": "trip_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Trip Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompletionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "409": {
+            "description": "Domain or idempotency conflict"
+          },
+          "503": {
+            "description": "Fleet unavailable; retry the same command"
+          }
+        },
+        "security": [
+          {
+            "BearerJWT": []
           }
         ]
       }
@@ -262,11 +437,20 @@
                 "schema": {}
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "503": {
+            "description": "Fleet unavailable; retry the same command"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       }
@@ -286,11 +470,20 @@
                 "schema": {}
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "503": {
+            "description": "Fleet unavailable; retry the same command"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       }
@@ -330,11 +523,23 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "409": {
+            "description": "Domain or idempotency conflict"
+          },
+          "503": {
+            "description": "Fleet unavailable; retry the same command"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       }
@@ -354,11 +559,20 @@
                 "schema": {}
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "503": {
+            "description": "Fleet unavailable; retry the same command"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       }
@@ -399,11 +613,20 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "503": {
+            "description": "Fleet unavailable; retry the same command"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       }
@@ -423,11 +646,20 @@
                 "schema": {}
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "503": {
+            "description": "Fleet unavailable; retry the same command"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       }
@@ -435,6 +667,20 @@
   },
   "components": {
     "schemas": {
+      "CompletionInput": {
+        "properties": {
+          "distance_km": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Distance Km"
+          }
+        },
+        "type": "object",
+        "required": [
+          "distance_km"
+        ],
+        "title": "CompletionInput"
+      },
       "FleetStatusEvent": {
         "properties": {
           "event_id": {
@@ -453,9 +699,7 @@
             "title": "Occurred At"
           },
           "data": {
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Data"
+            "$ref": "#/components/schemas/VehicleProjection"
           }
         },
         "type": "object",
@@ -574,10 +818,46 @@
           "type"
         ],
         "title": "ValidationError"
+      },
+      "VehicleProjection": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Id"
+          },
+          "plate": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Plate"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "available",
+              "in_trip",
+              "maintenance"
+            ],
+            "title": "Status"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "plate",
+          "status",
+          "version"
+        ],
+        "title": "VehicleProjection"
       }
     },
     "securitySchemes": {
-      "BearerAuth": {
+      "BearerJWT": {
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"

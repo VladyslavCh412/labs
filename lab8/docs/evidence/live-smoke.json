@@ -1,0 +1,9 @@
+{
+  "password_login": true,
+  "direct_and_proxy_unauthorized_rejected": true,
+  "authenticated_trip_with_service_identity": true,
+  "lifecycle_and_idempotent_mileage": true,
+  "authenticated_bridge_and_projection": true,
+  "direct_role_bypass_rejected": true,
+  "dashboard_assets": true
+}

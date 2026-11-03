@@ -1,0 +1,13 @@
+{
+  "name": "fleetflow-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FleetFlow UI - TypeScript source, served by FastAPI",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node -e \"require('node:fs').copyFileSync('styles.css', 'build/styles.css')\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2"
+  }
+}

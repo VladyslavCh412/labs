@@ -1,40 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE svg
-  PUBLIC '-//W3C//DTD SVG 1.0//EN'
-  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
-<svg width="500" height="300" preserveAspectRatio="xMinYMin meet" viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
-	<title>...</title>
-	<desc>...</desc>
-	<clipPath id="clip">
-		<rect x="0" y="0" width="500" height="300"/>
-	</clipPath>
-	<g id="group" transform="scale(1,-1) translate(0,-300)" style="clip-path: url(#clip)">
-		<g transform="">
-			<text x="10" y="283" style="font-family: Arial; font-size: 14px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,566) scale(1,-1)">C4 L1  Контекст реалізованої системи</text>
-			<rect x="15" y="210" width="140" height="45" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,94%,84%); fill-rule: evenodd;"/>
-			<text x="60.6884765625" y="236.0" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,472) scale(1,-1)">Менеджер</text>
-			<text x="47.177734375" y="223.0" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,446) scale(1,-1)">Облік автопарку</text>
-			<path d="M 85,210 L 85,150 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="85 150, 87.39713 154.3879, 82.60287 154.3879" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
-			<text x="20" y="182" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,364) scale(1,-1)">HTTP локально</text>
-			<rect x="180" y="210" width="140" height="45" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,94%,84%); fill-rule: evenodd;"/>
-			<text x="225.3759765625" y="236.0" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,472) scale(1,-1)">Диспетчер</text>
-			<text x="205.76904296875" y="223.0" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,446) scale(1,-1)">Планування рейсів</text>
-			<path d="M 250,210 L 250,150 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="250 150, 252.3971 154.3879, 247.6029 154.3879" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
-			<text x="185" y="182" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,364) scale(1,-1)">HTTP локально</text>
-			<rect x="345" y="210" width="140" height="45" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,94%,84%); fill-rule: evenodd;"/>
-			<text x="387.22900390625" y="236.0" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,472) scale(1,-1)">Спостерігач</text>
-			<text x="377.55615234375" y="223.0" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,446) scale(1,-1)">Перегляд даних</text>
-			<path d="M 415,210 L 415,150 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="415 150, 417.3971 154.3879, 412.6029 154.3879" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
-			<text x="350" y="182" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,364) scale(1,-1)">HTTP локально</text>
-			<rect x="15" y="65" width="470" height="85" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(91%,94%,96%); fill-rule: evenodd;"/>
-			<text x="226.160400390625" y="118.5" style="font-family: Arial; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,237) scale(1,-1)">FleetFlow</text>
-			<text x="148.3896484375" y="104.5" style="font-family: Arial; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,209) scale(1,-1)">Управління автопарком та маршрутами</text>
-			<text x="92.00390625" y="90.5" style="font-family: Arial; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,181) scale(1,-1)">Вхід, транспорт, водії, рейси, маршрути, локальні сповіщення</text>
-			<text x="15" y="38" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,76) scale(1,-1)">Легенда: жовтий - людина; синій - програмна система.</text>
-			<text x="15" y="21" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,42) scale(1,-1)">GPS, зовнішні карти та SMS не реалізовані і не показані як чинні інтеграції.</text>
-		</g>
-	</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 730" width="1200" height="730">
+<defs><marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#475569"/></marker></defs>
+<rect width="100%" height="100%" fill="white"/>
+<polyline points="190,140 190,230 430,230 430,285" fill="none" stroke="#475569" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="80" y="202" font-family="Arial" font-size="18" fill="#334155" style="paint-order:stroke;stroke:white;stroke-width:6">Керує ТЗ і водіями</text>
+<polyline points="600,140 600,285" fill="none" stroke="#475569" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="620" y="225" font-family="Arial" font-size="18" fill="#334155" style="paint-order:stroke;stroke:white;stroke-width:6">Планує та виконує рейси</text>
+<polyline points="1010,140 1010,230 790,230 790,285" fill="none" stroke="#475569" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="885" y="202" font-family="Arial" font-size="18" fill="#334155" style="paint-order:stroke;stroke:white;stroke-width:6">Переглядає стан</text>
+<polyline points="430,420 430,500 190,500 190,570" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="9 6" marker-end="url(#arrow)"/>
+<text x="100" y="490" font-family="Arial" font-size="18" fill="#334155" style="paint-order:stroke;stroke:white;stroke-width:6">Майбутній API</text>
+<polyline points="600,570 600,420" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="9 6" marker-end="url(#arrow)"/>
+<text x="620" y="520" font-family="Arial" font-size="18" fill="#334155" style="paint-order:stroke;stroke:white;stroke-width:6">Майбутні координати</text>
+<polyline points="790,420 790,500 1010,500 1010,570" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="9 6" marker-end="url(#arrow)"/>
+<text x="860" y="490" font-family="Arial" font-size="18" fill="#334155" style="paint-order:stroke;stroke:white;stroke-width:6">Майбутній канал</text>
+<rect x="40" y="45" width="300" height="95" rx="8" fill="#F1F5F9" stroke="#334155" stroke-width="2"/>
+<text x="190.0" y="87.5" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#334155">Керівник</text>
+<text x="190.0" y="113.5" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#334155">Person: manager</text>
+<rect x="450" y="45" width="300" height="95" rx="8" fill="#F1F5F9" stroke="#334155" stroke-width="2"/>
+<text x="600.0" y="87.5" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#334155">Диспетчер</text>
+<text x="600.0" y="113.5" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#334155">Person: dispatcher</text>
+<rect x="860" y="45" width="300" height="95" rx="8" fill="#F1F5F9" stroke="#334155" stroke-width="2"/>
+<text x="1010.0" y="87.5" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#334155">Спостерігач</text>
+<text x="1010.0" y="113.5" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#334155">Person: viewer</text>
+<rect x="330" y="285" width="540" height="135" rx="8" fill="#E8F0FF" stroke="#164E95" stroke-width="2"/>
+<text x="600.0" y="334.5" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#164E95">FleetFlow</text>
+<text x="600.0" y="360.5" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#164E95">Software System</text>
+<text x="600.0" y="386.5" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#164E95">Автопарк, водії, маршрути, рейси</text>
+<rect x="40" y="570" width="300" height="95" rx="8" fill="#F8FAFC" stroke="#64748B" stroke-width="2"/>
+<text x="190.0" y="612.5" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#64748B">Картографічний сервіс</text>
+<text x="190.0" y="638.5" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#64748B">External System: заплановано</text>
+<rect x="450" y="570" width="300" height="95" rx="8" fill="#F8FAFC" stroke="#64748B" stroke-width="2"/>
+<text x="600.0" y="612.5" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#64748B">GPS / телематика</text>
+<text x="600.0" y="638.5" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#64748B">External System: заплановано</text>
+<rect x="860" y="570" width="300" height="95" rx="8" fill="#F8FAFC" stroke="#64748B" stroke-width="2"/>
+<text x="1010.0" y="612.5" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#64748B">SMS / e-mail</text>
+<text x="1010.0" y="638.5" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#64748B">External System: заплановано</text>
+<text x="35" y="710" font-family="Arial" font-size="17" fill="#475569">Легенда: синій — контейнер; сірий — актор/план; зелений — дані; пунктир — подія або майбутній зв’язок</text></svg>

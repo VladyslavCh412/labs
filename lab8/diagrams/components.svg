@@ -1,56 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE svg
-  PUBLIC '-//W3C//DTD SVG 1.0//EN'
-  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
-<svg width="500" height="300" preserveAspectRatio="xMinYMin meet" viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
-	<title>...</title>
-	<desc>...</desc>
-	<clipPath id="clip">
-		<rect x="0" y="0" width="500" height="300"/>
-	</clipPath>
-	<g id="group" transform="scale(1,-1) translate(0,-300)" style="clip-path: url(#clip)">
-		<g transform="">
-			<text x="10" y="283" style="font-family: Arial; font-size: 14px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,566) scale(1,-1)">C4 L3  Компоненти контейнера Trips API</text>
-			<rect x="5" y="212" width="135" height="42" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(91%,94%,96%); fill-rule: evenodd;"/>
-			<text x="27.48291015625" y="236.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,473) scale(1,-1)">Security middleware</text>
-			<text x="23.6279296875" y="223.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,447) scale(1,-1)">Перевірка JWT / ролі</text>
-			<rect x="183" y="212" width="135" height="42" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(91%,94%,96%); fill-rule: evenodd;"/>
-			<text x="216.876953125" y="236.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,473) scale(1,-1)">HTTP handlers</text>
-			<text x="202.13818359375" y="223.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,447) scale(1,-1)">TripInput / RouteInput</text>
-			<rect x="365" y="212" width="130" height="42" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(91%,94%,96%); fill-rule: evenodd;"/>
-			<text x="382.890625" y="236.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,473) scale(1,-1)">FleetClient + Adapter</text>
-			<text x="396.9287109375" y="223.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,447) scale(1,-1)">Timeout 0.35 s</text>
-			<path d="M 140,233 L 183,233 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="183 233, 178.6121 235.3971, 178.6121 230.6029" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
-			<text x="145" y="243" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,486) scale(1,-1)">доступ</text>
-			<path d="M 318,233 L 365,233 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="365 233, 360.6121 235.3971, 360.6121 230.6029" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
-			<text x="325" y="243" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,486) scale(1,-1)">HTTP</text>
-			<rect x="183" y="112" width="135" height="48" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(91%,94%,96%); fill-rule: evenodd;"/>
-			<text x="215.490234375" y="139.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,279) scale(1,-1)">TripsRepository</text>
-			<text x="203.13916015625" y="126.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,253) scale(1,-1)">Транзакції / сторінка</text>
-			<path d="M 250,212 L 250,160 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="250 160, 252.3971 164.3879, 247.6029 164.3879" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
-			<text x="261" y="185" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,370) scale(1,-1)">виклик</text>
-			<rect x="5" y="112" width="135" height="48" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(91%,94%,96%); fill-rule: evenodd;"/>
-			<text x="55.830078125" y="139.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,279) scale(1,-1)">Factory</text>
-			<text x="15.6640625" y="126.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,253) scale(1,-1)">Складання залежностей</text>
-			<path d="M 140,137 L 183,137 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="183 137, 178.6121 139.3971, 178.6121 134.6029" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
-			<text x="150" y="145" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,290) scale(1,-1)">DI</text>
-			<rect x="365" y="112" width="130" height="48" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(91%,94%,96%); fill-rule: evenodd;"/>
-			<text x="387.7587890625" y="139.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,279) scale(1,-1)">TripEventPublisher</text>
-			<text x="384.70458984375" y="126.5" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,253) scale(1,-1)">NotificationObserver</text>
-			<path d="M 318,137 L 365,137 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="365 137, 360.6121 139.3971, 360.6121 134.6029" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
-			<text x="321" y="145" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,290) scale(1,-1)">подія</text>
-			<rect x="183" y="20" width="135" height="45" rx="4" ry="4" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(90%,95%,91%); fill-rule: evenodd;"/>
-			<text x="222.71435546875" y="46.0" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,92) scale(1,-1)">Trips SQLite</text>
-			<text x="194.3037109375" y="33.0" style="font-family: Arial; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,66) scale(1,-1)">Файл власного сховища</text>
-			<path d="M 250,112 L 250,65 Z" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="250 65, 252.3971 69.38791, 247.6029 69.38791" style="stroke: rgb(12%,29%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,29%,45%); fill-rule: evenodd;"/>
-			<text x="261" y="88" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,176) scale(1,-1)">SQL</text>
-			<text x="5" y="3" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,6) scale(1,-1)">Легенда: синій - компонент Trips; зелений - власний файл БД; стрілки - залежності.</text>
-		</g>
-	</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 730" width="1200" height="730">
+<defs><marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#475569"/></marker></defs>
+<rect width="100%" height="100%" fill="white"/>
+<polyline points="600,140 600,265" fill="none" stroke="#475569" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="625" y="210" font-family="Arial" font-size="18" fill="#334155" style="paint-order:stroke;stroke:white;stroke-width:6">DTO → use case</text>
+<polyline points="425,310 360,310" fill="none" stroke="#475569" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="60" y="245" font-family="Arial" font-size="18" fill="#334155" style="paint-order:stroke;stroke:white;stroke-width:6">Залежить від портів</text>
+<polyline points="600,360 600,505" fill="none" stroke="#475569" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="620" y="450" font-family="Arial" font-size="18" fill="#334155" style="paint-order:stroke;stroke:white;stroke-width:6">Реалізація TripStore</text>
+<polyline points="775,310 840,310" fill="none" stroke="#475569" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="850" y="245" font-family="Arial" font-size="18" fill="#334155" style="paint-order:stroke;stroke:white;stroke-width:6">FleetGateway</text>
+<polyline points="190,140 190,195 425,195 425,100" fill="none" stroke="#475569" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="60" y="185" font-family="Arial" font-size="18" fill="#334155" style="paint-order:stroke;stroke:white;stroke-width:6">Кеш читання</text>
+<polyline points="425,550 360,550" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="9 6" marker-end="url(#arrow)"/>
+<text x="100" y="480" font-family="Arial" font-size="18" fill="#334155" style="paint-order:stroke;stroke:white;stroke-width:6">TripCreated</text>
+<polyline points="1005,505 1005,430 740,430 740,360" fill="none" stroke="#475569" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="1015" y="440" font-family="Arial" font-size="18" fill="#334155" style="paint-order:stroke;stroke:white;stroke-width:6">DI</text>
+<rect x="425" y="45" width="350" height="95" rx="8" fill="#E8F0FF" stroke="#164E95" stroke-width="2"/>
+<text x="600.0" y="87.5" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#164E95">HTTP Controllers + JWT guard</text>
+<text x="600.0" y="113.5" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#164E95">FastAPI / Pydantic</text>
+<rect x="425" y="265" width="350" height="95" rx="8" fill="#E8F0FF" stroke="#164E95" stroke-width="2"/>
+<text x="600.0" y="307.5" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#164E95">TripUseCases</text>
+<text x="600.0" y="333.5" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#164E95">create / start / complete</text>
+<rect x="30" y="265" width="330" height="95" rx="8" fill="#E8F0FF" stroke="#164E95" stroke-width="2"/>
+<text x="195.0" y="307.5" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#164E95">Domain + Ports</text>
+<text x="195.0" y="333.5" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#164E95">Trip, Route, TripStore, FleetGateway</text>
+<rect x="840" y="265" width="330" height="95" rx="8" fill="#E8F0FF" stroke="#164E95" stroke-width="2"/>
+<text x="1005.0" y="307.5" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#164E95">FleetClient + Adapter</text>
+<text x="1005.0" y="333.5" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#164E95">HTTP • timeout • service JWT</text>
+<rect x="425" y="505" width="350" height="95" rx="8" fill="#E8F0FF" stroke="#164E95" stroke-width="2"/>
+<text x="600.0" y="547.5" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#164E95">TripsRepository</text>
+<text x="600.0" y="573.5" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#164E95">SQLite • inbox • receipts</text>
+<rect x="30" y="45" width="330" height="95" rx="8" fill="#E8F0FF" stroke="#164E95" stroke-width="2"/>
+<text x="195.0" y="87.5" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#164E95">TripPageCache</text>
+<text x="195.0" y="113.5" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#164E95">TTL 1 с • single-flight</text>
+<rect x="30" y="505" width="330" height="95" rx="8" fill="#E8F0FF" stroke="#164E95" stroke-width="2"/>
+<text x="195.0" y="547.5" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#164E95">TripEventPublisher</text>
+<text x="195.0" y="573.5" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#164E95">Observer: NotificationObserver</text>
+<rect x="840" y="505" width="330" height="95" rx="8" fill="#E8F0FF" stroke="#164E95" stroke-width="2"/>
+<text x="1005.0" y="547.5" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#164E95">TripsComponentsFactory</text>
+<text x="1005.0" y="573.5" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#164E95">Composition root</text>
+<text x="35" y="710" font-family="Arial" font-size="17" fill="#475569">Легенда: синій — контейнер; сірий — актор/план; зелений — дані; пунктир — подія або майбутній зв’язок</text></svg>

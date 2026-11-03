@@ -1,0 +1,18 @@
+flowchart TB
+  browser["Браузер<br/>HTML / CSS / TypeScript"]
+  gateway["Dashboard / Gateway<br/>FastAPI • :8000 • Auth"]
+  fleet["Fleet API<br/>FastAPI • :8101"]
+  trips["Trips API<br/>FastAPI • :8102"]
+  bridge["Event Bridge<br/>Python • polling 0,5 с"]
+  fleetdb["Fleet SQLite<br/>vehicles, drivers, usage, outbox"]
+  tripsdb["Trips SQLite<br/>trips, routes, snapshots, outbox"]
+  worker["Trips Worker<br/>Python • TripCreated"]
+  browser -->|"HTTP + JWT"| gateway
+  gateway -->|"HTTP / JWT"| fleet
+  gateway -->|"HTTP / JWT"| trips
+  trips -->|"GET + команди • timeout 0,35 с"| fleet
+  fleet -->|"SQL: тільки власна БД"| fleetdb
+  trips -->|"SQL"| tripsdb
+  bridge -.->|"HTTP outbox / ack"| fleet
+  bridge -.->|"HTTP подія"| trips
+  worker -.->|"SQL: own outbox"| tripsdb

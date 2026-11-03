@@ -68,6 +68,8 @@ def audit(service, outcome, subject='anonymous', method='', path='', status=0):
 
 def allowed(service, method, path, role):
     if service == 'fleet':
+        if path == '/internal/trip-commands':
+            return role == 'trips-service' and method == 'POST'
         if path.startswith('/fleet-events/'):
             return role == 'bridge' or (method == 'GET' and role in {'manager','dispatcher','viewer'})
         if method == 'GET':
@@ -83,6 +85,25 @@ def allowed(service, method, path, role):
 
 
 def install_security(app, service):
+    original_openapi = app.openapi
+    def secured_openapi():
+        schema = original_openapi()
+        schema.setdefault('components', {}).setdefault('securitySchemes', {})['BearerJWT'] = {
+            'type': 'http', 'scheme': 'bearer', 'bearerFormat': 'JWT'}
+        for path, methods in schema['paths'].items():
+            for operation in methods.values():
+                if not isinstance(operation, dict) or path == '/health':
+                    continue
+                operation['security'] = [{'BearerJWT': []}]
+                operation.setdefault('responses', {}).update({
+                    '401': {'description': 'Missing, invalid or expired JWT'},
+                    '403': {'description': 'Role rejected by resource owner'}})
+                if 'requestBody' in operation or path.endswith('/start'):
+                    operation['responses']['409'] = {'description': 'Domain or idempotency conflict'}
+                if service == 'trips':
+                    operation['responses']['503'] = {'description': 'Fleet unavailable; retry the same command'}
+        return schema
+    app.openapi = secured_openapi
     # Middleware protects future routes by default, including direct service calls.
     @app.middleware('http')
     async def resource_owner_guard(request, call_next):

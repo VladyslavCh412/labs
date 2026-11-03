@@ -1,3 +1,4 @@
+from contextlib import closing
 import json
 import sqlite3
 from pathlib import Path
@@ -23,10 +24,10 @@ def env(tmp_path):
 def test_independent_databases_are_distinct(env):
     _, _, fleet_db, trips_db = env
     assert fleet_db != trips_db
-    with sqlite3.connect(fleet_db) as db:
+    with closing(sqlite3.connect(fleet_db)) as db, db:
         names={x[0] for x in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
         assert 'vehicles' in names and 'trips' not in names
-    with sqlite3.connect(trips_db) as db:
+    with closing(sqlite3.connect(trips_db)) as db, db:
         names={x[0] for x in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
         assert 'trips' in names and 'vehicles' not in names
 
@@ -51,7 +52,7 @@ def test_create_trip_sync_and_atomic_outbox(env):
         events=c.get('/events/outbox').json()
         assert len(events)==1 and events[0]['type']=='TripCreated'
         assert events[0]['payload']['data']['id']=='t-1'
-    with sqlite3.connect(trips_db) as db:
+    with closing(sqlite3.connect(trips_db)) as db, db:
         assert db.execute('SELECT COUNT(*) FROM trips').fetchone()[0]==1
         assert db.execute('SELECT COUNT(*) FROM outbox').fetchone()[0]==1
 

@@ -1,0 +1,175 @@
+{
+  "environment": {
+    "python": "3.13.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "cpu": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "rows": 20000,
+    "users": [
+      1,
+      10,
+      50,
+      100,
+      200
+    ],
+    "stage_seconds": 3,
+    "workers": 1,
+    "profile": "closed-loop, no think time, one warm-up request per concurrent user",
+    "target": "LR1: first 50 active trips, HTTP p95 <= 500 ms at 100 users",
+    "optimization": "SQL LIMIT/OFFSET instead of fetchall and Python projection of all rows"
+  },
+  "results": {
+    "baseline": [
+      {
+        "users": 1,
+        "duration_s": 3.022,
+        "requests": 88,
+        "errors": 0,
+        "error_rate": 0.0,
+        "p50_ms": 33.33,
+        "p95_ms": 39.334,
+        "repository_p95_ms": 34.949,
+        "requests_per_s": 29.12,
+        "statuses": {
+          "200": 88
+        },
+        "target_met": true
+      },
+      {
+        "users": 10,
+        "duration_s": 5.224,
+        "requests": 20,
+        "errors": 0,
+        "error_rate": 0.0,
+        "p50_ms": 2555.763,
+        "p95_ms": 2657.585,
+        "repository_p95_ms": 2645.819,
+        "requests_per_s": 3.83,
+        "statuses": {
+          "200": 20
+        },
+        "target_met": false
+      },
+      {
+        "users": 50,
+        "duration_s": 13.921,
+        "requests": 50,
+        "errors": 0,
+        "error_rate": 0.0,
+        "p50_ms": 10971.984,
+        "p95_ms": 13827.748,
+        "repository_p95_ms": 11299.474,
+        "requests_per_s": 3.59,
+        "statuses": {
+          "200": 50
+        },
+        "target_met": false
+      },
+      {
+        "users": 100,
+        "duration_s": 20.552,
+        "requests": 100,
+        "errors": 80,
+        "error_rate": 0.8,
+        "p50_ms": 20263.21,
+        "p95_ms": 20485.782,
+        "repository_p95_ms": 11618.498,
+        "requests_per_s": 4.87,
+        "statuses": {
+          "200": 20
+        },
+        "target_met": false
+      },
+      {
+        "users": 200,
+        "duration_s": 21.209,
+        "requests": 200,
+        "errors": 200,
+        "error_rate": 1.0,
+        "p50_ms": 20805.533,
+        "p95_ms": 20897.32,
+        "repository_p95_ms": null,
+        "requests_per_s": 9.43,
+        "statuses": {},
+        "target_met": false
+      }
+    ],
+    "optimized": [
+      {
+        "users": 1,
+        "duration_s": 3.001,
+        "requests": 1056,
+        "errors": 0,
+        "error_rate": 0.0,
+        "p50_ms": 2.8,
+        "p95_ms": 3.231,
+        "repository_p95_ms": 0.007,
+        "requests_per_s": 351.85,
+        "statuses": {
+          "200": 1056
+        },
+        "target_met": true
+      },
+      {
+        "users": 10,
+        "duration_s": 3.007,
+        "requests": 1571,
+        "errors": 0,
+        "error_rate": 0.0,
+        "p50_ms": 19.008,
+        "p95_ms": 23.353,
+        "repository_p95_ms": 0.009,
+        "requests_per_s": 522.44,
+        "statuses": {
+          "200": 1571
+        },
+        "target_met": true
+      },
+      {
+        "users": 50,
+        "duration_s": 3.042,
+        "requests": 1655,
+        "errors": 0,
+        "error_rate": 0.0,
+        "p50_ms": 90.358,
+        "p95_ms": 101.207,
+        "repository_p95_ms": 0.009,
+        "requests_per_s": 544.13,
+        "statuses": {
+          "200": 1655
+        },
+        "target_met": true
+      },
+      {
+        "users": 100,
+        "duration_s": 3.082,
+        "requests": 1656,
+        "errors": 0,
+        "error_rate": 0.0,
+        "p50_ms": 179.934,
+        "p95_ms": 217.53,
+        "repository_p95_ms": 0.008,
+        "requests_per_s": 537.3,
+        "statuses": {
+          "200": 1656
+        },
+        "target_met": true
+      },
+      {
+        "users": 200,
+        "duration_s": 3.162,
+        "requests": 1690,
+        "errors": 0,
+        "error_rate": 0.0,
+        "p50_ms": 362.842,
+        "p95_ms": 394.557,
+        "repository_p95_ms": 0.008,
+        "requests_per_s": 534.49,
+        "statuses": {
+          "200": 1690
+        },
+        "target_met": true
+      }
+    ]
+  }
+}

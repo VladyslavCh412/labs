@@ -48,9 +48,15 @@ def main():
                 checks['direct_and_proxy_unauthorized_rejected']=True
                 created=client.post(base+'/api/trips/trips',headers=headers,json={'id':'smoke-trip','vehicle_id':'v-1','driver_id':'d-1','route_id':'r-1'})
                 assert created.status_code==201,created.text;checks['authenticated_trip_with_service_identity']=True
+                assert client.post(base+'/api/trips/trips/smoke-trip/start',headers=headers).json()['status']=='active'
+                for _ in range(2):
+                    completed=client.post(base+'/api/trips/trips/smoke-trip/complete',headers=headers,json={'distance_km':42})
+                    assert completed.json()['status']=='completed'
+                assert client.get(base+'/api/fleet/vehicles/v-1',headers=headers).json()['mileage_km']==42
+                checks['lifecycle_and_idempotent_mileage']=True
                 assert client.patch(base+'/api/fleet/vehicles/v-1/status',headers=headers,json={'status':'maintenance'}).status_code==200
                 delivered=pump_once(urls['fleet'],urls['trips'])
-                assert delivered['delivered']==1
+                assert delivered['delivered']==3
                 snapshot=client.get(base+'/api/trips/snapshots/vehicles/v-1',headers=headers).json()
                 assert snapshot['status']=='maintenance';checks['authenticated_bridge_and_projection']=True
                 dispatcher=client.post(base+'/auth/token',json={'username':'dispatcher','password':password}).json()

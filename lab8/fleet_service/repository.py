@@ -5,7 +5,7 @@ from contextlib import closing
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
-from .domain import Vehicle, VehicleStatus, Driver
+from .domain import Vehicle, VehicleStatus, Driver, DomainError
 from .migrations import apply_migrations, schema_columns, current_stage
 
 class FleetRepository:
@@ -32,6 +32,9 @@ class FleetRepository:
                 else:
                     db.execute(f'INSERT OR IGNORE INTO vehicles (id,{plate_col},status,version) VALUES (?,?,?,?)',
                                (vid,plate,status,1))
+        with closing(sqlite3.connect(self.path)) as db, db:
+            script = Path(__file__).with_name('lifecycle') / '001_usage.sql'
+            db.executescript(script.read_text(encoding='utf-8'))
         if migration_stage is not None:
             apply_migrations(self.path,migration_stage)
 
@@ -42,7 +45,11 @@ class FleetRepository:
             cols=schema_columns(db)
             plate_col='registration_number' if 'registration_number' in cols else 'plate'
             rows=db.execute(f'SELECT id,{plate_col},status,version FROM vehicles ORDER BY id').fetchall()
-        return [dict(id=r[0],plate=r[1],status=r[2],version=r[3]) for r in rows]
+        with closing(sqlite3.connect(self.path)) as db:
+            usage = {r[0]: (r[1], r[2]) for r in db.execute('SELECT vehicle_id,mileage_km,active_trip_id FROM vehicle_usage')}
+        return [dict(id=r[0], plate=r[1], status=r[2], version=r[3],
+                     mileage_km=usage.get(r[0], (0, None))[0],
+                     active_trip_id=usage.get(r[0], (0, None))[1]) for r in rows]
 
     def drivers(self):
         with closing(sqlite3.connect(self.path)) as db:
@@ -75,7 +82,11 @@ class FleetRepository:
             if plate_col not in cols:
                 plate_col='registration_number' if 'registration_number' in cols else 'plate'
             row=db.execute(f'SELECT id, {plate_col}, status, version FROM vehicles WHERE id=?',(item_id,)).fetchone()
-        return Vehicle(row[0],row[1],VehicleStatus(row[2]),row[3]) if row else None
+        if row is None:
+            return None
+        with closing(sqlite3.connect(self.path)) as db:
+            usage = db.execute('SELECT mileage_km FROM vehicle_usage WHERE vehicle_id=?', (item_id,)).fetchone()
+        return Vehicle(row[0], row[1], VehicleStatus(row[2]), row[3], usage[0] if usage else 0)
 
     def driver(self, item_id):
         with closing(sqlite3.connect(self.path)) as db, db:
@@ -85,6 +96,13 @@ class FleetRepository:
     def change_status(self, item_id, status):
         with closing(sqlite3.connect(self.path,timeout=5)) as db, db:
             db.execute('BEGIN IMMEDIATE')
+            usage = db.execute('SELECT active_trip_id FROM vehicle_usage WHERE vehicle_id=?', (item_id,)).fetchone()
+            if usage and usage[0]:
+                raise DomainError('vehicle_has_active_trip')
+            if status == VehicleStatus.MAINTENANCE:
+                current = db.execute('SELECT id FROM vehicles WHERE id=?', (item_id,)).fetchone()
+                if current:
+                    self._load_vehicle(db, item_id).start_maintenance()
             cursor=db.execute('UPDATE vehicles SET status=?,version=version+1 WHERE id=?',(status.value,item_id))
             if cursor.rowcount==0:
                 return None
@@ -129,4 +147,66 @@ class FleetRepository:
                 args = (new_plate, item_id)
             if not db.execute(statement, args).rowcount:
                 return None
+            vehicle = self._load_vehicle(db, item_id)
+            self._record_vehicle_event(db, vehicle)
         return self.vehicle(item_id)
+
+
+    def _load_vehicle(self, db, vehicle_id):
+        cols = schema_columns(db)
+        plate_col = 'registration_number' if 'registration_number' in cols else 'plate'
+        row = db.execute(f'SELECT id,{plate_col},status,version FROM vehicles WHERE id=?', (vehicle_id,)).fetchone()
+        if row is None:
+            raise LookupError('vehicle_not_found')
+        usage = db.execute('SELECT mileage_km FROM vehicle_usage WHERE vehicle_id=?', (vehicle_id,)).fetchone()
+        return Vehicle(row[0], row[1], VehicleStatus(row[2]), row[3], usage[0] if usage else 0)
+
+    def _record_vehicle_event(self, db, vehicle):
+        event = {'event_id': str(uuid.uuid4()), 'type': 'VehicleStatusChanged',
+                 'occurred_at': datetime.now(timezone.utc).isoformat(),
+                 'data': {'id': vehicle.id, 'plate': vehicle.plate,
+                          'status': vehicle.status.value, 'version': vehicle.version}}
+        db.execute('INSERT INTO vehicle_outbox(event_id,type,payload) VALUES(?,?,?)',
+                   (event['event_id'], event['type'], json.dumps(event, ensure_ascii=False)))
+
+    def execute_lifecycle(self, trip_id, operation, vehicle_id, driver_id, distance_km=0):
+        # A receipt and the resource change commit in ONE owner transaction.
+        command_id = f'{trip_id}:{operation}'
+        request_json = json.dumps([vehicle_id, driver_id, distance_km])
+        with closing(sqlite3.connect(self.path, timeout=5)) as db, db:
+            db.execute('BEGIN IMMEDIATE')
+            receipt = db.execute('SELECT request_json,response_json FROM command_receipts WHERE command_id=?', (command_id,)).fetchone()
+            if receipt:
+                if receipt[0] != request_json:
+                    raise DomainError('idempotency_payload_conflict')
+                return json.loads(receipt[1])
+            vehicle = self._load_vehicle(db, vehicle_id)
+            usage = db.execute('SELECT active_trip_id FROM vehicle_usage WHERE vehicle_id=?', (vehicle_id,)).fetchone()
+            if operation == 'start':
+                row = db.execute('SELECT id,name,active,license_valid FROM drivers WHERE id=?', (driver_id,)).fetchone()
+                if row is None:
+                    raise LookupError('driver_not_found')
+                if not Driver(row[0], row[1], bool(row[2]), bool(row[3])).can_drive():
+                    raise DomainError('driver_not_allowed')
+                if usage and usage[0]:
+                    raise DomainError('vehicle_has_active_trip')
+                vehicle.begin_trip()
+                active_trip = trip_id
+            elif operation == 'complete':
+                if not usage or usage[0] != trip_id:
+                    raise DomainError('trip_does_not_own_vehicle')
+                vehicle.finish_trip(distance_km)
+                active_trip = None
+            else:
+                raise DomainError('unknown_operation')
+            vehicle.version += 1
+            db.execute('UPDATE vehicles SET status=?,version=? WHERE id=?',
+                       (vehicle.status.value, vehicle.version, vehicle_id))
+            db.execute('INSERT INTO vehicle_usage(vehicle_id,mileage_km,active_trip_id) VALUES(?,?,?) ON CONFLICT(vehicle_id) DO UPDATE SET mileage_km=excluded.mileage_km,active_trip_id=excluded.active_trip_id',
+                       (vehicle_id, vehicle.mileage_km, active_trip))
+            self._record_vehicle_event(db, vehicle)
+            response = {'id': vehicle_id, 'status': vehicle.status.value,
+                        'mileage_km': vehicle.mileage_km, 'version': vehicle.version}
+            db.execute('INSERT INTO command_receipts VALUES(?,?,?)',
+                       (command_id, request_json, json.dumps(response)))
+            return response

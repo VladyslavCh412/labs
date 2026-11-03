@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light" />
   <title>FleetFlow — Панель автопарку</title>
+  <link rel="icon" href="data:," />
   <link rel="stylesheet" href="/assets/styles.css" />
-  <script src="/assets/app.js" defer></script>
+  <script type="module" src="/assets/app.js"></script>
 </head>
 <body>
 <div id="loginPanel" style="position:fixed;inset:0;z-index:9999;background:#eef2f8;display:grid;place-items:center">
@@ -17,35 +18,36 @@
 <p id="loginError" role="alert" style="color:#b42318"></p><button class="primary-btn" type="submit">Увійти</button>
 <p style="font-size:12px">Дані для входу: data/LOCAL_ACCOUNTS.txt після першого запуску.</p>
 </form></div>
-<button id="logoutBtn" style="position:fixed;bottom:14px;left:20px;z-index:99" class="tiny-btn" hidden>Вийти</button>
+
   <div class="shell">
     <aside class="sidebar" id="sidebar">
       <div class="brand"><span class="brand-mark">F<span class="brand-dot">.</span></span><span><strong>FleetFlow</strong><small>Fleet management</small></span></div>
       <div class="nav-caption">РОБОЧИЙ ПРОСТІР</div>
       <nav class="nav" aria-label="Головна навігація">
-        <button class="nav-link active" data-page="overview"><span class="nav-icon" data-icon="grid"></span><span>Огляд</span></button>
-        <button class="nav-link" data-page="vehicles"><span class="nav-icon" data-icon="truck"></span><span>Автопарк</span></button>
-        <button class="nav-link" data-page="trips"><span class="nav-icon" data-icon="route"></span><span>Рейси та маршрути</span></button>
-        <button class="nav-link" data-page="events"><span class="nav-icon" data-icon="activity"></span><span>Дані та події</span></button>
+        <button class="nav-link active" data-page="overview" aria-label="Огляд"><span class="nav-icon" data-icon="grid"></span><span>Огляд</span></button>
+        <button class="nav-link" data-page="vehicles" aria-label="Автопарк"><span class="nav-icon" data-icon="truck"></span><span>Автопарк</span></button>
+        <button class="nav-link" data-page="trips" aria-label="Рейси та маршрути"><span class="nav-icon" data-icon="route"></span><span>Рейси та маршрути</span></button>
+        <button class="nav-link" data-page="events" aria-label="Дані та події"><span class="nav-icon" data-icon="activity"></span><span>Дані та події</span></button>
       </nav>
       <div class="sidebar-bottom">
         <div class="status-panel"><span class="status-indicator" id="statusIndicator"></span><div><strong id="sidebarStatus">Перевірка сервісів</strong><small>Fleet · Trips · SQLite</small></div></div>
         <div class="sidebar-divider"></div>
-        <div class="project-meta"><div class="project-meta-line">НАВЧАЛЬНИЙ ПРОЄКТ</div><div>Архітектура даних</div><small>Лабораторна робота №5 · Варіант 12</small></div>
+        <div class="project-meta"><div class="project-meta-line">НАВЧАЛЬНИЙ ПРОЄКТ</div><div>Архітектура даних</div><small>Лабораторні роботи №1–8 · Варіант 12</small></div>
+        <button id="logoutBtn" style="margin-top:18px;width:100%" class="tiny-btn" hidden>Вийти</button>
       </div>
     </aside>
     <div class="mobile-shade" id="mobileShade"></div>
     <main class="main">
       <header class="topbar">
         <div class="topbar-left"><button id="menuBtn" class="icon-btn mobile-menu" aria-label="Відкрити меню"><span data-icon="menu"></span></button><div class="breadcrumb">РОБОЧА ПАНЕЛЬ <span class="sep">/</span> <span id="breadcrumbName">Огляд</span></div></div>
-        <div class="topbar-right"><span class="live-pill"><span class="live-dot"></span> Локальна система</span><button class="icon-btn refresh-btn" id="refreshBtn" title="Оновити дані" aria-label="Оновити дані"><span data-icon="refresh"></span></button><span class="profile-badge" aria-label="Лабораторна 5">ЛР<span>8</span></span></div>
+        <div class="topbar-right"><span class="live-pill"><span class="live-dot"></span> Локальна система</span><button class="icon-btn refresh-btn" id="refreshBtn" title="Оновити дані" aria-label="Оновити дані"><span data-icon="refresh"></span></button><span class="profile-badge" aria-label="Лабораторні 1–8">ЛР<span>8</span></span></div>
       </header>
       <div class="page-container">
         <section id="page-overview" class="page active" aria-label="Огляд">
           <div class="page-eyebrow">ПАНЕЛЬ УПРАВЛІННЯ</div><div class="page-heading"><div><h1>Доброго дня <span class="wave"></span></h1><p>Усі основні показники автопарку в одному місці.</p></div><div class="page-actions"><button class="button button-secondary" data-action="cache-demo"><span data-icon="zap"></span> Перевірити кеш</button><button class="button button-primary" data-action="new-trip"><span data-icon="plus"></span> Новий рейс</button></div></div>
           <div class="hero"><div class="hero-copy"><span class="hero-eyebrow"><span class="hero-spark">✦</span> АРХІТЕКТУРА ДАНИХ · ЛР8</span><h2>Автопарк під<br><em>повним контролем.</em></h2><p>Керуйте автомобілями, створюйте рейси та спостерігайте за синхронізацією двох незалежних сервісів.</p><button class="button button-white" data-action="new-trip">Створити рейс <span data-icon="arrow"></span></button></div><div class="hero-art" aria-hidden="true"><div class="hero-ring ring-one"></div><div class="hero-ring ring-two"></div><div class="hero-mini-card floating-one"><span class="emoji-circle">🚚</span><div><span>Fleet service</span><b>Система онлайн</b></div><span class="mini-dot"></span></div><div class="hero-mini-card floating-two"><span class="emoji-circle mint">↗</span><div><span>Trips service</span><b>Рейси активні</b></div><span class="mini-dot"></span></div><div class="hero-route"><span>●</span><i></i><span>●</span></div></div></div>
           <div id="summaryCards" class="stats-grid"></div>
-          <div class="split-grid"><section class="panel"><div class="panel-head"><div><div class="section-kicker">FLEET SERVICE</div><h3>Автомобілі</h3></div><button class="text-link" data-page="vehicles">Усі автомобілі <span data-icon="arrow"></span></button></div><div id="overviewVehicles"></div></section><section class="panel"><div class="panel-head"><div><div class="section-kicker">TRIPS SERVICE</div><h3>Останні рейси</h3></div><button class="text-link" data-page="trips">Усі рейси <span data-icon="arrow"></span></button></div><div id="overviewTrips"></div></section></div>
+          <div class="split-grid"><section class="panel"><div class="panel-head"><div><div class="section-kicker">FLEET SERVICE</div><h3>Автомобілі</h3></div><button class="text-link" data-page="vehicles" aria-label="Автопарк">Усі автомобілі <span data-icon="arrow"></span></button></div><div id="overviewVehicles"></div></section><section class="panel"><div class="panel-head"><div><div class="section-kicker">TRIPS SERVICE</div><h3>Останні рейси</h3></div><button class="text-link" data-page="trips" aria-label="Рейси та маршрути">Рейси — поточна сторінка <span data-icon="arrow"></span></button></div><div id="overviewTrips"></div></section></div>
         </section>
         <section id="page-vehicles" class="page" aria-label="Автопарк">
           <div class="page-eyebrow">FLEET SERVICE</div><div class="page-heading"><div><h1>Автопарк</h1><p>Список автомобілів, водіїв і керування доступністю.</p></div><div class="page-actions"><button class="button button-secondary" data-action="new-driver"><span data-icon="userplus"></span> Додати водія</button><button class="button button-primary" data-action="new-vehicle"><span data-icon="plus"></span> Додати авто</button></div></div>
@@ -55,7 +57,7 @@
         </section>
         <section id="page-trips" class="page" aria-label="Рейси">
           <div class="page-eyebrow">TRIPS SERVICE</div><div class="page-heading"><div><h1>Рейси та маршрути</h1><p>Планування поїздок між містами та контроль виконання.</p></div><div class="page-actions"><button class="button button-secondary" data-action="new-route"><span data-icon="route"></span> Новий маршрут</button><button class="button button-primary" data-action="new-trip"><span data-icon="plus"></span> Створити рейс</button></div></div>
-          <section class="panel full-panel"><div class="panel-head"><div><div class="section-kicker">ПОЇЗДКИ</div><h3>Усі рейси <span class="count-mark" id="tripCount"></span></h3></div><span class="small-tag">Зберігаються в Trips SQLite</span></div><div id="tripTable"></div></section>
+          <section class="panel full-panel"><div class="panel-head"><div><div class="section-kicker">ПОЇЗДКИ</div><h3>Рейси — поточна сторінка <span class="count-mark" id="tripCount"></span></h3></div><span class="small-tag">Зберігаються в Trips SQLite</span></div><div id="tripTable"></div><div style="display:flex;align-items:center;gap:16px;padding:16px 24px"><button class="tiny-btn" data-action="prev-trips" id="prevTrips">← Попередні</button><span id="tripPageInfo"></span><button class="tiny-btn" data-action="next-trips" id="nextTrips">Наступні →</button></div></section>
           <section class="panel full-panel lower-panel"><div class="panel-head"><div><div class="section-kicker">ДОВІДНИК</div><h3>Доступні маршрути</h3></div><button class="text-link" data-action="new-route">Додати <span data-icon="plus"></span></button></div><div id="routeGrid" class="route-grid"></div></section>
         </section>
         <section id="page-events" class="page" aria-label="Дані та події">

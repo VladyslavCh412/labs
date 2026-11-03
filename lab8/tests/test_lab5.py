@@ -1,3 +1,4 @@
+from contextlib import closing
 """Lab 5 tests on an isolated temp directory; no credentials, cloud, or database sharing."""
 import json
 import sqlite3
@@ -21,28 +22,28 @@ from event_bridge import pump_once
 def test_all_four_migrations_and_backward_compatibility(tmp_path):
     path=tmp_path/'fleet.sqlite'
     repo=FleetRepository(path)
-    with sqlite3.connect(path) as db:
+    with closing(sqlite3.connect(path)) as db, db:
         assert db.execute('SELECT plate FROM vehicles WHERE id=?',('v-1',)).fetchone()[0]=='BH1234AA'
     assert apply_migrations(path,1)==[1]
     assert apply_migrations(path,2)==[1,2]
     updated=repo.change_registration('v-1','BH9999AA')
     assert updated.plate=='BH9999AA'
-    with sqlite3.connect(path) as db:
+    with closing(sqlite3.connect(path)) as db, db:
         row=db.execute('SELECT plate,registration_number FROM vehicles WHERE id=?',('v-1',)).fetchone()
         assert row==('BH9999AA','BH9999AA')  # parallel write
         assert db.execute('SELECT plate FROM vehicles WHERE id=?',('v-1',)).fetchone()[0]=='BH9999AA'  # old consumer
     assert apply_migrations(path,3)==[1,2,3]
     assert repo.vehicle('v-1').plate=='BH9999AA'
-    with sqlite3.connect(path) as db:
+    with closing(sqlite3.connect(path)) as db, db:
         assert 'plate' in schema_columns(db) # old code still works through switch
     assert apply_migrations(path,4)==[1,2,3,4]
     assert apply_migrations(path,4)==[1,2,3,4]  # idempotent migration runner
-    with sqlite3.connect(path) as db:
+    with closing(sqlite3.connect(path)) as db, db:
         assert 'plate' not in schema_columns(db)
         assert 'registration_number' in schema_columns(db)
     assert repo.vehicle('v-1').plate=='BH9999AA'
     assert repo.change_registration('v-1','BH1111AA').plate=='BH1111AA'
-    with sqlite3.connect(path) as db:
+    with closing(sqlite3.connect(path)) as db, db:
         assert db.execute('SELECT registration_number FROM vehicles WHERE id=?',('v-1',)).fetchone()[0]=='BH1111AA'
 
 
@@ -95,9 +96,9 @@ def test_local_vehicle_copy_and_idempotent_replay(tmp_path):
         assert trips.post('/events/fleet-status',json=stale).json()['applied'] is True
         assert trips.get('/snapshots/vehicles/v-1').json()['status']=='maintenance'
         assert trips.get('/events/fleet-processed-count').json()['processed_events']==2
-    with sqlite3.connect(tmp_path/'fleet.sqlite') as db:
+    with closing(sqlite3.connect(tmp_path/'fleet.sqlite')) as db, db:
         assert 'vehicle_snapshot' not in {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
-    with sqlite3.connect(tmp_path/'trips.sqlite') as db:
+    with closing(sqlite3.connect(tmp_path/'trips.sqlite')) as db, db:
         assert 'vehicles' not in {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
 
 

@@ -1,0 +1,52 @@
+{
+  "environment": {
+    "python": "3.13.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "cpu": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "rows": 20000,
+    "users": [
+      300,
+      500
+    ],
+    "stage_seconds": 3,
+    "workers": 1,
+    "profile": "closed-loop, no think time, one warm-up request per concurrent user",
+    "target": "LR1: first 50 active trips, HTTP p95 <= 500 ms at 100 users",
+    "optimization": "SQL LIMIT/OFFSET instead of fetchall and Python projection of all rows"
+  },
+  "results": {
+    "optimized": [
+      {
+        "users": 300,
+        "duration_s": 3.311,
+        "requests": 1742,
+        "errors": 0,
+        "error_rate": 0.0,
+        "p50_ms": 534.414,
+        "p95_ms": 630.933,
+        "repository_p95_ms": 0.008,
+        "requests_per_s": 526.19,
+        "statuses": {
+          "200": 1742
+        },
+        "target_met": false
+      },
+      {
+        "users": 500,
+        "duration_s": 3.447,
+        "requests": 1764,
+        "errors": 0,
+        "error_rate": 0.0,
+        "p50_ms": 909.176,
+        "p95_ms": 1111.889,
+        "repository_p95_ms": 0.009,
+        "requests_per_s": 511.79,
+        "statuses": {
+          "200": 1764
+        },
+        "target_met": false
+      }
+    ]
+  }
+}

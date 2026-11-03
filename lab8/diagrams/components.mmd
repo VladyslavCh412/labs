@@ -1,0 +1,16 @@
+flowchart TB
+  api["HTTP Controllers + JWT guard<br/>FastAPI / Pydantic"]
+  app["TripUseCases<br/>create / start / complete"]
+  domain["Domain + Ports<br/>Trip, Route, TripStore, FleetGateway"]
+  http["FleetClient + Adapter<br/>HTTP • timeout • service JWT"]
+  repo["TripsRepository<br/>SQLite • inbox • receipts"]
+  cache["TripPageCache<br/>TTL 1 с • single-flight"]
+  observer["TripEventPublisher<br/>Observer: NotificationObserver"]
+  factory["TripsComponentsFactory<br/>Composition root"]
+  api -->|"DTO → use case"| app
+  app -->|"Залежить від портів"| domain
+  app -->|"Реалізація TripStore"| repo
+  app -->|"FleetGateway"| http
+  cache -->|"Кеш читання"| api
+  repo -.->|"TripCreated"| observer
+  factory -->|"DI"| app

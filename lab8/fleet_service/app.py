@@ -4,7 +4,8 @@ import os
 import sqlite3
 from fastapi import FastAPI,HTTPException
 from pydantic import BaseModel, Field
-from .domain import VehicleStatus, Vehicle, Driver
+from .domain import VehicleStatus, Vehicle, Driver, DomainError
+from typing import Literal
 from .repository import FleetRepository
 from .cache import VehicleReadCache
 
@@ -22,13 +23,20 @@ class DriverCreateBody(BaseModel):
 class RegistrationBody(BaseModel):
     plate: str
 
+class TripCommandBody(BaseModel):
+    trip_id: str = Field(min_length=1)
+    operation: Literal['start', 'complete']
+    vehicle_id: str = Field(min_length=1)
+    driver_id: str = Field(min_length=1)
+    distance_km: int = Field(default=0, ge=0, strict=True)
+
 class StatusBody(BaseModel):
     status: VehicleStatus
 
 def create_app(db_path=None, cache_ttl=30.0, cache_clock=None, migration_stage=4):
     repo=FleetRepository(db_path or os.getenv('FLEET_DB_PATH','data/fleet.sqlite'),migration_stage=migration_stage)
     cache=VehicleReadCache(cache_ttl,clock=cache_clock)
-    app=FastAPI(title='Fleet — ЛР5',version='1.1.0',description='Fleet SQLite; міграції, кешування, outbox')
+    app=FastAPI(title='Fleet — FleetFlow',version='1.1.0',description='Fleet SQLite; міграції, кешування, outbox')
     app.state.repository=repo
     app.state.vehicle_cache=cache
 
@@ -47,7 +55,7 @@ def create_app(db_path=None, cache_ttl=30.0, cache_clock=None, migration_stage=4
             vehicle=repo.create_vehicle(Vehicle(body.id,body.plate,body.status))
         except (ValueError,sqlite3.IntegrityError) as exc:
             raise HTTPException(409,detail='vehicle_duplicate_or_invalid') from exc
-        return {'id':vehicle.id,'plate':vehicle.plate,'status':vehicle.status.value,'version':vehicle.version}
+        return {'id':vehicle.id,'plate':vehicle.plate,'status':vehicle.status.value,'version':vehicle.version,'mileage_km':vehicle.mileage_km}
 
     @app.post('/drivers',status_code=201,tags=['Автопарк'])
     def add_driver(body:DriverCreateBody):
@@ -61,7 +69,7 @@ def create_app(db_path=None, cache_ttl=30.0, cache_clock=None, migration_stage=4
     def get_vehicle(vehicle_id:str):
         vehicle=cache.get(vehicle_id,repo.vehicle)
         if vehicle is None:raise HTTPException(404,detail='vehicle_not_found')
-        return {'id':vehicle.id,'plate':vehicle.plate,'status':vehicle.status.value,'version':vehicle.version}
+        return {'id':vehicle.id,'plate':vehicle.plate,'status':vehicle.status.value,'version':vehicle.version,'mileage_km':vehicle.mileage_km}
 
     @app.get('/drivers/{driver_id}',tags=['Автопарк'])
     def get_driver(driver_id:str):
@@ -71,7 +79,10 @@ def create_app(db_path=None, cache_ttl=30.0, cache_clock=None, migration_stage=4
 
     @app.patch('/vehicles/{vehicle_id}/status',tags=['Автопарк'])
     def change_vehicle_status(vehicle_id:str,body:StatusBody):
-        v=repo.change_status(vehicle_id,body.status)
+        try:
+            v=repo.change_status(vehicle_id,body.status)
+        except DomainError as exc:
+            raise HTTPException(409, detail=str(exc)) from exc
         if not v:raise HTTPException(404,detail='vehicle_not_found')
         cache.invalidate(vehicle_id)
         return {'id':v.id,'plate':v.plate,'status':v.status.value,'version':v.version}
@@ -83,6 +94,17 @@ def create_app(db_path=None, cache_ttl=30.0, cache_clock=None, migration_stage=4
         if not v:raise HTTPException(404,detail='vehicle_not_found')
         cache.invalidate(vehicle_id)
         return {'id':v.id,'plate':v.plate,'status':v.status.value,'version':v.version}
+
+    @app.post('/internal/trip-commands', tags=['Внутрішні команди'])
+    def trip_command(body: TripCommandBody):
+        try:
+            result = repo.execute_lifecycle(**body.model_dump())
+        except LookupError as exc:
+            raise HTTPException(404, detail=str(exc)) from exc
+        except DomainError as exc:
+            raise HTTPException(409, detail=str(exc)) from exc
+        cache.invalidate(body.vehicle_id)
+        return result
 
     @app.get('/fleet-events/outbox',tags=['Події'])
     def fleet_outbox():return repo.outbox()

@@ -1,6 +1,9 @@
 # Local runtime files are not source artifacts.
 **/.venv/
 **/venv/
+/.runtime/
+/.chart-data-*/
+**/node_modules/
 **/__pycache__/
 **/.pytest_cache/
 **/htmlcov/
@@ -33,3 +36,8 @@
 **/verification/*.xml
 **/verification/*.txt
 **/benchmarks_results.json
+
+# Final LR8 package requested for the separate lab8-complete branch.
+!lab8/submission/
+!lab8/submission/*.pdf
+!lab8/submission/*.pptx

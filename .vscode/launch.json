@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "FleetFlow: запустити проєкт",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/run.py",
+      "args": ["start"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "subProcess": true,
+      "justMyCode": true
+    }
+  ]
+}

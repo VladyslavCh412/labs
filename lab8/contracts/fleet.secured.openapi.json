@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Fleet — ЛР5",
+    "title": "Fleet — FleetFlow",
     "description": "Fleet SQLite; міграції, кешування, outbox",
     "version": "1.1.0"
   },
@@ -40,11 +40,17 @@
                 "schema": {}
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       },
@@ -82,11 +88,20 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "409": {
+            "description": "Domain or idempotency conflict"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       }
@@ -106,11 +121,17 @@
                 "schema": {}
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       },
@@ -148,11 +169,20 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "409": {
+            "description": "Domain or idempotency conflict"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       }
@@ -193,11 +223,17 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       }
@@ -238,11 +274,17 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       }
@@ -293,11 +335,20 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "409": {
+            "description": "Domain or idempotency conflict"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       }
@@ -348,11 +399,73 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "409": {
+            "description": "Domain or idempotency conflict"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
+          }
+        ]
+      }
+    },
+    "/internal/trip-commands": {
+      "post": {
+        "tags": [
+          "Внутрішні команди"
+        ],
+        "summary": "Trip Command",
+        "operationId": "trip_command_internal_trip_commands_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TripCommandBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
+          },
+          "409": {
+            "description": "Domain or idempotency conflict"
+          }
+        },
+        "security": [
+          {
+            "BearerJWT": []
           }
         ]
       }
@@ -372,11 +485,17 @@
                 "schema": {}
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       }
@@ -417,11 +536,17 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       }
@@ -441,11 +566,17 @@
                 "schema": {}
               }
             }
+          },
+          "401": {
+            "description": "Missing, invalid or expired JWT"
+          },
+          "403": {
+            "description": "Role rejected by resource owner"
           }
         },
         "security": [
           {
-            "BearerAuth": []
+            "BearerJWT": []
           }
         ]
       }
@@ -520,6 +651,47 @@
           "status"
         ],
         "title": "StatusBody"
+      },
+      "TripCommandBody": {
+        "properties": {
+          "trip_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Trip Id"
+          },
+          "operation": {
+            "type": "string",
+            "enum": [
+              "start",
+              "complete"
+            ],
+            "title": "Operation"
+          },
+          "vehicle_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Vehicle Id"
+          },
+          "driver_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Driver Id"
+          },
+          "distance_km": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Distance Km",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "trip_id",
+          "operation",
+          "vehicle_id",
+          "driver_id"
+        ],
+        "title": "TripCommandBody"
       },
       "ValidationError": {
         "properties": {
@@ -596,7 +768,7 @@
       }
     },
     "securitySchemes": {
-      "BearerAuth": {
+      "BearerJWT": {
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"

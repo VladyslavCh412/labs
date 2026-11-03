@@ -1,0 +1,15 @@
+{
+  "users": 100,
+  "duration_s": 3.092,
+  "requests": 1470,
+  "errors": 0,
+  "error_rate": 0.0,
+  "p50_ms": 205.972,
+  "p95_ms": 240.524,
+  "repository_p95_ms": 4.177,
+  "requests_per_s": 475.43,
+  "statuses": {
+    "200": 1470
+  },
+  "target_met": true
+}

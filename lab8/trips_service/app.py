@@ -6,7 +6,8 @@ import os
 import sqlite3
 from fastapi import FastAPI, HTTPException, Query, Response
 from pydantic import BaseModel, Field
-from .domain import Trip, Route, DomainError
+from .domain import Trip, Route, DomainError, MissingResource
+from .application import TripUseCases
 from datetime import datetime
 from typing import Literal
 from .fleet_client import FleetRejected, FleetUnavailable
@@ -18,15 +19,24 @@ class TripInput(BaseModel):
     driver_id: str = Field(min_length=1)
     route_id: str = Field(min_length=1)
 
+class CompletionInput(BaseModel):
+    distance_km: int = Field(ge=0, strict=True)
+
 class RouteInput(BaseModel):
     id: str = Field(min_length=1)
     stops: list[str] = Field(min_length=2)
+
+class VehicleProjection(BaseModel):
+    id: str = Field(min_length=1)
+    plate: str = Field(min_length=1)
+    status: Literal['available', 'in_trip', 'maintenance']
+    version: int = Field(ge=1, strict=True)
 
 class FleetStatusEvent(BaseModel):
     event_id: str = Field(min_length=1)
     type: Literal['VehicleStatusChanged']
     occurred_at: datetime
-    data: dict
+    data: VehicleProjection
 
 def create_app(db_path=None, fleet_url=None, fleet_transport=None, factory=None):
     components = (factory or TripsComponentsFactory()).build(
@@ -35,7 +45,8 @@ def create_app(db_path=None, fleet_url=None, fleet_transport=None, factory=None)
         fleet_transport,
     )
     repo, client = components.repository, components.fleet_client
-    app = FastAPI(title='Trips — ЛР3', version='1.0.0', description='Власник даних про рейси та маршрути')
+    use_cases = TripUseCases(repo, client)
+    app = FastAPI(title='Trips — FleetFlow', version='1.0.0', description='Власник даних про рейси та маршрути')
 
     app.state.repository=repo
     page_cache=TripPageCache()
@@ -79,23 +90,40 @@ def create_app(db_path=None, fleet_url=None, fleet_transport=None, factory=None)
 
     @app.post('/trips', status_code=201, tags=['Рейси'])
     async def create_trip(body: TripInput):
-        if repo.get_trip(body.id):
-            raise HTTPException(409, detail='duplicate_trip_id')
-        if not repo.route_exists(body.route_id):
-            raise HTTPException(404, detail='route_not_found')
         try:
-            await client.check_vehicle_and_driver(body.vehicle_id, body.driver_id)
+            result = await use_cases.create(Trip(**body.model_dump()))
+        except MissingResource as exc:
+            raise HTTPException(404, detail=str(exc)) from exc
+        except (DomainError, sqlite3.IntegrityError) as exc:
+            raise HTTPException(409, detail=str(exc)) from exc
         except FleetRejected as exc:
             raise HTTPException(exc.status_code, detail=exc.message) from exc
         except FleetUnavailable as exc:
             raise HTTPException(503, detail='fleet_service_unavailable') from exc
-        trip = Trip(**body.model_dump())
-        try:
-            event = repo.create_trip_and_publish(trip)
-        except sqlite3.IntegrityError as exc:
-            raise HTTPException(409, detail='duplicate_trip_id') from exc
         page_cache.invalidate()
-        return {'id': trip.id, 'status': trip.status, 'event_id': event['event_id']}
+        return result
+
+    async def transition(trip_id, operation, distance_km=0):
+        try:
+            result = await use_cases.transition(trip_id, operation, distance_km)
+        except MissingResource as exc:
+            raise HTTPException(404, detail=str(exc)) from exc
+        except DomainError as exc:
+            raise HTTPException(409, detail=str(exc)) from exc
+        except FleetRejected as exc:
+            raise HTTPException(exc.status_code, detail=exc.message) from exc
+        except FleetUnavailable as exc:
+            raise HTTPException(503, detail='fleet_service_unavailable_retry_same_command') from exc
+        page_cache.invalidate()
+        return result
+
+    @app.post('/trips/{trip_id}/start', tags=['Рейси'])
+    async def start_trip(trip_id: str):
+        return await transition(trip_id, 'start')
+
+    @app.post('/trips/{trip_id}/complete', tags=['Рейси'])
+    async def complete_trip(trip_id: str, body: CompletionInput):
+        return await transition(trip_id, 'complete', body.distance_km)
 
     @app.get('/events/outbox', tags=['Події'])
     def outbox():

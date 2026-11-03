@@ -1,0 +1,8 @@
+{
+  "command": "python verification/pipeline.py --static-only (disposable source copy)",
+  "injected": "fleet_service/domain.py: import sqlite3",
+  "returncode": 1,
+  "stdout": "ARCHITECTURE FAILED\nfleet_service\\domain.py: forbidden domain import sqlite3\n",
+  "stderr": "",
+  "original_source_unchanged": true
+}

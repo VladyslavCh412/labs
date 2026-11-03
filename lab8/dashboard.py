@@ -21,7 +21,7 @@ def create_app(fleet_url=None, trips_url=None, transport=None):
         'fleet': (fleet_url or os.getenv('FLEET_URL', 'http://127.0.0.1:8101')).rstrip('/'),
         'trips': (trips_url or os.getenv('TRIPS_URL', 'http://127.0.0.1:8102')).rstrip('/'),
     }
-    app = FastAPI(title='FleetFlow — панель керування ЛР5', docs_url=None, redoc_url=None)
+    app = FastAPI(title='FleetFlow — архітектурний проєкт ЛР1–ЛР8', docs_url=None, redoc_url=None)
     limiter=LoginLimiter()
     class LoginBody(BaseModel):
         username: str=Field(min_length=1,max_length=80)
@@ -34,7 +34,7 @@ def create_app(fleet_url=None, trips_url=None, transport=None):
         response.headers['Cache-Control']='no-store'
         return response
 
-    app.mount('/assets', StaticFiles(directory=FRONTEND), name='assets')
+    app.mount('/assets', StaticFiles(directory=FRONTEND / 'build'), name='assets')
 
     @app.get('/', include_in_schema=False)
     def home():

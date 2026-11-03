@@ -1,0 +1,8 @@
+flowchart TB
+  vehicles["Fleet: Vehicle + Driver<br/>id • registration_number • status • version<br/>Driver: id • name • active • license_valid"]
+  usage["Fleet: usage + receipts + outbox<br/>vehicle_id • mileage_km • active_trip_id<br/>command_id • request_json • response_json"]
+  trips["Trips: Trip + Route<br/>id • vehicle_id • driver_id • route_id • status<br/>Route: id • stops_json"]
+  projection["Trips: snapshot + inbox + operations<br/>id • plate • status • version • updated_at<br/>event_id UNIQUE • (trip_id, operation) UNIQUE"]
+  vehicles -->|"Власні записи Fleet"| usage
+  trips -->|"Власні записи Trips"| projection
+  usage -.->|"HTTP подія"| projection

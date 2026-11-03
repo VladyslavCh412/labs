@@ -1,0 +1,10 @@
+{
+  "language": "TypeScript",
+  "compiler": "7.0.2",
+  "strict": true,
+  "noEmitOnError": true,
+  "command": "npm ci && npm run typecheck && npm run build",
+  "source": "frontend/src/app.ts",
+  "source_sha256": "a85e8846af66b78e21b3615d9199145d885a4125059b73ba31b5cf6b025e913d",
+  "bundle_sha256": "88dd98e9d5baa24add8f000df3db1493f4e106f9ab2e3cd8d164ca2044fcc36b"
+}

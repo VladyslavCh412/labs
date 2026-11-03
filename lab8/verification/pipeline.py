@@ -6,16 +6,18 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
-from verification.fitness import check_domain_purity, check_cycles
+from verification.fitness import check_domain_purity, check_cycles, check_application_dependencies
 
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--static-only',action='store_true');a=p.parse_args()
-    errors=check_domain_purity(ROOT)+check_cycles(ROOT)
+    errors=check_domain_purity(ROOT)+check_cycles(ROOT)+check_application_dependencies(ROOT)
     if errors:
         print('ARCHITECTURE FAILED\n'+'\n'.join(errors),flush=True);return 1
     print('Static fitness: PASS',flush=True)
     if a.static_only:return 0
+    result=subprocess.call([sys.executable,'verification/export_contracts.py'],cwd=ROOT)
+    if result:return result
     result=subprocess.call([sys.executable,'-m','pytest','-q','--durations=0',
                             '-k','not test_dynamic_http_p95_at_100_users',
                             '--junitxml=verification/test_results.xml',

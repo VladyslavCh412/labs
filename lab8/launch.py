@@ -59,6 +59,7 @@ def main():
             time.sleep(.15)
         else:raise RuntimeError('Сервіси не відповідають на HTTP-запити.')
         children.append(subprocess.Popen([sys.executable,'event_bridge.py'],cwd=ROOT,env=env))
+        children.append(subprocess.Popen([sys.executable,'event_worker.py'],cwd=ROOT,env=env))
         print('\n✅ FleetFlow запущено. Відкрийте http://127.0.0.1:8000',flush=True)
         print('Для зупинки натисніть Ctrl+C у цьому терміналі.\n',flush=True)
         if '--no-browser' not in sys.argv:

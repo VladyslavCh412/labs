@@ -114,7 +114,8 @@ def run(levels=(1,10,50,100,200),duration=3,rows=20000,modes=('baseline','optimi
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--duration',type=float,default=3)
     p.add_argument('--levels',default='1,10,50,100,200');p.add_argument('--rows',type=int,default=20000)
+    p.add_argument('--modes',default='baseline,optimized',choices=['baseline','optimized','baseline,optimized'])
     p.add_argument('--output',default='verification/load_results.json');a=p.parse_args()
-    result=run(tuple(map(int,a.levels.split(','))),a.duration,a.rows)
+    result=run(tuple(map(int,a.levels.split(','))),a.duration,a.rows,modes=tuple(a.modes.split(',')))
     target=ROOT/a.output;target.parent.mkdir(parents=True,exist_ok=True)
     target.write_text(json.dumps(result,indent=2),encoding='utf-8')

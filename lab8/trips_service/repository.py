@@ -4,7 +4,7 @@ import sqlite3
 from contextlib import closing
 import uuid
 from pathlib import Path
-from .domain import Trip
+from .domain import Trip, DomainError
 from .observers import TripEventPublisher
 
 class TripsRepository:
@@ -14,6 +14,7 @@ class TripsRepository:
         Path(self.path).parent.mkdir(parents=True, exist_ok=True)
         with closing(sqlite3.connect(self.path)) as db, db:
             db.execute('CREATE TABLE IF NOT EXISTS trips (id TEXT PRIMARY KEY, vehicle_id TEXT NOT NULL, driver_id TEXT NOT NULL, route_id TEXT NOT NULL, status TEXT NOT NULL)')
+            db.execute('CREATE TABLE IF NOT EXISTS trip_operations (trip_id TEXT NOT NULL, operation TEXT NOT NULL, distance_km INTEGER NOT NULL, response_json TEXT NOT NULL, PRIMARY KEY(trip_id,operation))')
             db.execute('CREATE TABLE IF NOT EXISTS routes (id TEXT PRIMARY KEY, stops_json TEXT NOT NULL)')
             db.execute('CREATE TABLE IF NOT EXISTS outbox (event_id TEXT PRIMARY KEY, type TEXT NOT NULL, payload TEXT NOT NULL, delivered INTEGER NOT NULL DEFAULT 0)')
             db.execute('CREATE TABLE IF NOT EXISTS notification_inbox (event_id TEXT PRIMARY KEY, trip_id TEXT NOT NULL, message TEXT NOT NULL)')
@@ -125,3 +126,24 @@ class TripsRepository:
                 db.execute('INSERT INTO vehicle_snapshot(id,plate,status,version,updated_at) VALUES(?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET plate=excluded.plate,status=excluded.status,version=excluded.version,updated_at=excluded.updated_at',
                            (data['id'],data['plate'],data['status'],data['version'],now))
         return True
+
+
+    def operation_receipt(self, trip_id, operation):
+        with closing(sqlite3.connect(self.path)) as db:
+            row = db.execute('SELECT distance_km,response_json FROM trip_operations WHERE trip_id=? AND operation=?', (trip_id, operation)).fetchone()
+        return {'distance_km': row[0], 'response': json.loads(row[1])} if row else None
+
+    def save_transition(self, trip, previous, operation, distance_km):
+        result = {'id': trip.id, 'status': trip.status}
+        with closing(sqlite3.connect(self.path, timeout=5)) as db, db:
+            db.execute('BEGIN IMMEDIATE')
+            existing = db.execute('SELECT distance_km,response_json FROM trip_operations WHERE trip_id=? AND operation=?', (trip.id, operation)).fetchone()
+            if existing:
+                if existing[0] != distance_km:
+                    raise DomainError('idempotency_payload_conflict')
+                return json.loads(existing[1])
+            updated = db.execute('UPDATE trips SET status=? WHERE id=? AND status=?', (trip.status, trip.id, previous))
+            if updated.rowcount != 1:
+                raise DomainError('concurrent_trip_transition')
+            db.execute('INSERT INTO trip_operations VALUES(?,?,?,?)', (trip.id, operation, distance_km, json.dumps(result)))
+        return result

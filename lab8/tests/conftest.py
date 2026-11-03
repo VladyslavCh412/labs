@@ -14,6 +14,8 @@ os.environ['FLEETFLOW_AUDIT_PATH']=str(Path(_test_data.name)/'audit.jsonl')
 def pytest_collection_modifyitems(items):
     import pytest
     for item in items:
+        if item.get_closest_marker('unit'):
+            continue
         name=item.nodeid
         if 'test_domain' in name or ('test_read_cache' in name and 'test_trip_write' not in name): level='unit'
         elif 'test_contract' in name: level='contract'

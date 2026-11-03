@@ -54,3 +54,26 @@ def test_consumer_timeout_mapping():
     def timeout(request):raise httpx.ReadTimeout('simulated',request=request)
     client=FleetClient('http://provider',timeout=CONTRACT['availability_timeout_seconds'],transport=httpx.MockTransport(timeout))
     with pytest.raises(FleetUnavailable):asyncio.run(client.get_json('/vehicles/v-1'))
+
+
+def test_lifecycle_provider_satisfies_command_contract(tmp_path):
+    contract=json.loads((Path(__file__).resolve().parents[1]/'contracts/lifecycle-contract.json').read_text())
+    body=dict(trip_id='contract-trip',operation='start',vehicle_id='v-1',driver_id='d-1',distance_km=0)
+    validate(body,contract['request_schema'])
+    with TestClient(create_app(tmp_path/'fleet.sqlite')) as provider:
+        response=provider.post(contract['path'],json=body,headers=service_headers('trips-service'))
+        assert response.status_code==200
+        validate(response.json(),contract['response_schema'])
+        assert provider.post(contract['path'],json=body,headers=service_headers('trips-service')).json()==response.json()
+
+
+def test_lifecycle_consumer_uses_contract_without_provider():
+    contract=json.loads((Path(__file__).resolve().parents[1]/'contracts/lifecycle-contract.json').read_text())
+    def respond(request):
+        assert request.url.path==contract['path'] and request.method==contract['method']
+        validate(json.loads(request.content),contract['request_schema'])
+        result=dict(id='v-1',status='in_trip',mileage_km=0,version=2)
+        validate(result,contract['response_schema'])
+        return httpx.Response(200,json=result)
+    client=FleetClient('http://provider',transport=httpx.MockTransport(respond))
+    assert asyncio.run(client.execute_lifecycle('contract-trip','start','v-1','d-1'))['status']=='in_trip'
