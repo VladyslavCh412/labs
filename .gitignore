@@ -37,7 +37,7 @@
 **/verification/*.txt
 **/benchmarks_results.json
 
-# Final LR8 package requested for the separate lab8-complete branch.
-!lab8/submission/
-!lab8/submission/*.pdf
-!lab8/submission/*.pptx
+# The final LR8 submission is part of the published project.
+!lab8final/submission/
+!lab8final/submission/*.pdf
+!lab8final/submission/*.pptx

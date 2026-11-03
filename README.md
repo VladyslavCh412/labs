@@ -1,13 +1,17 @@
 # FleetFlow — підсумковий продукт
 
-Поточний і самостійний проєкт — **[lab8/](lab8/)**. Відкрийте тільки цю папку у VS Code.
+Готова підсумкова ЛР8 — **[lab8final/](lab8final/)**, доступна в основній гілці `main`.
+Для запуску та перевірки відкрийте тільки цю папку у VS Code.
 Фронтенд TypeScript; бекенд FastAPI + SQLite.
 
 ```powershell
-cd lab8
+cd lab8final
 python run.py setup
 python run.py start
 ```
 
 Інші каталоги — архів попередніх етапів; для використання кінцевого продукту вони не потрібні.
-[Матриця всіх вимог](lab8/docs/REQUIREMENTS.md) · [Матеріали ЛР8](lab8/submission/).
+[Матриця всіх вимог](lab8final/docs/REQUIREMENTS.md) ·
+[Архітектура](lab8final/docs/ARCHITECTURE.md) ·
+[Звіт ЛР8](lab8final/submission/FleetFlow_Lab8.pdf) ·
+[Презентація для захисту](lab8final/submission/FleetFlow_Defense.pptx).

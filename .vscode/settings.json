@@ -1,8 +1,8 @@
 {
-  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+  "python.defaultInterpreterPath": "${workspaceFolder}/lab8final/.venv/Scripts/python.exe",
   "python.testing.pytestEnabled": true,
   "python.testing.unittestEnabled": false,
-  "python.testing.cwd": "${workspaceFolder}/lab8",
+  "python.testing.cwd": "${workspaceFolder}/lab8final",
   "python.testing.pytestArgs": ["tests", "-k", "not test_dynamic_http_p95_at_100_users"],
   "files.exclude": {"**/__pycache__": true, "**/.pytest_cache": true},
   "search.exclude": {"**/.venv": true, "**/.runtime": true, "**/data": true}
