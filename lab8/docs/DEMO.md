@@ -16,8 +16,8 @@
 
 ## Команди
 
-З кореня: `python run.py start`, `python run.py verify`.
-Із lab8: `python verification/live_smoke.py`,
+З кореня цього проєкту: `python run.py start`, `python run.py verify`.
+З цієї самої папки: `python verification/live_smoke.py`,
 `python verification/negative_pipeline.py`.
 Навмисний імпорт змінюється тільки в тимчасовій копії.
 

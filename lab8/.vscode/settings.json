@@ -1,0 +1,25 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  "python.testing.cwd": "${workspaceFolder}",
+  "python.testing.pytestArgs": [
+    "tests",
+    "-k",
+    "not test_dynamic_http_p95_at_100_users"
+  ],
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    ".venv": true,
+    ".runtime": true,
+    "frontend/node_modules": true
+  },
+  "search.exclude": {
+    "**/.venv": true,
+    "**/.runtime": true,
+    "**/node_modules": true,
+    "**/data": true
+  },
+  "window.title": "FleetFlow — підсумкова ЛР8 · ${activeEditorShort}"
+}

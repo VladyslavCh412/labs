@@ -1,15 +1,15 @@
 {
   "users": 100,
-  "duration_s": 3.092,
-  "requests": 1470,
+  "duration_s": 3.101,
+  "requests": 1461,
   "errors": 0,
   "error_rate": 0.0,
-  "p50_ms": 205.972,
-  "p95_ms": 240.524,
-  "repository_p95_ms": 4.177,
-  "requests_per_s": 475.43,
+  "p50_ms": 203.266,
+  "p95_ms": 261.852,
+  "repository_p95_ms": 0.011,
+  "requests_per_s": 471.16,
   "statuses": {
-    "200": 1470
+    "200": 1461
   },
   "target_met": true
 }

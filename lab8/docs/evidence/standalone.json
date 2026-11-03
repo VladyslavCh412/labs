@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-03",
+  "method": "Copied only the final project; excluded data, venv, node_modules and runtime files. Built TypeScript and ran pipeline, negative gate and live HTTP smoke with Python isolated mode (-I).",
+  "other_laboratory_directories_in_copy": false,
+  "inherited_pythonpath": false,
+  "typescript_build": "passed",
+  "functional_cases_passed": 85,
+  "domain_line_coverage_percent": 100,
+  "http_gate": {
+    "users": 100,
+    "duration_s": 3.101,
+    "requests": 1461,
+    "errors": 0,
+    "error_rate": 0.0,
+    "p50_ms": 203.266,
+    "p95_ms": 261.852,
+    "repository_p95_ms": 0.011,
+    "requests_per_s": 471.16,
+    "statuses": {
+      "200": 1461
+    },
+    "target_met": true
+  },
+  "negative_pipeline": "rejected injected violation with exit 1",
+  "live_http_smoke": "9 checks passed, including real Fleet outage and independent TripCreated worker",
+  "production_strategy_routing": "Dashboard uses RoutingStrategy and rejects a mismatched resource owner"
+}

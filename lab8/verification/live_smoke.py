@@ -64,6 +64,21 @@ def main():
                 assert denied.status_code==403;checks['direct_role_bypass_rejected']=True
                 assert client.get(base+'/').status_code==200 and client.get(base+'/assets/app.js').status_code==200
                 checks['dashboard_assets']=True
+                # A real owner outage: the synchronous scenario fails cleanly,
+                # while the independent Trips subscriber can finish queued work.
+                processes[0].terminate()
+                processes[0].wait(timeout=5)
+                failed=client.post(base+'/api/trips/trips',headers=headers,
+                    json={'id':'during-outage','vehicle_id':'v-2','driver_id':'d-2','route_id':'r-1'})
+                assert failed.status_code==503,failed.text
+                assert client.get(base+'/api/trips/trips/during-outage',headers=headers).status_code==404
+                assert client.get(base+'/api/trips/trips/smoke-trip',headers=headers).status_code==200
+                checks['controlled_fleet_outage_503_no_partial_trip']=True
+                subprocess.run([sys.executable,'event_worker.py','--once'],cwd=ROOT,env=env,
+                               stdout=subprocess.DEVNULL,check=True)
+                messages=client.get(base+'/api/trips/notifications',headers=headers).json()
+                assert any(item['trip_id']=='smoke-trip' for item in messages)
+                checks['tripcreated_worker_independent_of_fleet']=True
         finally:
             for proc in processes:proc.terminate()
             for proc in processes:

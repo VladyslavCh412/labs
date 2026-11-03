@@ -4,54 +4,54 @@
   "passed": 85,
   "http_gate_tests": 1,
   "domain_line_coverage": 100.0,
-  "source_sha256": "23e74486b94a69e8914d6da0422570dccf402a067f4f94c61b04871352487bfc",
+  "source_sha256": "7cf63c6a4bcc3ed6c973c61b8a69616f8259b27be0a60e44408ad41a8bb8aa44",
   "levels": {
     "architecture": {
       "count": 5,
-      "seconds": 0.09
+      "seconds": 0.08
     },
     "integration": {
       "count": 40,
-      "seconds": 4.272
+      "seconds": 4.3
     },
     "unit": {
       "count": 31,
-      "seconds": 0.06400000000000003
+      "seconds": 0.06300000000000003
     },
     "contract": {
       "count": 9,
-      "seconds": 0.178
+      "seconds": 0.175
     }
   },
   "tests": [
     {
       "name": "tests.test_architecture_extensions.test_relative_from_package_import_cannot_hide_a_cycle",
       "level": "architecture",
-      "seconds": 0.013,
+      "seconds": 0.008,
       "passed": true
     },
     {
       "name": "tests.test_architecture_extensions.test_application_imports_only_domain_ports",
       "level": "architecture",
-      "seconds": 0.005,
+      "seconds": 0.004,
       "passed": true
     },
     {
       "name": "tests.test_architecture_extensions.test_malformed_projection_is_rejected_before_inbox_write",
       "level": "integration",
-      "seconds": 0.044,
+      "seconds": 0.043,
       "passed": true
     },
     {
       "name": "tests.test_architecture_extensions.test_start_of_missing_trip_returns_404",
       "level": "integration",
-      "seconds": 0.034,
+      "seconds": 0.032,
       "passed": true
     },
     {
       "name": "tests.test_characterization.test_gateway_routes_existing_urls_without_changing_responses",
       "level": "integration",
-      "seconds": 0.019,
+      "seconds": 0.02,
       "passed": true
     },
     {
@@ -69,13 +69,13 @@
     {
       "name": "tests.test_characterization.test_trip_event_notification_text_and_idempotence",
       "level": "integration",
-      "seconds": 0.023,
+      "seconds": 0.024,
       "passed": true
     },
     {
       "name": "tests.test_contract.test_provider_satisfies_independent_consumer_contract",
       "level": "contract",
-      "seconds": 0.074,
+      "seconds": 0.071,
       "passed": true
     },
     {
@@ -129,7 +129,7 @@
     {
       "name": "tests.test_dashboard.test_dashboard_endpoints_work_with_independent_services",
       "level": "integration",
-      "seconds": 0.284,
+      "seconds": 0.268,
       "passed": true
     },
     {
@@ -231,7 +231,7 @@
     {
       "name": "tests.test_domain.test_trip_requires_all_identifiers[1]",
       "level": "unit",
-      "seconds": 0.002,
+      "seconds": 0.001,
       "passed": true
     },
     {
@@ -273,31 +273,31 @@
     {
       "name": "tests.test_extension_points.test_factory_builds_separate_components",
       "level": "integration",
-      "seconds": 0.022,
+      "seconds": 0.016,
       "passed": true
     },
     {
       "name": "tests.test_extension_points.test_observer_notifies_subscribers_without_duplicate_delivery",
       "level": "integration",
-      "seconds": 0.032,
+      "seconds": 0.022,
       "passed": true
     },
     {
       "name": "tests.test_fitness.test_static_domain_imports",
       "level": "architecture",
-      "seconds": 0.005,
+      "seconds": 0.004,
       "passed": true
     },
     {
       "name": "tests.test_fitness.test_static_no_cycles",
       "level": "architecture",
-      "seconds": 0.051,
+      "seconds": 0.053,
       "passed": true
     },
     {
       "name": "tests.test_fitness.test_rule_detects_injected_import_and_cycle",
       "level": "architecture",
-      "seconds": 0.016,
+      "seconds": 0.011,
       "passed": true
     },
     {
@@ -309,7 +309,7 @@
     {
       "name": "tests.test_lab3.test_fleet_vehicles_drivers",
       "level": "integration",
-      "seconds": 0.087,
+      "seconds": 0.083,
       "passed": true
     },
     {
@@ -321,37 +321,37 @@
     {
       "name": "tests.test_lab3.test_create_trip_sync_and_atomic_outbox",
       "level": "integration",
-      "seconds": 0.102,
+      "seconds": 0.098,
       "passed": true
     },
     {
       "name": "tests.test_lab3.test_unknown_route_is_404",
       "level": "integration",
-      "seconds": 0.078,
+      "seconds": 0.076,
       "passed": true
     },
     {
       "name": "tests.test_lab3.test_unavailable_vehicle_rejected",
       "level": "integration",
-      "seconds": 0.098,
+      "seconds": 0.093,
       "passed": true
     },
     {
       "name": "tests.test_lab3.test_fleet_down_returns_503_and_no_trip",
       "level": "integration",
-      "seconds": 0.669,
+      "seconds": 0.665,
       "passed": true
     },
     {
       "name": "tests.test_lab3.test_async_notification_after_fleet_offline",
       "level": "integration",
-      "seconds": 0.1,
+      "seconds": 0.096,
       "passed": true
     },
     {
       "name": "tests.test_lab3.test_outbox_preserved_while_worker_offline",
       "level": "integration",
-      "seconds": 0.096,
+      "seconds": 0.091,
       "passed": true
     },
     {
@@ -363,7 +363,7 @@
     {
       "name": "tests.test_lab5.test_all_four_migrations_and_backward_compatibility",
       "level": "integration",
-      "seconds": 0.055,
+      "seconds": 0.054,
       "passed": true
     },
     {
@@ -375,19 +375,19 @@
     {
       "name": "tests.test_lab5.test_cache_explicit_invalidation_on_write",
       "level": "integration",
-      "seconds": 0.108,
+      "seconds": 0.096,
       "passed": true
     },
     {
       "name": "tests.test_lab5.test_local_vehicle_copy_and_idempotent_replay",
       "level": "integration",
-      "seconds": 0.15,
+      "seconds": 0.135,
       "passed": true
     },
     {
       "name": "tests.test_lab5.test_bridge_ack_after_confirmed_event_delivery",
       "level": "integration",
-      "seconds": 0.003,
+      "seconds": 0.002,
       "passed": true
     },
     {
@@ -399,49 +399,49 @@
     {
       "name": "tests.test_lab5.test_post_migration_old_lab_3_trip_still_operates",
       "level": "integration",
-      "seconds": 0.092,
+      "seconds": 0.096,
       "passed": true
     },
     {
       "name": "tests.test_lifecycle.test_complete_lifecycle_persists_and_replays_without_double_mileage",
       "level": "integration",
-      "seconds": 0.164,
+      "seconds": 0.17,
       "passed": true
     },
     {
       "name": "tests.test_lifecycle.test_viewer_cannot_start_and_human_cannot_impersonate_internal_command",
       "level": "integration",
-      "seconds": 0.128,
+      "seconds": 0.126,
       "passed": true
     },
     {
       "name": "tests.test_lifecycle.test_vehicle_is_claimed_atomically_by_only_one_trip",
       "level": "integration",
-      "seconds": 0.051,
+      "seconds": 0.046,
       "passed": true
     },
     {
       "name": "tests.test_lifecycle.test_retry_recovers_after_fleet_commit_and_before_trips_commit",
       "level": "integration",
-      "seconds": 0.11,
+      "seconds": 0.119,
       "passed": true
     },
     {
       "name": "tests.test_lifecycle.test_timeout_does_not_advance_trip_and_retry_after_lost_reply_is_safe",
       "level": "integration",
-      "seconds": 0.111,
+      "seconds": 0.112,
       "passed": true
     },
     {
       "name": "tests.test_lifecycle.test_driver_is_rechecked_at_actual_departure",
       "level": "integration",
-      "seconds": 0.099,
+      "seconds": 0.103,
       "passed": true
     },
     {
       "name": "tests.test_lifecycle.test_registration_change_produces_projection_update",
       "level": "integration",
-      "seconds": 0.097,
+      "seconds": 0.104,
       "passed": true
     },
     {
@@ -459,7 +459,7 @@
     {
       "name": "tests.test_pagination.test_optimization_preserves_page_projection_order_and_filter",
       "level": "integration",
-      "seconds": 0.03,
+      "seconds": 0.028,
       "passed": true
     },
     {
@@ -477,61 +477,61 @@
     {
       "name": "tests.test_read_cache.test_trip_write_invalidates_cached_page",
       "level": "integration",
-      "seconds": 0.107,
+      "seconds": 0.112,
       "passed": true
     },
     {
       "name": "tests.test_security.test_direct_owner_rejects_missing_forged_and_expired_tokens[fleet-/vehicles/v-1]",
       "level": "integration",
-      "seconds": 0.066,
+      "seconds": 0.067,
       "passed": true
     },
     {
       "name": "tests.test_security.test_direct_owner_rejects_missing_forged_and_expired_tokens[trips-/trips]",
       "level": "integration",
-      "seconds": 0.043,
+      "seconds": 0.045,
       "passed": true
     },
     {
       "name": "tests.test_security.test_invalid_claims_rejected[aud-other]",
       "level": "integration",
-      "seconds": 0.052,
+      "seconds": 0.053,
       "passed": true
     },
     {
       "name": "tests.test_security.test_invalid_claims_rejected[iss-other]",
       "level": "integration",
-      "seconds": 0.054,
+      "seconds": 0.05,
       "passed": true
     },
     {
       "name": "tests.test_security.test_invalid_claims_rejected[role-root]",
       "level": "integration",
-      "seconds": 0.05,
+      "seconds": 0.053,
       "passed": true
     },
     {
       "name": "tests.test_security.test_roles_at_both_owners_and_internal_event_boundary",
       "level": "integration",
-      "seconds": 0.122,
+      "seconds": 0.143,
       "passed": true
     },
     {
       "name": "tests.test_security.test_login_hashing_and_rate_limit",
       "level": "integration",
-      "seconds": 0.608,
+      "seconds": 0.659,
       "passed": true
     },
     {
       "name": "tests.test_security.test_denial_is_audited_without_token_or_password",
       "level": "integration",
-      "seconds": 0.059,
+      "seconds": 0.056,
       "passed": true
     },
     {
       "name": "tests.test_security.test_proxy_forwards_identity_and_does_not_bypass_ownership",
       "level": "integration",
-      "seconds": 0.093,
+      "seconds": 0.112,
       "passed": true
     }
   ]

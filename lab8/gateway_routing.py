@@ -9,13 +9,13 @@ class RoutingStrategy(Protocol):
 class FleetRoutes:
     """Use the Fleet API for vehicle and driver resources."""
     def target(self, endpoint, fleet_url, trips_url):
-        return fleet_url if endpoint.startswith(('vehicles/', 'drivers/', 'fleet-events/', 'cache/')) else None
+        return fleet_url if endpoint in {'vehicles', 'drivers'} or endpoint.startswith(('vehicles/', 'drivers/', 'fleet-events/', 'cache/')) else None
 
 @dataclass(frozen=True)
 class TripsRoutes:
     """Use the Trips API for trip planning and event data."""
     def target(self, endpoint, fleet_url, trips_url):
-        if endpoint == 'trips' or endpoint.startswith(('trips/', 'events/', 'notifications', 'snapshots/')):
+        if endpoint in {'trips', 'routes'} or endpoint.startswith(('trips/', 'routes/', 'events/', 'notifications', 'snapshots/')):
             return trips_url
         return None
 

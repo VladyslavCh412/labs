@@ -37,7 +37,7 @@
   {
     "slide": 8,
     "title": "Тести та автоматичні архітектурні межі",
-    "note": "6:50–7:50. 85 functional cases and 1 isolated HTTP gate; 100% domain line coverage. Negative pipeline returns1 in disposable copy, source unchanged. 7 independent live-smoke assertions are not added to pytest count. Джерела: tests-summary.json, negative-pipeline.json, .github/workflows/architecture.yml."
+    "note": "6:50–7:50. 85 functional cases and 1 isolated HTTP gate; 100% domain line coverage. Negative pipeline returns1 in disposable copy, source unchanged. 9 independent live-smoke assertions are not added to pytest count. Джерела: tests-summary.json, negative-pipeline.json, .github/workflows/architecture.yml."
   },
   {
     "slide": 9,

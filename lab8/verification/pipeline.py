@@ -18,6 +18,8 @@ def main():
     if a.static_only:return 0
     result=subprocess.call([sys.executable,'verification/export_contracts.py'],cwd=ROOT)
     if result:return result
+    result=subprocess.call([sys.executable,'verification/pattern_metrics.py','--check'],cwd=ROOT)
+    if result:return result
     result=subprocess.call([sys.executable,'-m','pytest','-q','--durations=0',
                             '-k','not test_dynamic_http_p95_at_100_users',
                             '--junitxml=verification/test_results.xml',

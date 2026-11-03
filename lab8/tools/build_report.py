@@ -85,7 +85,7 @@ def collect_evidence():
     deps={'unit':'Немає БД/HTTP','integration':'Тимчасова SQLite / ASGI / mock transport','contract':'Незалежний контракт + provider або mock','architecture':'AST та тимчасова копія джерел'}
     for key,value in groups.items():lines.append(f'| {key} | {value["count"]} | {value["seconds"]:.3f} | {deps[key]} |')
     lines+=['','Окремо: 1 реальний HTTP performance gate (100 users, 0 errors, p95<=500 мс).',
-            'Live smoke запускає три HTTP-процеси; його 7 перевірок не додаються до кількості pytest-кейсів.',
+            'Live smoke запускає три HTTP-процеси; його 9 перевірок не додаються до кількості pytest-кейсів.',
             '', '| Файл тестів | Рівні | Кількість | Час, с |','|---|---|---:|---:|']
     for key,value in by_file.items():lines.append(f'| {key} | {", ".join(sorted(value["levels"]))} | {value["count"]} | {value["seconds"]:.3f} |')
     lines+=['','Баланс: доменні правила та in-memory порти перевіряються модульно; більшість boundary-кейсів — швидкі інтеграційні ASGI/SQLite, а не повні E2E. Немає потреби піднімати весь стенд для кожного правила. Піраміда не ідеальна за кількістю, але локальна функціональна suite займає кілька секунд; дорогий HTTP gate відокремлено.',
@@ -205,6 +205,35 @@ def performance_chart(measurements):
     return d
 
 
+def pattern_diagram(name):
+    root=ET.parse(ROOT/'diagrams/patterns'/f'{name}.svg').getroot()
+    height=410
+    d=Drawing(1280,height)
+    for item in root:
+        tag=item.tag.rsplit('}',1)[-1];a=item.attrib
+        if tag=='rect' and not a.get('width','').endswith('%'):
+            d.add(Rect(float(a['x']),height-float(a['y'])-float(a['height']),
+                       float(a['width']),float(a['height']),
+                       fillColor=colors.HexColor(a.get('fill','#FFFFFF')),
+                       strokeColor=colors.HexColor(a.get('stroke','#164e95')),strokeWidth=2))
+        elif tag=='line':
+            x1,y1,x2,y2=float(a['x1']),height-float(a['y1']),float(a['x2']),height-float(a['y2'])
+            d.add(Line(x1,y1,x2,y2,strokeColor=colors.HexColor(a.get('stroke','#334155')),strokeWidth=2))
+            if a.get('marker-end'):
+                import math
+                angle=math.atan2(y2-y1,x2-x1)
+                d.add(Polygon([x2,y2,x2-10*math.cos(angle-.4),y2-10*math.sin(angle-.4),
+                               x2-10*math.cos(angle+.4),y2-10*math.sin(angle+.4)],
+                              fillColor=colors.HexColor('#334155'),strokeColor=None))
+        elif tag=='text':
+            d.add(String(float(a['x']),height-float(a['y']),''.join(item.itertext()),
+                         fontName='Bold' if a.get('font-weight')=='bold' else 'Body',
+                         fontSize=float(a.get('font-size','20')),textAnchor=a.get('text-anchor','start'),
+                         fillColor=colors.HexColor(a.get('fill','#102C46'))))
+    factor=491/1280;d.scale(factor,factor);d.width=491;d.height=height*factor
+    return d
+
+
 class Report(BaseDocTemplate):
     def __init__(self,path):
         super().__init__(str(path),pagesize=A4,leftMargin=52,rightMargin=52,topMargin=54,bottomMargin=48,
@@ -293,7 +322,7 @@ def main():
             compact.setStyle(TableStyle([('TOPPADDING',(0,0),(-1,-1),4),('BOTTOMPADDING',(0,0),(-1,-1),4)]))
             flow.extend([compact,Spacer(1,8)])
         else:flow.append(para(block.replace('\n',' ')))
-    flow.append(para('Негативний дослід: import sqlite3 у копії fleet_service/domain.py → ARCHITECTURE FAILED, returncode=1; original_source_unchanged=true. Live HTTP smoke: усі 7 перевірок пройшли.'))
+    flow.append(para('Негативний дослід: import sqlite3 у копії fleet_service/domain.py → ARCHITECTURE FAILED, returncode=1; original_source_unchanged=true. Live HTTP smoke: усі 9 перевірок пройшли.'))
     screenshot=EVIDENCE/'dashboard.png'
     if screenshot.exists():
         flow.extend([PageBreak(),para('Додаток B. Демонстрація застосунку','H1UA'),Image(str(screenshot),width=491,height=491*1077/1425),para('Демонстраційний рейс завершено на 25 км; пробіг збережений у Fleet. Облікові дані не включено.','CaptionUA')])
@@ -307,6 +336,13 @@ def main():
         for block in content.split('\n\n'):
             block=block.strip().lstrip('#').strip()
             if block:flow.append(para(block.replace('\n',' '),'ADRUA'))
+    flow.extend([PageBreak(),para('Додаток D. Патерни: діаграми до і після','H1UA'),
+                 para('Strategy: залежності центрального proxy','H2UA'),
+                 pattern_diagram('strategy_before'),Spacer(1,15),pattern_diagram('strategy_after'),
+                 para('Дві гілки вибору сервісу в proxy замінено вибором RoutingStrategy. Одна гілка перевірки невідомого endpoint лишається. Локальні показники наведено в розділі 6.','CaptionUA'),
+                 PageBreak(),para('Observer: продуцент та підписники','H1UA'),
+                 pattern_diagram('observer_before'),Spacer(1,15),pattern_diagram('observer_after'),
+                 para('NotificationObserver реалізує TripCreatedObserver; інші реалізації додаються до списку підписників без зміни TripsRepository. Пряму SQL-вставку notification_inbox перенесено з продуцента до підписника.','CaptionUA')])
     report=Report(OUTPUT/'FleetFlow_Lab8.pdf');report.multiBuild(flow)
     print(f'PDF written: {report.filename}; tests={summary["passed"]}; gate_p95={gate["p95_ms"]} ms')
 

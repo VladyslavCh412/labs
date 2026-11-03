@@ -12,6 +12,7 @@ import httpx
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
+from gateway_routing import resolve_target
 
 FRONTEND = Path(__file__).resolve().parent / 'frontend'
 
@@ -56,8 +57,11 @@ def create_app(fleet_url=None, trips_url=None, transport=None):
     async def forward(service: str, path: str, request: Request):
         if service not in hosts or not path:
             raise HTTPException(404, 'unknown_service_or_endpoint')
+        owner = resolve_target(path, hosts['fleet'], hosts['trips'])
+        if owner is None or owner != hosts[service]:
+            raise HTTPException(404, 'unknown_endpoint_or_resource_owner')
         # The reverse proxy can only reach the two fixed localhost backends.
-        destination = f"{hosts[service]}/{path}"
+        destination = f"{owner}/{path}"
         if request.url.query:
             destination += '?' + request.url.query
         body = await request.body()

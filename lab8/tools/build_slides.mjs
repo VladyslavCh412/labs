@@ -12,7 +12,7 @@ if(!modules||!skill)throw new Error('Set RUNTIME_NODE_MODULES and PRESENTATIONS_
 const require=createRequire(path.join(modules,'__runtime__.cjs'));
 const {Presentation,PresentationFile}=await import(pathToFileURL(require.resolve('@oai/artifact-tool')).href);
 const {applyPresentationChartFont,finalizePresentation}=await import(pathToFileURL(path.join(skill,'container_tools/artifact_tool_utils.mjs')).href);
-const build=path.resolve(ROOT,'../.runtime/slides',String(Date.now()));
+const build=path.resolve(ROOT,'.runtime/slides',String(Date.now()));
 await fs.mkdir(build,{recursive:true});
 const json=async name=>JSON.parse(await fs.readFile(path.join(ROOT,'docs/evidence',name),'utf8'));
 const load=await json('load-results.json'),stress=await json('stress-results.json'),gate=await json('fitness.json'),tests=await json('tests-summary.json');
@@ -49,7 +49,7 @@ const s=p.slides.add();s.background.fill='#102C46';
 text(s,'FleetFlow',80,180,1120,110,84,true,'#FFFFFF');
 text(s,'Управління автопарком та маршрутами',84,315,1060,112,44,false,'#E1EBF5');
 text(s,'Лабораторна робота 8 · Варіант 12',84,515,1080,45,28,false,'#AFC6DD');
-text(s,'Підсумок архітектурного проєкту ЛР1–ЛР8 · 03.11.2026',84,575,1110,45,24,false,'#AFC6DD');
+text(s,'Самостійний кінцевий продукт · ЛР8 · 03.11.2026',84,575,1110,45,24,false,'#AFC6DD');
 s.speakerNotes.text='0:00–0:40. Призначення: локальна система обліку ТЗ, водіїв, маршрутів та життєвого циклу рейсу. Матеріали: docs/ARCHITECTURE.md, поточний lab8. Звіти для ЛР1–ЛР7 не створювалися.';
 notes.push({slide:1,title:'FleetFlow',note:s.speakerNotes.text});
 }
@@ -137,7 +137,7 @@ text(s,'20 000 рядків · 1 worker · 3 с/етап · локальний �
 }
 // 8: distinguish the test counts from independent smoke assertions.
 {
-const s=slide('Тести та автоматичні архітектурні межі','6:50–7:50. 85 functional cases and 1 isolated HTTP gate; 100% domain line coverage. Negative pipeline returns1 in disposable copy, source unchanged. 7 independent live-smoke assertions are not added to pytest count. Джерела: tests-summary.json, negative-pipeline.json, .github/workflows/architecture.yml.');
+const s=slide('Тести та автоматичні архітектурні межі','6:50–7:50. 85 functional cases and 1 isolated HTTP gate; 100% domain line coverage. Negative pipeline returns1 in disposable copy, source unchanged. 9 independent live-smoke assertions are not added to pytest count. Джерела: tests-summary.json, negative-pipeline.json, .github/workflows/architecture.yml.');
 text(s,`${tests.functional_tests} + 1`,65,170,470,100,76,true,C.blue);
 text(s,'функціональні кейси + HTTP gate',65,290,550,80,30);
 text(s,`${tests.domain_line_coverage.toFixed(0)}%`,725,170,480,100,76,true,C.green);
@@ -164,7 +164,7 @@ for(const [index,s] of p.slides.items.entries()){
 const candidate=path.join(build,'candidate.pptx');
 await (await PresentationFile.exportPptx(p)).save(candidate);
 await fs.mkdir(path.join(build,'output'),{recursive:true});
-const result=await finalizePresentation({workspaceDir:path.resolve(ROOT,'..'),candidatePath:candidate,
+const result=await finalizePresentation({workspaceDir:ROOT,candidatePath:candidate,
  finalPath:path.join(build,'output/validated.pptx'),pythonExecutable:process.env.RUNTIME_PYTHON,
  integrityValidatorPath:path.join(skill,'container_tools/inspect_presentation_package_integrity.py'),
  layoutValidatorPath:path.join(skill,'container_tools/inspect_presentation_layout_geometry.py'),

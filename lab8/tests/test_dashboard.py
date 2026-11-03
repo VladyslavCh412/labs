@@ -29,6 +29,8 @@ def test_dashboard_endpoints_work_with_independent_services(tmp_path):
         assert client.get('/assets/src/app.ts').status_code==404
         assert client.get('/assets/package.json').status_code==404
         assert client.get('/api/health').json()=={'fleet':True,'trips':True}
+        assert client.get('/api/fleet/trips').status_code==404
+        assert client.get('/api/trips/vehicles').status_code==404
         vehicles=client.get('/api/fleet/vehicles').json()
         assert len(vehicles)>=3
         assert any(item['id']=='v-1' for item in vehicles)

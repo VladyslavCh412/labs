@@ -1,0 +1,12 @@
+classDiagram
+  class gateway["Gateway"]
+  gateway : +proxy(endpoint)
+  class strategy["«interface» RoutingStrategy"]
+  strategy : +target(endpoint, urls)
+  class fleet["FleetRoutes"]
+  fleet : +target(...)
+  class trips["TripsRoutes"]
+  trips : +target(...)
+  gateway ..> strategy : resolve_target
+  fleet ..> strategy : реалізує
+  trips ..> strategy : реалізує

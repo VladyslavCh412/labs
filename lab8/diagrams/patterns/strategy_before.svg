@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 410" width="1280" height="410">
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8" fill="none" stroke="#334155"/></marker></defs>
+<rect width="100%" height="100%" fill="white"/>
+<text x="25" y="28" font-family="Arial" font-size="22" font-weight="bold">Strategy: до</text>
+<line x1="330" y1="175" x2="700" y2="85" stroke="#334155" stroke-width="2" marker-end="url(#a)"/>
+<text x="515.0" y="115.0" text-anchor="middle" font-family="Arial" font-size="18">умова Fleet</text>
+<line x1="330" y1="175" x2="700" y2="295" stroke="#334155" stroke-width="2" marker-end="url(#a)"/>
+<text x="515.0" y="220.0" text-anchor="middle" font-family="Arial" font-size="18">умова Trips</text>
+<rect x="30" y="125" width="300" height="110" fill="#edf3ff" stroke="#164e95" stroke-width="2"/>
+<line x1="30" y1="166" x2="330" y2="166" stroke="#164e95"/>
+<text x="180.0" y="152" text-anchor="middle" font-family="Arial" font-size="20">Gateway</text>
+<text x="180.0" y="182" text-anchor="middle" font-family="Arial" font-size="20">+proxy(endpoint)</text>
+<text x="180.0" y="212" text-anchor="middle" font-family="Arial" font-size="20">if / elif за префіксом</text>
+<rect x="700" y="35" width="300" height="110" fill="#edf3ff" stroke="#164e95" stroke-width="2"/>
+<line x1="700" y1="76" x2="1000" y2="76" stroke="#164e95"/>
+<text x="850.0" y="62" text-anchor="middle" font-family="Arial" font-size="20">FleetAPI</text>
+<text x="850.0" y="92" text-anchor="middle" font-family="Arial" font-size="20">HTTP</text>
+<rect x="700" y="245" width="300" height="110" fill="#edf3ff" stroke="#164e95" stroke-width="2"/>
+<line x1="700" y1="286" x2="1000" y2="286" stroke="#164e95"/>
+<text x="850.0" y="272" text-anchor="middle" font-family="Arial" font-size="20">TripsAPI</text>
+<text x="850.0" y="302" text-anchor="middle" font-family="Arial" font-size="20">HTTP</text>
+<text x="25" y="398" font-family="Arial" font-size="17" fill="#475569">Класи та залежності; знімок до — commit 46aa488; після — поточний кінцевий продукт</text></svg>

@@ -13,6 +13,9 @@ def test_strategy_is_extensible():
     assert resolve_target('missing','fleet','trips') is None
     assert FleetRoutes().target('drivers/d-1','F','T')=='F'
     assert TripsRoutes().target('events/outbox','F','T')=='T'
+    assert resolve_target('vehicles','F','T')=='F'
+    assert resolve_target('drivers','F','T')=='F'
+    assert resolve_target('routes','F','T')=='T'
 
 
 def test_adapter_creates_domain_facing_values():
