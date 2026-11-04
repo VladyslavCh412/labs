@@ -6,6 +6,22 @@
     }
   ],
   "settings": {
-    "window.title": "FleetFlow — ЛР8 · ${activeEditorShort}"
+    "window.title": "FleetFlow — ЛР8 · ${activeEditorShort}",
+    "terminal.integrated.profiles.windows": {
+      "FleetFlow": {
+        "path": "${env:windir}\\System32\\cmd.exe",
+        "args": [
+          "/d"
+        ]
+      }
+    },
+    "terminal.integrated.defaultProfile.windows": "FleetFlow",
+    "terminal.integrated.automationProfile.windows": {
+      "path": "${env:windir}\\System32\\cmd.exe",
+      "args": [
+        "/d"
+      ]
+    },
+    "python.terminal.activateEnvironment": false
   }
 }

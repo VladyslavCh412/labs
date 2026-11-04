@@ -3,7 +3,34 @@
   "python.testing.pytestEnabled": true,
   "python.testing.unittestEnabled": false,
   "python.testing.cwd": "${workspaceFolder}/lab8final",
-  "python.testing.pytestArgs": ["tests", "-k", "not test_dynamic_http_p95_at_100_users"],
-  "files.exclude": {"**/__pycache__": true, "**/.pytest_cache": true},
-  "search.exclude": {"**/.venv": true, "**/.runtime": true, "**/data": true}
+  "python.testing.pytestArgs": [
+    "tests",
+    "-k",
+    "not test_dynamic_http_p95_at_100_users"
+  ],
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.pytest_cache": true
+  },
+  "search.exclude": {
+    "**/.venv": true,
+    "**/.runtime": true,
+    "**/data": true
+  },
+  "terminal.integrated.profiles.windows": {
+    "FleetFlow": {
+      "path": "${env:windir}\\System32\\cmd.exe",
+      "args": [
+        "/d"
+      ]
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "FleetFlow",
+  "terminal.integrated.automationProfile.windows": {
+    "path": "${env:windir}\\System32\\cmd.exe",
+    "args": [
+      "/d"
+    ]
+  },
+  "python.terminal.activateEnvironment": false
 }
