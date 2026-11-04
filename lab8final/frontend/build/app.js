@@ -1,7 +1,7 @@
 function errorMessage(error) { return error instanceof Error ? error.message : 'Невідома помилка'; }
 let currentRole = '';
 let accessToken = ''; // Memory only: never persist a bearer token in localStorage.
-let authRequired = true;
+let authRequired = false;
 const icons = {
     grid: '<rect x="3" y="3" width="7" height="7" rx="1.3"/><rect x="14" y="3" width="7" height="7" rx="1.3"/><rect x="3" y="14" width="7" height="7" rx="1.3"/><rect x="14" y="14" width="7" height="7" rx="1.3"/>',
     truck: '<path d="M3 6h11v11H3zM14 10h4l3 4v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
@@ -355,7 +355,7 @@ element('vehicleSearch').addEventListener('input', renderVehicles);
 element('menuBtn').addEventListener('click', () => { element('sidebar').classList.toggle('open'); element('mobileShade').classList.toggle('open'); });
 element('mobileShade').addEventListener('click', () => { element('sidebar').classList.remove('open'); element('mobileShade').classList.remove('open'); });
 hydrateIcons();
-element('loginForm').addEventListener('submit', async (e) => {
+document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     element('loginError').textContent = '';
     try {
@@ -375,7 +375,7 @@ element('loginForm').addEventListener('submit', async (e) => {
         element('loginError').textContent = errorMessage(error);
     }
 });
-element('logoutBtn').addEventListener('click', () => { accessToken = ''; window.location.reload(); });
+document.getElementById('logoutBtn')?.addEventListener('click', () => { accessToken = ''; window.location.reload(); });
 async function initialize() {
     try {
         const configuration = await request('/api/config');

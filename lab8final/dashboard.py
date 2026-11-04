@@ -6,11 +6,13 @@ The browser accesses only port 8000. The dashboard forwards requests to the
 owning service via HTTP; it never accesses another service's SQLite database.
 """
 import os
+import hashlib
+import re
 from pathlib import Path
 
 import httpx
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import FileResponse, JSONResponse, Response
+from fastapi.responses import HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from gateway_routing import resolve_target
 
@@ -24,6 +26,9 @@ def create_app(fleet_url=None, trips_url=None, transport=None):
     }
     app = FastAPI(title='FleetFlow — архітектурний проєкт ЛР1–ЛР8', docs_url=None, redoc_url=None)
     login_required = auth_required()
+    asset_version = hashlib.sha256(b''.join(
+        (FRONTEND/'build'/name).read_bytes() for name in ['app.js', 'styles.css']
+    )).hexdigest()[:16]
     limiter=LoginLimiter()
     class LoginBody(BaseModel):
         username: str=Field(min_length=1,max_length=80)
@@ -38,9 +43,21 @@ def create_app(fleet_url=None, trips_url=None, transport=None):
 
     app.mount('/assets', StaticFiles(directory=FRONTEND / 'build'), name='assets')
 
+    @app.middleware('http')
+    async def fresh_frontend(request, call_next):
+        response = await call_next(request)
+        if request.url.path == '/' or request.url.path.startswith('/assets/'):
+            response.headers['Cache-Control'] = 'no-store'
+        return response
+
     @app.get('/', include_in_schema=False)
     def home():
-        return FileResponse(FRONTEND / 'index.html', media_type='text/html')
+        content = (FRONTEND/'index.html').read_text(encoding='utf-8')
+        if not login_required:
+            content = re.sub(r'<!-- AUTH_ONLY_START -->.*?<!-- AUTH_ONLY_END -->', '', content, flags=re.S)
+        content = content.replace('/assets/app.js', '/assets/app.js?v='+asset_version)
+        content = content.replace('/assets/styles.css', '/assets/styles.css?v='+asset_version)
+        return HTMLResponse(content)
 
     @app.get('/api/health', include_in_schema=False)
     async def services_health():

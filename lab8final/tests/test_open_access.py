@@ -16,6 +16,12 @@ def test_default_anonymous_gateway_lifecycle_has_no_login(tmp_path, monkeypatch)
     ui = dashboard_app('http://fleet', 'http://trips', LocalServices(fleet, trips))
     with TestClient(ui) as client:
         assert client.get('/api/config').json() == {'auth_required': False}
+        index = client.get('/')
+        assert 'loginPanel' not in index.text and 'loginForm' not in index.text
+        assert 'loginPassword' not in index.text and 'logoutBtn' not in index.text
+        assert index.headers['cache-control'] == 'no-store'
+        assert '/assets/app.js?v=' in index.text
+        assert client.get('/assets/app.js').headers['cache-control'] == 'no-store'
         assert client.post('/api/fleet/vehicles', json={'id':'open-v', 'plate':'BH1234OP'}).status_code == 201
         assert client.post('/api/fleet/drivers', json={'id':'open-d', 'name':'Local driver'}).status_code == 201
         assert client.post('/api/trips/routes', json={'id':'open-r', 'stops':['Odesa','Kyiv']}).status_code == 201
@@ -48,6 +54,7 @@ def test_opt_in_profile_advertises_and_requires_login(tmp_path, monkeypatch):
     monkeypatch.setenv('FLEETFLOW_AUTH_REQUIRED', '1')
     with TestClient(dashboard_app()) as ui, TestClient(fleet_app(tmp_path/'fleet.sqlite')) as fleet:
         assert ui.get('/api/config').json() == {'auth_required': True}
+        assert 'loginForm' in ui.get('/').text
         assert fleet.get('/vehicles').status_code == 401
         assert fleet.get('/openapi.json').json()['paths']['/vehicles']['get']['security']
 

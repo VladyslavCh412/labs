@@ -18,7 +18,7 @@ function errorMessage(error: unknown): string { return error instanceof Error ? 
 
 let currentRole: HumanRole | '' = '';
 let accessToken = ''; // Memory only: never persist a bearer token in localStorage.
-let authRequired = true;
+let authRequired = false;
 
 const icons: Record<string, string> = {
   grid:'<rect x="3" y="3" width="7" height="7" rx="1.3"/><rect x="14" y="3" width="7" height="7" rx="1.3"/><rect x="3" y="14" width="7" height="7" rx="1.3"/><rect x="14" y="14" width="7" height="7" rx="1.3"/>',
@@ -196,7 +196,7 @@ element('vehicleSearch').addEventListener('input',renderVehicles);
 element('menuBtn').addEventListener('click',()=>{element('sidebar').classList.toggle('open');element('mobileShade').classList.toggle('open')});
 element('mobileShade').addEventListener('click',()=>{element('sidebar').classList.remove('open');element('mobileShade').classList.remove('open')});
 hydrateIcons();
-element('loginForm').addEventListener('submit',async e=>{
+document.getElementById('loginForm')?.addEventListener('submit',async e=>{
  e.preventDefault();element('loginError').textContent='';
  try{
   const r=await fetch('/auth/token',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({username:element<HTMLInputElement>('loginUser').value,password:element<HTMLInputElement>('loginPassword').value})});
@@ -207,7 +207,7 @@ element('loginForm').addEventListener('submit',async e=>{
   await refresh();
  }catch(error){element('loginError').textContent=errorMessage(error);}
 });
-element('logoutBtn').addEventListener('click',()=>{accessToken='';window.location.reload();});
+document.getElementById('logoutBtn')?.addEventListener('click',()=>{accessToken='';window.location.reload();});
 async function initialize(): Promise<void> {
  try {
   const configuration = await request<AppConfig>('/api/config');
