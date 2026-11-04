@@ -78,7 +78,7 @@ def run(levels=(1,10,50,100,200),duration=3,rows=20000,modes=('baseline','optimi
                              ((f't-{i}','v-1','d-1','r-1','planned') for i in range(rows)))
         for mode in modes:
             port=free_port();env=os.environ.copy()
-            env.update(FLEETFLOW_JWT_SECRET=key,TRIPS_DB_PATH=str(db),TRIPS_READ_MODE=mode,
+            env.update(FLEETFLOW_JWT_SECRET=key,FLEETFLOW_AUTH_REQUIRED='1',TRIPS_DB_PATH=str(db),TRIPS_READ_MODE=mode,
                        FLEETFLOW_AUDIT_PATH=str(Path(tmp)/'audit.jsonl'))
             proc=subprocess.Popen([sys.executable,'-m','uvicorn','trips_service.app:app',
                                    '--host','127.0.0.1','--port',str(port),'--no-access-log','--log-level','error'],

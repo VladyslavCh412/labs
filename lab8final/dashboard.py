@@ -1,4 +1,4 @@
-from security import authenticate, LoginLimiter
+from security import authenticate, auth_required, LoginLimiter
 from pydantic import BaseModel, Field
 """Local dashboard for the LR5 Fleet/Trips services.
 
@@ -23,6 +23,7 @@ def create_app(fleet_url=None, trips_url=None, transport=None):
         'trips': (trips_url or os.getenv('TRIPS_URL', 'http://127.0.0.1:8102')).rstrip('/'),
     }
     app = FastAPI(title='FleetFlow — архітектурний проєкт ЛР1–ЛР8', docs_url=None, redoc_url=None)
+    login_required = auth_required()
     limiter=LoginLimiter()
     class LoginBody(BaseModel):
         username: str=Field(min_length=1,max_length=80)
@@ -52,6 +53,10 @@ def create_app(fleet_url=None, trips_url=None, transport=None):
                 except (httpx.HTTPError, ValueError):
                     results[service] = False
         return results
+
+    @app.get('/api/config', include_in_schema=False)
+    def configuration():
+        return JSONResponse({'auth_required': login_required}, headers={'Cache-Control':'no-store'})
 
     @app.api_route('/api/{service}/{path:path}', methods=['GET', 'POST', 'PATCH'], include_in_schema=False)
     async def forward(service: str, path: str, request: Request):

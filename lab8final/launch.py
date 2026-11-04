@@ -33,7 +33,11 @@ def main():
         return 1
     from setup_local import configure
     credentials=configure()
-    print('Облікові дані:',credentials,flush=True)
+    from security import auth_required
+    if auth_required():
+        print('Облікові дані:',credentials,flush=True)
+    else:
+        print('Панель відкривається без логіна та пароля.',flush=True)
     children=[]
     env=os.environ.copy()
     env.setdefault('PYTHONUNBUFFERED','1')

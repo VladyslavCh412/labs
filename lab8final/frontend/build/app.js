@@ -1,6 +1,7 @@
 function errorMessage(error) { return error instanceof Error ? error.message : 'Невідома помилка'; }
 let currentRole = '';
 let accessToken = ''; // Memory only: never persist a bearer token in localStorage.
+let authRequired = true;
 const icons = {
     grid: '<rect x="3" y="3" width="7" height="7" rx="1.3"/><rect x="14" y="3" width="7" height="7" rx="1.3"/><rect x="3" y="14" width="7" height="7" rx="1.3"/><rect x="14" y="14" width="7" height="7" rx="1.3"/>',
     truck: '<path d="M3 6h11v11H3zM14 10h4l3 4v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
@@ -52,7 +53,7 @@ async function request(path, options = {}) {
         content = await response.json();
     }
     catch { }
-    if (response.status === 401) {
+    if (authRequired && response.status === 401) {
         accessToken = '';
         element('loginPanel').style.display = 'grid';
         element('logoutBtn').hidden = true;
@@ -375,6 +376,22 @@ element('loginForm').addEventListener('submit', async (e) => {
     }
 });
 element('logoutBtn').addEventListener('click', () => { accessToken = ''; window.location.reload(); });
-setInterval(() => { if (accessToken && !document.hidden && element('modalOverlay').hidden)
+async function initialize() {
+    try {
+        const configuration = await request('/api/config');
+        authRequired = configuration.auth_required;
+        if (authRequired) {
+            element('loginPanel').style.display = 'grid';
+            return;
+        }
+        currentRole = 'manager';
+        await refresh();
+    }
+    catch (error) {
+        toast(errorMessage(error), true);
+    }
+}
+void initialize();
+setInterval(() => { if ((!authRequired || accessToken) && !document.hidden && element('modalOverlay').hidden)
     refresh({ silent: true }); }, 15000);
 export {};

@@ -21,7 +21,7 @@
 | 5 | Кеш, інвалідація, вимір до/після | fleet_service/cache.py; trips_service/read_cache.py; evidence/cache-benchmark.json |
 | 5 | Ідемпотентна подія, оцінка відставання | event_bridge.py; repository.apply_fleet_event; §7; test_lab5.py |
 | 6 | Trust boundaries і >=6 загроз | §8: 9 загроз; trust.mmd/svg |
-| 6 | Login, JWT expiry, >=2 ролі у власника | security.py, setup_local.py; test_security.py, test_lifecycle.py |
+| 6 | Login, JWT expiry, >=2 ролі у власника | Профіль FLEETFLOW_AUTH_REQUIRED=1: security.py, setup_local.py; test_security.py, test_lifecycle.py. Звичайний запуск без входу. |
 | 6 | План навантаження, p50/p95, bottleneck, повтор | §9; load_test.py; evidence/load-results.json/stress-results.json |
 | 7 | Аудит/правила/інтеграція/контракти | TEST_AUDIT.md; tests/test_domain.py, test_lab5.py, test_contract.py |
 | 7 | >=3 fitness, CI, навмисне падіння | fitness.py/pipeline.py/negative_pipeline.py; .github/workflows/architecture.yml |

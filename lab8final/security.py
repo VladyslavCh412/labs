@@ -1,7 +1,8 @@
 """Local trust boundary shared by independently enforcing resource owners.
 
-Only bootstrap/login hold account hashes. Services validate exp/iss/aud and
-apply their own allowlist. HS256 means mutually trusted local services; see ADR.
+Human routes open locally unless FLEETFLOW_AUTH_REQUIRED=1. In that profile
+services validate exp/iss/aud and role allowlists. Internal delivery/commands
+always use service JWTs. HS256 means mutually trusted local services; see ADR.
 """
 import json
 import logging
@@ -22,6 +23,18 @@ AUDIENCE = 'fleetflow-api'
 TTL = 900
 PASSWORDS = PasswordHash.recommended()
 AUDIT = logging.getLogger('fleetflow.audit')
+
+
+def auth_required():
+    """Human login is opt-in; the normal local application opens directly."""
+    return os.getenv('FLEETFLOW_AUTH_REQUIRED', '0').strip().lower() in {'1', 'true', 'yes', 'on'}
+
+
+def service_identity_required(service, method, path):
+    """Internal commands/delivery still belong to the owning service."""
+    if service == 'fleet':
+        return path == '/internal/trip-commands' or (path.startswith('/fleet-events/') and method != 'GET')
+    return service == 'trips' and path == '/events/fleet-status'
 
 
 def secret():
@@ -85,26 +98,29 @@ def allowed(service, method, path, role):
 
 
 def install_security(app, service):
+    login_required = auth_required()
+    app.state.auth_required = login_required
     original_openapi = app.openapi
     def secured_openapi():
         schema = original_openapi()
         schema.setdefault('components', {}).setdefault('securitySchemes', {})['BearerJWT'] = {
             'type': 'http', 'scheme': 'bearer', 'bearerFormat': 'JWT'}
         for path, methods in schema['paths'].items():
-            for operation in methods.values():
+            for method, operation in methods.items():
                 if not isinstance(operation, dict) or path == '/health':
                     continue
-                operation['security'] = [{'BearerJWT': []}]
-                operation.setdefault('responses', {}).update({
-                    '401': {'description': 'Missing, invalid or expired JWT'},
-                    '403': {'description': 'Role rejected by resource owner'}})
+                if login_required or service_identity_required(service, method.upper(), path):
+                    operation['security'] = [{'BearerJWT': []}]
+                    operation.setdefault('responses', {}).update({
+                        '401': {'description': 'Missing, invalid or expired JWT'},
+                        '403': {'description': 'Role rejected by resource owner'}})
                 if 'requestBody' in operation or path.endswith('/start'):
                     operation['responses']['409'] = {'description': 'Domain or idempotency conflict'}
                 if service == 'trips':
                     operation['responses']['503'] = {'description': 'Fleet unavailable; retry the same command'}
         return schema
     app.openapi = secured_openapi
-    # Middleware protects future routes by default, including direct service calls.
+    # Human routes are open locally; opt-in JWT mode and internal commands enforce roles.
     @app.middleware('http')
     async def resource_owner_guard(request, call_next):
         path=request.url.path
@@ -112,11 +128,14 @@ def install_security(app, service):
             return await call_next(request)
         header=request.headers.get('authorization','')
         try:
-            if not header.startswith('Bearer '):
-                raise HTTPException(401,'authentication_required')
-            claims=verify_token(header[7:])
-            if not allowed(service, request.method, path, claims['role']):
-                raise HTTPException(403,'insufficient_permissions')
+            if not login_required and not service_identity_required(service, request.method, path):
+                claims={'sub':'local-user', 'role':'manager'}
+            else:
+                if not header.startswith('Bearer '):
+                    raise HTTPException(401,'authentication_required')
+                claims=verify_token(header[7:])
+                if not allowed(service, request.method, path, claims['role']):
+                    raise HTTPException(403,'insufficient_permissions')
         except HTTPException as exc:
             audit(service,'denied',method=request.method,path=path,status=exc.status_code)
             return JSONResponse({'detail':exc.detail},status_code=exc.status_code,

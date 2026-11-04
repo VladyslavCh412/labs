@@ -15,6 +15,8 @@ def main():
     parser.add_argument('--write', action='store_true')
     args = parser.parse_args()
     with tempfile.TemporaryDirectory(prefix='fleetflow-contracts-') as temp:
+        # These files describe the explicitly enabled JWT/RBAC profile.
+        os.environ['FLEETFLOW_AUTH_REQUIRED'] = '1'
         os.environ['FLEET_DB_PATH'] = str(Path(temp)/'fleet.sqlite')
         os.environ['TRIPS_DB_PATH'] = str(Path(temp)/'trips.sqlite')
         from fleet_service.app import app as fleet

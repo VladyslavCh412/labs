@@ -13,10 +13,12 @@ interface FleetEvent { event_id: string; delivered: boolean; payload: { type: st
 interface DashboardData { vehicles: Vehicle[]; drivers: Driver[]; trips: Trip[]; routes: Route[]; cache: CacheStats; events: FleetEvent[]; snapshots: FleetProjection[]; processed: { processed_events: number }; health: { fleet: boolean; trips: boolean } }
 interface DashboardState extends DashboardData { tripOffset: number; page: string; busy: boolean; modal: string }
 interface LoginResponse { access_token: string; token_type: string; expires_in: number; role: HumanRole; username: string }
+interface AppConfig { auth_required: boolean }
 function errorMessage(error: unknown): string { return error instanceof Error ? error.message : 'Невідома помилка'; }
 
 let currentRole: HumanRole | '' = '';
 let accessToken = ''; // Memory only: never persist a bearer token in localStorage.
+let authRequired = true;
 
 const icons: Record<string, string> = {
   grid:'<rect x="3" y="3" width="7" height="7" rx="1.3"/><rect x="14" y="3" width="7" height="7" rx="1.3"/><rect x="3" y="14" width="7" height="7" rx="1.3"/><rect x="14" y="14" width="7" height="7" rx="1.3"/>',
@@ -60,7 +62,7 @@ async function request<T = unknown>(path: string, options: RequestInit = {}): Pr
   try{response=await fetch(path,{...options,headers:{'content-type':'application/json',...(accessToken?{'authorization':'Bearer '+accessToken}:{}),...(options.headers||{})}})}
   catch{throw new Error('Немає з’єднання із сервісом. Перевірте, чи запущено launch.py.')}
   let content: unknown = {};try{content=await response.json()}catch{}
-  if(response.status===401){accessToken='';element('loginPanel').style.display='grid';element('logoutBtn').hidden=true;}
+  if(authRequired&&response.status===401){accessToken='';element('loginPanel').style.display='grid';element('logoutBtn').hidden=true;}
   if(!response.ok){
     const detail = (typeof content === 'object' && content !== null && 'detail' in content) ? content.detail : 'request_failed';
     let desc=typeof detail==='string'?detail:JSON.stringify(detail);
@@ -206,4 +208,14 @@ element('loginForm').addEventListener('submit',async e=>{
  }catch(error){element('loginError').textContent=errorMessage(error);}
 });
 element('logoutBtn').addEventListener('click',()=>{accessToken='';window.location.reload();});
-setInterval(()=>{if(accessToken&&!document.hidden&&element('modalOverlay').hidden)refresh({silent:true});},15000);
+async function initialize(): Promise<void> {
+ try {
+  const configuration = await request<AppConfig>('/api/config');
+  authRequired = configuration.auth_required;
+  if(authRequired){element('loginPanel').style.display='grid';return;}
+  currentRole='manager';
+  await refresh();
+ } catch(error){toast(errorMessage(error),true);}
+}
+void initialize();
+setInterval(()=>{if((!authRequired||accessToken)&&!document.hidden&&element('modalOverlay').hidden)refresh({silent:true});},15000);

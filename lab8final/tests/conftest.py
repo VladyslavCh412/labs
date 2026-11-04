@@ -6,6 +6,7 @@ from pathlib import Path
 
 _test_data = tempfile.TemporaryDirectory(prefix='fleetflow-tests-')
 os.environ['FLEETFLOW_JWT_SECRET']=secrets.token_urlsafe(48)
+os.environ['FLEETFLOW_AUTH_REQUIRED']='1'
 os.environ['FLEET_DB_PATH']=str(Path(_test_data.name)/'fleet.sqlite')
 os.environ['TRIPS_DB_PATH']=str(Path(_test_data.name)/'trips.sqlite')
 os.environ['FLEETFLOW_AUDIT_PATH']=str(Path(_test_data.name)/'audit.jsonl')

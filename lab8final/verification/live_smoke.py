@@ -21,6 +21,7 @@ def main():
     checks={};processes=[]
     with tempfile.TemporaryDirectory(prefix='fleetflow-smoke-') as tmp:
         env=os.environ.copy();env['FLEETFLOW_JWT_SECRET']=secrets.token_urlsafe(48)
+        env['FLEETFLOW_AUTH_REQUIRED']='1'
         os.environ['FLEETFLOW_JWT_SECRET']=env['FLEETFLOW_JWT_SECRET']
         users=Path(tmp)/'users.json'; password=secrets.token_urlsafe(18)
         users.write_text(json.dumps({role:{'role':role,'password_hash':PASSWORDS.hash(password)} for role in ['manager','dispatcher','viewer']}))
