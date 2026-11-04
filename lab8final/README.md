@@ -15,6 +15,8 @@
 Зупинка — **Shift+F5**. Оточення на цьому комп'ютері вже підготовлене.
 Код на GitHub: https://github.com/VladyslavCh412/labs/tree/main/lab8final
 
+Демонстраційний обліковий запис: **admin / 123123**. Деталі: [LOGIN.md](LOGIN.md).
+
 ## Встановлення на іншому комп’ютері
 
 Потрібні Python 3.13 і Node.js 24 з npm. Відкрийте **цю папку** у VS Code.

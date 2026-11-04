@@ -1,4 +1,4 @@
-"""Generate unique local accounts and signing key; never commit data/."""
+"""Prepare local accounts, a public demo admin and a unique signing key."""
 import json
 import os
 import secrets
@@ -20,6 +20,12 @@ def configure():
             lines.append(f'{role}: {password}')
         users.write_text(json.dumps(records,indent=2),encoding='utf-8')
         credentials.write_text('\n'.join(lines),encoding='utf-8')
+    records=json.loads(users.read_text(encoding='utf-8'))
+    if 'admin' not in records:
+        records['admin']={'role':'manager','password_hash':PASSWORDS.hash('123123')}
+        users.write_text(json.dumps(records,indent=2),encoding='utf-8')
+        with credentials.open('a',encoding='utf-8') as stream:
+            stream.write('\nadmin: 123123\n')
     os.environ.setdefault('FLEETFLOW_JWT_SECRET',key.read_text(encoding='utf-8').strip())
     os.environ.setdefault('FLEETFLOW_USERS_PATH',str(users))
     os.environ.setdefault('FLEETFLOW_AUDIT_PATH',str(data/'audit.jsonl'))
