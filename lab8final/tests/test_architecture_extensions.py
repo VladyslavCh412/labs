@@ -2,9 +2,9 @@ import json
 from pathlib import Path
 
 from fastapi.testclient import TestClient
-from security import service_headers
-from trips_service.app import create_app
-from verification.fitness import check_cycles, check_application_dependencies
+from backend.auth import service_headers
+from backend.trips.api import create_app
+from checks.fitness import check_cycles, check_application_dependencies
 
 
 def test_relative_from_package_import_cannot_hide_a_cycle(tmp_path):

@@ -1,7 +1,7 @@
 """LR2 business-rule coverage: no database, HTTP or filesystem fixtures."""
 import pytest
-from fleet_service.domain import Vehicle, VehicleStatus, Driver, DomainError as FleetError
-from trips_service.domain import Trip, Route, DomainError
+from backend.fleet.domain import Vehicle, VehicleStatus, Driver, DomainError as FleetError
+from backend.trips.domain import Trip, Route, DomainError
 
 
 @pytest.mark.parametrize('identifier,plate,km',[('','AA',0),('v',' ',0),('v','AA',-1)])

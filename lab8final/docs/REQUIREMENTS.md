@@ -1,40 +1,31 @@
-# Матриця відповідності ЛР1–ЛР8
+# Что показывать по лабораторным 1–8
 
-Обов’язковий стек: TypeScript frontend (strict, npm build), FastAPI + SQLite backend.
+Это карта требований к текущей версии. Пути ниже указаны от папки lab8final.
+Стек: TypeScript frontend; FastAPI + SQLite backend.
 
-Це навігація по коду й матеріалах ЛР8, а не окремі звіти для ЛР1–ЛР7.
+| ЛР | Что требуется | Где в проекте |
+| --- | --- | --- |
+| 1 | Глоссарий, участники, контекст, минимум 6 сценариев для 4 атрибутов, альтернативы, 2 ADR | docs/ARCHITECTURE.md, docs/quality-scenarios.json, docs/diagrams/context.svg, docs/adr/ |
+| 2 | Четыре слоя, 3–5 сущностей, 2–3 сценария, порты хранилищ, DI, чистые доменные тесты | backend/trips/api.py → use_cases.py → domain.py → storage.py; factory.py; backend/fleet/domain.py; tests/test_domain.py |
+| 3 | Два сервиса со своими данными, формальные контракты, синхронное и асинхронное взаимодействие, единая точка входа, опыт отказа | backend/fleet и backend/trips; contracts/; backend/api.py; fleet_client.py; event_bridge.py и event_worker.py; tests/test_services.py; checks/live_smoke.py |
+| 4 | Четыре паттерна минимум двух групп, альтернативы, тесты до изменений, история, измерения и две диаграммы классов | backend/routing.py (Strategy), backend/trips/fleet_adapter.py (Adapter), factory.py (Factory), observers.py (Observer); docs/refactoring/; docs/diagrams/patterns/; checks/pattern_metrics.py |
+| 5 | Модель и владельцы данных, локальная копия, четыре стадии миграции, кеш с инвалидацией, идемпотентные события и измерения | docs/diagrams/data-model.svg; backend/fleet/migrations/; backend/fleet/cache.py; backend/trips/read_cache.py; tests/test_data.py; checks/benchmark_cache.py |
+| 6 | Границы доверия, минимум шесть угроз, токен и проверка ролей у владельца, нагрузочный план, p50/p95, оптимизация и повтор | backend/auth.py; backend/config.py; tests/test_security.py; docs/diagrams/trust.svg; docs/ARCHITECTURE.md; docs/PERFORMANCE.md; checks/load_test.py |
+| 7 | Аудит тестов, unit/integration/contract, две статические и одна динамическая fitness-проверка, CI и намеренное падение | docs/TEST_AUDIT.md; tests/; checks/fitness.py; checks/pipeline.py; checks/negative_pipeline.py; .github/workflows/architecture.yml в корне репозитория |
+| 8 | C4: контекст, контейнеры, компоненты; полный ADR; факт/цель качества; долг и план из трёх шагов; презентация | docs/diagrams/context.svg, containers.svg, components.svg; docs/adr/; docs/ARCHITECTURE.md; docs/evidence/; docs/submission/ |
 
-| ЛР | Обов'язкова вимога | Реалізація / доказ |
-|---|---|---|
-| 1 | 12–15 термінів, stakeholders, контекст | ARCHITECTURE.md §§1–3, context.mmd/svg |
-| 1 | >=6 сценаріїв, >=4 атрибути, 2–3 альтернативи, 2 ADR | §9: 8 вихідних сценаріїв; §4; ADR-001/002 originals |
-| 2 | 4 шари, 3–5 сутностей, правила в домені | trips_service/{app,application,domain,repository}.py; Fleet Vehicle/Driver + Trips Route/Trip |
-| 2 | 2–3 use cases, repo ports, DI | trips_service/{domain,application,factory}.py; create_app — composition root |
-| 2 | Домени без БД, напрям залежностей | test_domain.py, test_fitness.py, test_architecture_extensions.py |
-| 3 | 2–3 сервіси, власні дані, gateway | fleet_service/, trips_service/, dashboard.py; containers.mmd |
-| 3 | Формальні контракти й гарантії | contracts/*.secured.openapi.json, fleet_consumer.json, lifecycle-contract.json |
-| 3 | Sync timeout, async consumer, дослід відмови | fleet_client.py timeout0.35; event_bridge.py/event_worker.py; test_lab3.py/live_smoke.py |
-| 4 | 4 патерни >=2 груп, alternatives, before/after | ARCHITECTURE.md §6; gateway_routing.py, fleet_adapter.py, factory.py, observers.py |
-| 4 | Тести до змін, малі коміти, 2 class diagrams | test_characterization.py; docs/refactoring/history.json; diagrams/patterns/*before.dot/*after.dot; evidence/pattern-metrics.json |
-| 5 | Моделі/власники й read-only копія | §7; data-model.mmd/svg; vehicle_snapshot |
-| 5 | 4 стадії expand–contract | fleet_service/migrations/001..004; test_all_four_migrations_and_backward_compatibility |
-| 5 | Кеш, інвалідація, вимір до/після | fleet_service/cache.py; trips_service/read_cache.py; evidence/cache-benchmark.json |
-| 5 | Ідемпотентна подія, оцінка відставання | event_bridge.py; repository.apply_fleet_event; §7; test_lab5.py |
-| 6 | Trust boundaries і >=6 загроз | §8: 9 загроз; trust.mmd/svg |
-| 6 | Login, JWT expiry, >=2 ролі у власника | Профіль FLEETFLOW_AUTH_REQUIRED=1: security.py, setup_local.py; test_security.py, test_lifecycle.py. Звичайний запуск без входу. |
-| 6 | План навантаження, p50/p95, bottleneck, повтор | §9; load_test.py; evidence/load-results.json/stress-results.json |
-| 7 | Аудит/правила/інтеграція/контракти | TEST_AUDIT.md; tests/test_domain.py, test_lab5.py, test_contract.py |
-| 7 | >=3 fitness, CI, навмисне падіння | fitness.py/pipeline.py/negative_pipeline.py; .github/workflows/architecture.yml |
-| 8 | C4 L1/L2/L3 для одного контейнера | diagrams/context, containers, components (.mmd/.svg) |
-| 8 | Повний ADR журнал зі статусами | docs/adr/INDEX.md, ADR-001–014; originals збережено |
-| 8 | NFR факт/ціль, борг, 3 кроки з тригерами | ARCHITECTURE.md §§9–12; evidence/ |
-| 8 | Пакет PDF, презентація <=10 хв, сценарій | submission/FleetFlow_Lab8.pdf, FleetFlow_Defense.pptx; DEMO.md |
+Обычная панель открыта без входа по просьбе пользователя. Требование ЛР6
+проверяется в отдельном режиме FLEETFLOW_AUTH_REQUIRED=1 через API/Swagger.
+Пошаговый показ — DEMO.md. Внутренние межсервисные запросы защищены в обоих режимах.
 
-Фактичні профілі NFR мають і невиконані пункти: карти, GPS, рольове
-адміністрування, backup drill. Методичка ЛР8 вимагає показати їх стан і
-борг, тому вони не позначені як реалізовані. Організаційний склад команди,
-ротацію ролей і усний захист програмний проєкт не може підтвердити.
+Исторические исходники в docs/refactoring/before оставлены именно для сравнения
+ЛР4. Они не запускаются. Готовые PDF/слайды и старые измерения сохранены;
+текущие имена файлов — FILES.md, результаты нового прогона — вывод verify.
 
-Усі наведені файлові шляхи відносні до цієї папки. Власні run.py, .vscode/, .gitignore та CI включені; сусідні папки не використовуються.
+CI находится в корне репозитория GitHub: workflows внутри вложенной папки
+GitHub не запускает, поэтому дублирующая копия удалена. Для локальных проверок
+достаточно одной папки lab8final, другие лабораторные не используются.
 
-Самостійність кінцевого продукту перевірена окремою копією без інших лабораторних: [доказ](evidence/standalone.json).
+GPS, карты и внешние SMS/email не реализованы и отмечены как долг,
+а не как готовые возможности. Состав команды и устный защитный ответ
+автоматические проверки подтвердить не могут.

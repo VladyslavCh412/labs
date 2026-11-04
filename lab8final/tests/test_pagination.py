@@ -1,6 +1,6 @@
 import sqlite3
 from contextlib import closing
-from trips_service.repository import TripsRepository
+from backend.trips.storage import TripsRepository
 
 
 def test_optimization_preserves_page_projection_order_and_filter(tmp_path):

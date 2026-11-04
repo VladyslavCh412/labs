@@ -5,9 +5,12 @@ venv/
 frontend/node_modules/
 **/__pycache__/
 .pytest_cache/
+.ruff_cache/
 .coverage
 htmlcov/
-data/
+data/*
+!data/README.md
+frontend/build/
 *.py[cod]
 *.sqlite*
 *.db*
@@ -15,6 +18,6 @@ data/
 .env
 .env.*
 !*.example
-verification/*.json
-verification/*.xml
-verification/*.txt
+checks/*.json
+checks/*.xml
+checks/*.txt

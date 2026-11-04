@@ -1,10 +1,10 @@
 """Supplementary tests for the new abstractions; original LR3 tests are unchanged."""
-from gateway_routing import FleetRoutes, TripsRoutes, resolve_target
-from trips_service.fleet_adapter import FleetResponseAdapter
-from trips_service.factory import TripsComponentsFactory
-from trips_service.observers import TripEventPublisher, NotificationObserver
-from trips_service.repository import TripsRepository
-from trips_service.domain import Trip
+from backend.routing import FleetRoutes, TripsRoutes, resolve_target
+from backend.trips.fleet_adapter import FleetResponseAdapter
+from backend.trips.factory import TripsComponentsFactory
+from backend.trips.observers import TripEventPublisher, NotificationObserver
+from backend.trips.storage import TripsRepository
+from backend.trips.domain import Trip
 
 
 def test_strategy_is_extensible():

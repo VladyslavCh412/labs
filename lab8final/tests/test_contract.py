@@ -5,9 +5,9 @@ import httpx
 import pytest
 from jsonschema import validate, ValidationError
 from fastapi.testclient import TestClient
-from security import service_headers
-from fleet_service.app import create_app
-from trips_service.fleet_client import FleetClient, FleetRejected, FleetUnavailable
+from backend.auth import service_headers
+from backend.fleet.api import create_app
+from backend.trips.fleet_client import FleetClient, FleetRejected, FleetUnavailable
 
 CONTRACT=json.loads((Path(__file__).resolve().parents[1]/'contracts/fleet_consumer.json').read_text())
 

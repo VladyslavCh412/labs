@@ -49,7 +49,7 @@ FleetFlow обліковує автомобілі, водіїв, маршрут�
 
 ## 3. C4: контекст, контейнери, компоненти
 
-Джерела діаграм: `diagrams/context.mmd`, `containers.mmd`, `components.mmd`;
+Джерела діаграм: `docs/diagrams/context.mmd`, `containers.mmd`, `components.mmd`;
 поряд збережені SVG. На L1 FleetFlow показано одним елементом.
 Суцільні зв'язки означають реалізовані HTTP/SQL-виклики; пунктирні —
 асинхронну доставку. Світлі елементи на L1 — зовнішні системи з плану.
@@ -89,7 +89,7 @@ L3 деталізує тільки Trips: HTTP-контролери й JWT guard
 
 ## 5. Чотири шари та бізнес-правила
 
-Поточний продукт містить усі чотири шари: presentation — trips_service/app.py; application — trips_service/application.py; domain — trips_service/domain.py (сутності та Protocol-порти); infrastructure — repository.py і fleet_client.py. Складання залежностей — factory.py та create_app. Сценарії create/start/complete звертаються до портів, а не конкретного SQLite. Vehicle і Driver належать домену Fleet, Trip і Route — домену Trips. HTTP DTO не проходять у SQLite напряму.
+Поточний продукт містить усі чотири шари: presentation — backend/trips/api.py; application — backend/trips/use_cases.py; domain — backend/trips/domain.py (сутності та Protocol-порти); infrastructure — repository.py і fleet_client.py. Складання залежностей — factory.py та create_app. Сценарії create/start/complete звертаються до портів, а не конкретного SQLite. Vehicle і Driver належать домену Fleet, Trip і Route — домену Trips. HTTP DTO не проходять у SQLite напряму.
 
 Правила: ідентифікатори рейсу обов'язкові; маршрут містить >=2 непорожні
 точки; пробіг не від'ємний; початок можливий лише для planned, доступного
@@ -107,7 +107,7 @@ L3 деталізує тільки Trips: HTTP-контролери й JWT guard
 
 | Проблема | Патерн і група | Альтернатива | Перевірений результат |
 |---|---|---|---|
-| Умови маршрутизації gateway зростають з endpoint | Strategy, поведінковий | Ланцюг if | Реєстр правил у gateway_routing.py, новий префікс додається правилом |
+| Умови маршрутизації gateway зростають з endpoint | Strategy, поведінковий | Ланцюг if | Реєстр правил у backend/routing.py, новий префікс додається правилом |
 | Trips знає зовнішній JSON Fleet | Adapter, структурний | Звертатися до полів скрізь | FleetResponseAdapter ізолює VehicleAvailability/DriverPermission |
 | Збирання repo/client дублюється | Factory, породжувальний | Конструювання в контролерах | TripsComponentsFactory — одна точка складання; замінні фабрики в тестах |
 | Продуцент знає кожного підписника | Observer, поведінковий | Прямі виклики споживачів | TripEventPublisher приймає список підписників, duplicate event_id не дублює notification |
@@ -117,7 +117,7 @@ L3 деталізує тільки Trips: HTTP-контролери й JWT guard
 f37eefe — Factory; 0492968 — Observer. Це наявна історія репозиторію,
 а не нові заднім числом створені коміти. Порівняння для кожного патерна:
 місце зміни при розширенні перейшло від контролера/продуцента до додавання
-окремого правила, адаптера, фабрики або підписника. Точні структурні показники до/після обчислюються AST-скриптом verification/pattern_metrics.py з включених before-файлів та поточного коду. Порівнюються гілки у proxy, прямі JSON-звернення споживача, пряме конструювання конкретних адаптерів у create_app та пряма SQL-залежність deliver_pending від notification_inbox. Це локальні метрики зв’язування, а не загальна оцінка складності системи. Результат: docs/evidence/pattern-metrics.json; джерела й історія: docs/refactoring/; дві діаграми до/після: diagrams/patterns/.
+окремого правила, адаптера, фабрики або підписника. Точні структурні показники до/після обчислюються AST-скриптом checks/pattern_metrics.py з включених before-файлів та поточного коду. Порівнюються гілки у proxy, прямі JSON-звернення споживача, пряме конструювання конкретних адаптерів у create_app та пряма SQL-залежність deliver_pending від notification_inbox. Це локальні метрики зв’язування, а не загальна оцінка складності системи. Результат: docs/evidence/pattern-metrics.json; джерела й історія: docs/refactoring/; дві діаграми до/після: diagrams/patterns/.
 
 | Патерн | Локальний показник | До | Після |
 |---|---|---:|---:|
@@ -148,7 +148,7 @@ f37eefe — Factory; 0492968 — Observer. Це наявна історія ре
 підтримує паралельний запис; 003_switch_reads переводить читання;
 004_contract вилучає plate тільки після переходу споживачів. Тест перевіряє
 кожен етап, доступ старого споживача до contract та повторний запуск.
-Адитивна feature-міграція `fleet_service/lifecycle/001_usage.sql` додає
+Адитивна feature-міграція `backend/fleet/lifecycle/001_usage.sql` додає
 стан використання і квитанції, не змінюючи чотири історичні етапи.
 
 | Кеш | Ключ | TTL/місткість | Інвалідація |
@@ -276,7 +276,7 @@ Fitness: 0 сторонніх імпортів у домені; 0 циклів; 
 0 помилок і щонайменше 100 відповідей. Динамічний gate запускається окремо
 без coverage, щоб інструментування не спотворювало результат.
 
-Самостійний пакет має власні run.py, .vscode, .gitignore і .github/workflows/architecture.yml. Інші лабораторні не потрібні для виконання коду, перевірок або відтворення наведених структурних метрик. Це підтверджено ізольованим прогоном окремої копії: strict TypeScript build, 85 функціональних кейсів, 100% domain coverage, HTTP gate, негативний дослід і 9 HTTP smoke-перевірок. Доказ — docs/evidence/standalone.json. ADR-014 фіксує цю межу.
+Після спрощення поточний код знаходиться у backend/, перевірки — у checks/, діаграми й матеріали захисту — у docs/. Запуск — один run.py. CI — у корені репозиторію. Історичні вимірювання нижче не є повторним прогоном. Актуальна навігація: README.md та docs/FILES.md.
 
 GitHub Actions: checkout → Python 3.13 + Node 24 → pinned requirements → TypeScript build → pipeline →
 негативний дослід → upload evidence. Невдалий subprocess зупиняє job.

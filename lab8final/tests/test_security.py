@@ -5,10 +5,10 @@ import httpx
 import jwt
 import pytest
 from fastapi.testclient import TestClient
-from fleet_service.app import create_app as fleet_app
-from trips_service.app import create_app as trips_app
-from security import issue_token, secret, ISSUER, AUDIENCE, PASSWORDS
-from dashboard import create_app as dashboard_app
+from backend.fleet.api import create_app as fleet_app
+from backend.trips.api import create_app as trips_app
+from backend.auth import issue_token, secret, ISSUER, AUDIENCE, PASSWORDS
+from backend.api import create_app as dashboard_app
 
 
 def auth(role):

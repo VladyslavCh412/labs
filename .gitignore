@@ -37,7 +37,13 @@
 **/verification/*.txt
 **/benchmarks_results.json
 
-# The final LR8 submission is part of the published project.
-!lab8final/submission/
-!lab8final/submission/*.pdf
-!lab8final/submission/*.pptx
+# Final application: publish explanations and ready submission, not runtime data.
+!lab8final/data/
+lab8final/data/*
+!lab8final/data/README.md
+!lab8final/docs/submission/*.pdf
+!lab8final/docs/submission/*.pptx
+lab8final/frontend/build/
+lab8final/checks/*.json
+lab8final/checks/*.xml
+lab8final/checks/*.txt

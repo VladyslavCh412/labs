@@ -12,13 +12,10 @@ interface FleetProjection { id: string; plate: string; status: VehicleStatus; ve
 interface FleetEvent { event_id: string; delivered: boolean; payload: { type: string; data: { id: string; version: number } } }
 interface DashboardData { vehicles: Vehicle[]; drivers: Driver[]; trips: Trip[]; routes: Route[]; cache: CacheStats; events: FleetEvent[]; snapshots: FleetProjection[]; processed: { processed_events: number }; health: { fleet: boolean; trips: boolean } }
 interface DashboardState extends DashboardData { tripOffset: number; page: string; busy: boolean; modal: string }
-interface LoginResponse { access_token: string; token_type: string; expires_in: number; role: HumanRole; username: string }
 interface AppConfig { auth_required: boolean }
 function errorMessage(error: unknown): string { return error instanceof Error ? error.message : 'Невідома помилка'; }
 
 let currentRole: HumanRole | '' = '';
-let accessToken = ''; // Memory only: never persist a bearer token in localStorage.
-let authRequired = false;
 
 const icons: Record<string, string> = {
   grid:'<rect x="3" y="3" width="7" height="7" rx="1.3"/><rect x="14" y="3" width="7" height="7" rx="1.3"/><rect x="3" y="14" width="7" height="7" rx="1.3"/><rect x="14" y="14" width="7" height="7" rx="1.3"/>',
@@ -59,10 +56,9 @@ const ellipsis = (s: string,max=32): string=>s.length>max?s.substring(0,max-1)+'
 function toast(message: string,isError=false): void{const node=document.createElement('div');node.className='toast'+(isError?' error':'');node.innerHTML=icon(isError?'alert':'check')+`<span>${html(message)}</span>`;element('toastRegion').appendChild(node);setTimeout(()=>node.remove(),5000);}
 async function request<T = unknown>(path: string, options: RequestInit = {}): Promise<T>{
   let response;
-  try{response=await fetch(path,{...options,headers:{'content-type':'application/json',...(accessToken?{'authorization':'Bearer '+accessToken}:{}),...(options.headers||{})}})}
+  try{response=await fetch(path,{...options,headers:{'content-type':'application/json',...(options.headers||{})}})}
   catch{throw new Error('Немає з’єднання із сервісом. Перевірте, чи запущено launch.py.')}
   let content: unknown = {};try{content=await response.json()}catch{}
-  if(authRequired&&response.status===401){accessToken='';element('loginPanel').style.display='grid';element('logoutBtn').hidden=true;}
   if(!response.ok){
     const detail = (typeof content === 'object' && content !== null && 'detail' in content) ? content.detail : 'request_failed';
     let desc=typeof detail==='string'?detail:JSON.stringify(detail);
@@ -196,26 +192,17 @@ element('vehicleSearch').addEventListener('input',renderVehicles);
 element('menuBtn').addEventListener('click',()=>{element('sidebar').classList.toggle('open');element('mobileShade').classList.toggle('open')});
 element('mobileShade').addEventListener('click',()=>{element('sidebar').classList.remove('open');element('mobileShade').classList.remove('open')});
 hydrateIcons();
-document.getElementById('loginForm')?.addEventListener('submit',async e=>{
- e.preventDefault();element('loginError').textContent='';
- try{
-  const r=await fetch('/auth/token',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({username:element<HTMLInputElement>('loginUser').value,password:element<HTMLInputElement>('loginPassword').value})});
-  if(!r.ok)throw new Error(r.status===429?'Забагато спроб. Зачекайте хвилину.':'Неправильний логін або пароль');
-  const result: LoginResponse = await r.json();currentRole=result.role;accessToken=result.access_token;element<HTMLInputElement>('loginPassword').value='';
-  element('loginPanel').style.display='none';element('logoutBtn').hidden=false;
-  element('logoutBtn').textContent=result.username+' · Вийти';
-  await refresh();
- }catch(error){element('loginError').textContent=errorMessage(error);}
-});
-document.getElementById('logoutBtn')?.addEventListener('click',()=>{accessToken='';window.location.reload();});
+// Панель открыта без входа; защищённый режим проверяется отдельно через Swagger.
 async function initialize(): Promise<void> {
  try {
   const configuration = await request<AppConfig>('/api/config');
-  authRequired = configuration.auth_required;
-  if(authRequired){element('loginPanel').style.display='grid';return;}
+  if(configuration.auth_required){
+   toast('Увімкнено режим JWT. Використовуйте Swagger або перезапустіть без FLEETFLOW_AUTH_REQUIRED=1.',true);
+   return;
+  }
   currentRole='manager';
   await refresh();
  } catch(error){toast(errorMessage(error),true);}
 }
 void initialize();
-setInterval(()=>{if((!authRequired||accessToken)&&!document.hidden&&element('modalOverlay').hidden)refresh({silent:true});},15000);
+setInterval(()=>{if(!document.hidden&&element('modalOverlay').hidden)refresh({silent:true});},15000);

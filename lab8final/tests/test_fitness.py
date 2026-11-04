@@ -1,5 +1,5 @@
 from pathlib import Path
-from verification.fitness import check_domain_purity, check_cycles
+from checks.fitness import check_domain_purity, check_cycles
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -22,12 +22,12 @@ def test_rule_detects_injected_import_and_cycle(tmp_path):
 
 
 def test_dynamic_http_p95_at_100_users():
-    from verification.load_test import run
+    from checks.load_test import run
     # Actual socket HTTP: independent server process and temporary SQLite.
     result=run(levels=(100,),duration=3,rows=5000, modes=('optimized',))
     measurement=result['results']['optimized'][0]
     import json
-    (ROOT/'verification/fitness_measurement.json').write_text(json.dumps(measurement,indent=2))
+    (ROOT/'checks/fitness_measurement.json').write_text(json.dumps(measurement,indent=2))
     assert measurement['errors']==0
     assert measurement['requests']>=100
     assert measurement['p95_ms']<=500,measurement

@@ -1,9 +1,9 @@
 """Dashboard uses HTTP between contexts; there is no shared database."""
 import httpx
 from tests.support import AuthorizedClient as TestClient
-from dashboard import create_app as dashboard_app
-from fleet_service.app import create_app as fleet_app
-from trips_service.app import create_app as trips_app
+from backend.api import create_app as dashboard_app
+from backend.fleet.api import create_app as fleet_app
+from backend.trips.api import create_app as trips_app
 
 
 class LocalServices(httpx.AsyncBaseTransport):

@@ -14,16 +14,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - run: python -m pip install -r requirements-lock.txt
+      - run: python -m pip install -r requirements.txt
       - run: npm ci --no-audit --no-fund
         working-directory: lab8final/frontend
       - run: npm run build
         working-directory: lab8final/frontend
-      - run: python verification/pipeline.py
-      - run: python verification/negative_pipeline.py
-      - run: python verification/live_smoke.py
+      - run: python checks/pipeline.py
+      - run: python checks/negative_pipeline.py
+      - run: python checks/live_smoke.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: fleetflow-evidence
-          path: lab8final/verification/
+          path: lab8final/checks/

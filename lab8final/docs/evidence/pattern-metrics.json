@@ -4,43 +4,43 @@
   "metrics": [
     {
       "pattern": "Strategy",
-      "file": "gateway.py",
-      "method": "proxy",
-      "metric": "Кількість if у центральному proxy",
+      "file": "backend/api.py",
+      "method": "forward",
+      "metric": "Розгалуження вибору сервісу; без валідації та HTTP-обробки",
       "before": 2,
       "after": 1,
       "before_source_sha256": "ee5d60f8b67f794419e49ae1c540b2a85167bd5f272d9a64faf0fbf410c5ec7c",
-      "current_source_sha256": "80d019ae047759abb44ca03e8c9016706ad439150d474c11f7d624a68409516e"
+      "current_source_sha256": "d8df17cefdb70254081cc6bd6626e9c2b6ef7c26c528cee160c302e294ec67f0"
     },
     {
       "pattern": "Adapter",
-      "file": "trips_service/fleet_client.py",
+      "file": "backend/trips/fleet_client.py",
       "method": "FleetClient.check_vehicle_and_driver",
       "metric": "Прямі звернення до JSON полів vehicle/driver у споживачі",
       "before": 3,
       "after": 0,
       "before_source_sha256": "13a228bf2d6eb2a600e51de7e0420f141b6fceb25d5f590778e6785d1ad277c2",
-      "current_source_sha256": "d5acae13e446aaed4b0828f9cfe13abd18db14f2a3c33cf8013e3cf4a1cc7388"
+      "current_source_sha256": "a508cc2771c367c326dc134f92ebf5deab901113858eca10391895281d6e2547"
     },
     {
       "pattern": "Factory",
-      "file": "trips_service/app.py",
+      "file": "backend/trips/api.py",
       "method": "create_app",
       "metric": "Прямі конструктори конкретних repo/client у create_app",
       "before": 2,
       "after": 0,
       "before_source_sha256": "2d79bbcca3ad432a0fea81f4f391a98d6d8d6584857388ad05f3a8edaddf59f5",
-      "current_source_sha256": "2d94e72c81e81aeb9987532523355601f1f62b2592d8e36fbdd74e5bdb3b8edf"
+      "current_source_sha256": "6da3064dbec6da824d51bd24a6baf27c4eacf257c7df502275c6dca3355a99fe"
     },
     {
       "pattern": "Observer",
-      "file": "trips_service/repository.py",
+      "file": "backend/trips/storage.py",
       "method": "TripsRepository.deliver_pending",
       "metric": "Прямі SQL-вставки notification_inbox у продуцента",
       "before": 1,
       "after": 0,
       "before_source_sha256": "5c6fcbbde08ccecac7b5c1ea159435f7c00e92bb1e76e7fe4327c24993c3460a",
-      "current_source_sha256": "2e6fc867fc9acdf9149055ec512fb7c7ae311211122e38c404b03c91ec888b90"
+      "current_source_sha256": "d4cafad4da6ed5e5068efb85c5aecc4f68806d2c43c8eb6b9a1f6606c5c16743"
     }
   ]
 }

@@ -3,7 +3,7 @@
 New security tests use the unmodified FastAPI TestClient with explicit tokens.
 """
 from fastapi.testclient import TestClient
-from security import issue_token
+from backend.auth import issue_token
 
 
 class AuthorizedClient(TestClient):

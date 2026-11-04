@@ -8,14 +8,14 @@ import httpx
 import pytest
 from fastapi.testclient import TestClient
 
-from fleet_service.app import create_app as fleet_app
-from fleet_service.domain import DomainError as FleetError
-from fleet_service.repository import FleetRepository
-from trips_service.app import create_app as trips_app
-from trips_service.application import TripUseCases
-from trips_service.domain import Trip, DomainError, MissingResource, FleetUnavailable
-from trips_service.repository import TripsRepository
-from security import service_headers
+from backend.fleet.api import create_app as fleet_app
+from backend.fleet.domain import DomainError as FleetError
+from backend.fleet.storage import FleetRepository
+from backend.trips.api import create_app as trips_app
+from backend.trips.use_cases import TripUseCases
+from backend.trips.domain import Trip, DomainError, MissingResource, FleetUnavailable
+from backend.trips.storage import TripsRepository
+from backend.auth import service_headers
 
 
 def pair(tmp_path, transport=None):

@@ -4,9 +4,9 @@ import time
 
 import httpx
 from tests.support import AuthorizedClient
-from fleet_service.app import create_app as fleet_app
-from trips_service.app import create_app as trips_app
-from trips_service.read_cache import TripPageCache
+from backend.fleet.api import create_app as fleet_app
+from backend.trips.api import create_app as trips_app
+from backend.trips.read_cache import TripPageCache
 
 
 def test_cache_expiry_and_capacity():
