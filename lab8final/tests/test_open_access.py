@@ -54,7 +54,7 @@ def test_opt_in_profile_advertises_and_requires_login(tmp_path, monkeypatch):
     monkeypatch.setenv('FLEETFLOW_AUTH_REQUIRED', '1')
     with TestClient(dashboard_app()) as ui, TestClient(fleet_app(tmp_path/'fleet.sqlite')) as fleet:
         assert ui.get('/api/config').json() == {'auth_required': True}
-        assert 'loginForm' in ui.get('/').text
+        assert 'loginForm' not in ui.get('/').text
         assert fleet.get('/vehicles').status_code == 401
         assert fleet.get('/openapi.json').json()['paths']['/vehicles']['get']['security']
 

@@ -36,7 +36,8 @@ $env:FLEETFLOW_AUTH_REQUIRED = '1'
 python run.py start
 ```
 
-Лише в цьому профілі панель запитує облікові дані з `data/LOCAL_ACCOUNTS.txt`.
+Цей профіль демонструє JWT/RBAC через API та Swagger; HTML-форма входу видалена.
+Облікові дані для API містяться в `data/LOCAL_ACCOUNTS.txt`.
 Ролі: manager керує автопарком і рейсами; dispatcher керує рейсами; viewer читає.
 Щоб повернути звичайний запуск без входу, задайте `FLEETFLOW_AUTH_REQUIRED=0` і
 перезапустіть застосунок. Внутрішні команди між сервісами мають власні service JWT

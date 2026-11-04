@@ -10,16 +10,7 @@
   <script type="module" src="/assets/app.js"></script>
 </head>
 <body>
-<!-- AUTH_ONLY_START -->
-<div id="loginPanel" style="position:fixed;inset:0;z-index:9999;background:#eef2f8;display:none;place-items:center">
-<form id="loginForm" style="width:min(90vw,380px);background:white;padding:32px;border-radius:18px;box-shadow:0 20px 60px #14213d20">
-<h1>FleetFlow</h1><p>Вхід до системи управління автопарком</p>
-<label class="field"><span>Користувач</span><input id="loginUser" autocomplete="username" required></label>
-<label class="field"><span>Пароль</span><input id="loginPassword" type="password" autocomplete="current-password" required></label>
-<p id="loginError" role="alert" style="color:#b42318"></p><button class="primary-btn" type="submit">Увійти</button>
-<p style="font-size:12px">Дані для входу: data/LOCAL_ACCOUNTS.txt після першого запуску.</p>
-</form></div>
-<!-- AUTH_ONLY_END -->
+
 
   <div class="shell">
     <aside class="sidebar" id="sidebar">
@@ -35,9 +26,7 @@
         <div class="status-panel"><span class="status-indicator" id="statusIndicator"></span><div><strong id="sidebarStatus">Перевірка сервісів</strong><small>Fleet · Trips · SQLite</small></div></div>
         <div class="sidebar-divider"></div>
         <div class="project-meta"><div class="project-meta-line">НАВЧАЛЬНИЙ ПРОЄКТ</div><div>Архітектура даних</div><small>Лабораторні роботи №1–8 · Варіант 12</small></div>
-        <!-- AUTH_ONLY_START -->
-        <button id="logoutBtn" style="margin-top:18px;width:100%" class="tiny-btn" hidden>Вийти</button>
-        <!-- AUTH_ONLY_END -->
+        
       </div>
     </aside>
     <div class="mobile-shade" id="mobileShade"></div>
