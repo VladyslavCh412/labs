@@ -13,7 +13,9 @@
     "**/.pytest_cache": true,
     ".venv": true,
     ".runtime": true,
-    "frontend/node_modules": true
+    "frontend/node_modules": true,
+    ".coverage": true,
+    "**/.chart-data-*": true
   },
   "search.exclude": {
     "**/.venv": true,
@@ -21,5 +23,5 @@
     "**/node_modules": true,
     "**/data": true
   },
-  "window.title": "FleetFlow — підсумкова ЛР8 · ${activeEditorShort}"
+  "window.title": "FleetFlow — ЛР8 · ${activeEditorShort}"
 }

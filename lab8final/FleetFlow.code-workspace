@@ -2,7 +2,10 @@
   "folders": [
     {
       "path": ".",
-      "name": "FleetFlow — підсумкова ЛР8"
+      "name": "FleetFlow — ЛР8"
     }
-  ]
+  ],
+  "settings": {
+    "window.title": "FleetFlow — ЛР8 · ${activeEditorShort}"
+  }
 }

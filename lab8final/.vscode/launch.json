@@ -7,12 +7,17 @@
       "request": "launch",
       "python": "${workspaceFolder}/.venv/Scripts/python.exe",
       "program": "${workspaceFolder}/run.py",
-      "args": ["start"],
+      "args": [
+        "start"
+      ],
       "cwd": "${workspaceFolder}",
       "console": "internalConsole",
       "internalConsoleOptions": "openOnSessionStart",
       "subProcess": true,
-      "justMyCode": true
+      "justMyCode": true,
+      "env": {
+        "PYDEVD_DISABLE_FILE_VALIDATION": "1"
+      }
     }
   ]
 }
