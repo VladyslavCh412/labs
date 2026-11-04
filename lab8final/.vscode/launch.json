@@ -5,10 +5,12 @@
       "name": "FleetFlow: запустити проєкт",
       "type": "debugpy",
       "request": "launch",
+      "python": "${workspaceFolder}/.venv/Scripts/python.exe",
       "program": "${workspaceFolder}/run.py",
       "args": ["start"],
       "cwd": "${workspaceFolder}",
-      "console": "integratedTerminal",
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
       "subProcess": true,
       "justMyCode": true
     }
