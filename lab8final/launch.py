@@ -46,7 +46,9 @@ def main():
             args=[sys.executable,'-m','uvicorn',module,'--host','127.0.0.1',
                   '--port',str(port),'--no-access-log','--log-level','warning']
             children.append(subprocess.Popen(args,cwd=ROOT,env=env))
-            print(f'{name}: http://127.0.0.1:{port}',flush=True)
+            link_path = '/docs' if name in {'Fleet', 'Trips'} else ''
+            label = f'{name} API (Swagger)' if link_path else 'FleetFlow — вебпанель'
+            print(f'{label}: http://127.0.0.1:{port}{link_path}',flush=True)
         def services_ready():
             for _,port,_ in SERVERS:
                 endpoint='/api/health' if port==8000 else '/health'
