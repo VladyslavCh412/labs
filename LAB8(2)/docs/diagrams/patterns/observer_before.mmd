@@ -1,0 +1,6 @@
+classDiagram
+  class repo["TripsRepository"]
+  repo : +deliver_pending()
+  class inbox["NotificationInbox"]
+  inbox : INSERT OR IGNORE
+  repo ..> inbox : прямий SQL

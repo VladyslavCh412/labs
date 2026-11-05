@@ -1,0 +1,10 @@
+classDiagram
+  class gateway["Gateway"]
+  gateway : +proxy(endpoint)
+  gateway : if / elif за префіксом
+  class fleet["FleetAPI"]
+  fleet : HTTP
+  class trips["TripsAPI"]
+  trips : HTTP
+  gateway ..> fleet : умова Fleet
+  gateway ..> trips : умова Trips

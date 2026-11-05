@@ -1,0 +1,14 @@
+flowchart TB
+  manager["Керівник<br/>Person: manager"]
+  dispatcher["Диспетчер<br/>Person: dispatcher"]
+  viewer["Спостерігач<br/>Person: viewer"]
+  system["FleetFlow<br/>Software System<br/>Автопарк, водії, маршрути, рейси"]
+  maps["Картографічний сервіс<br/>External System: заплановано"]
+  gps["GPS / телематика<br/>External System: заплановано"]
+  notify["SMS / e-mail<br/>External System: заплановано"]
+  manager -->|"Керує ТЗ і водіями"| system
+  dispatcher -->|"Планує та виконує рейси"| system
+  viewer -->|"Переглядає стан"| system
+  system -.->|"Майбутній API"| maps
+  gps -.->|"Майбутні координати"| system
+  system -.->|"Майбутній канал"| notify

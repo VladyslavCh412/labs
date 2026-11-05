@@ -1,0 +1,9 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {"label": "FleetFlow: setup", "type": "process", "command": "python", "args": ["run.py", "setup"], "problemMatcher": []},
+    {"label": "FleetFlow: start", "type": "process", "command": "${workspaceFolder}/.venv/Scripts/python.exe", "args": ["run.py", "start"], "isBackground": true, "problemMatcher": [], "presentation": {"reveal": "always", "panel": "dedicated"}},
+    {"label": "FleetFlow: tests", "type": "process", "command": "${workspaceFolder}/.venv/Scripts/python.exe", "args": ["run.py", "test"], "group": {"kind": "test", "isDefault": true}, "problemMatcher": []},
+    {"label": "FleetFlow: verify", "type": "process", "command": "${workspaceFolder}/.venv/Scripts/python.exe", "args": ["run.py", "verify"], "problemMatcher": []}
+  ]
+}

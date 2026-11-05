@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 730" width="1200" height="730">
+<defs><marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#475569"/></marker></defs>
+<rect width="100%" height="100%" fill="white"/>
+<polyline points="290,240 290,430" fill="none" stroke="#475569" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="310" y="340" font-family="Arial" font-size="18" fill="#334155" style="paint-order:stroke;stroke:white;stroke-width:6">Власні записи Fleet</text>
+<polyline points="910,240 910,430" fill="none" stroke="#475569" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="930" y="340" font-family="Arial" font-size="18" fill="#334155" style="paint-order:stroke;stroke:white;stroke-width:6">Власні записи Trips</text>
+<polyline points="540,510 660,510" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="9 6" marker-end="url(#arrow)"/>
+<text x="545" y="490" font-family="Arial" font-size="18" fill="#334155" style="paint-order:stroke;stroke:white;stroke-width:6">HTTP подія</text>
+<rect x="40" y="70" width="500" height="170" rx="8" fill="#E6F5EE" stroke="#17634A" stroke-width="2"/>
+<text x="290.0" y="137.0" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#17634A">Fleet: Vehicle + Driver</text>
+<text x="290.0" y="163.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#17634A">id • registration_number • status • version</text>
+<text x="290.0" y="189.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#17634A">Driver: id • name • active • license_valid</text>
+<rect x="40" y="430" width="500" height="170" rx="8" fill="#E6F5EE" stroke="#17634A" stroke-width="2"/>
+<text x="290.0" y="497.0" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#17634A">Fleet: usage + receipts + outbox</text>
+<text x="290.0" y="523.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#17634A">vehicle_id • mileage_km • active_trip_id</text>
+<text x="290.0" y="549.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#17634A">command_id • request_json • response_json</text>
+<rect x="660" y="70" width="500" height="170" rx="8" fill="#E6F5EE" stroke="#17634A" stroke-width="2"/>
+<text x="910.0" y="137.0" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#17634A">Trips: Trip + Route</text>
+<text x="910.0" y="163.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#17634A">id • vehicle_id • driver_id • route_id • status</text>
+<text x="910.0" y="189.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#17634A">Route: id • stops_json</text>
+<rect x="660" y="430" width="500" height="170" rx="8" fill="#E6F5EE" stroke="#17634A" stroke-width="2"/>
+<text x="910.0" y="497.0" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#17634A">Trips: snapshot + inbox + operations</text>
+<text x="910.0" y="523.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#17634A">id • plate • status • version • updated_at</text>
+<text x="910.0" y="549.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#17634A">event_id UNIQUE • (trip_id, operation) UNIQUE</text>
+<text x="35" y="710" font-family="Arial" font-size="17" fill="#475569">Легенда: синій — контейнер; сірий — актор/план; зелений — дані; пунктир — подія або майбутній зв’язок</text></svg>

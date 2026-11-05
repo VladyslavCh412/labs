@@ -1,0 +1,30 @@
+{
+  "baseline": "46aa488",
+  "steps": [
+    {
+      "commit": "46aa4882d1020c9406e3dae645b6ad7a73272c50",
+      "subject": "LR4: add characterization tests",
+      "url": "https://github.com/VladyslavCh412/labs/commit/46aa4882d1020c9406e3dae645b6ad7a73272c50"
+    },
+    {
+      "commit": "42cb2c2ef1e092f603b6bd8677faff1cf43cfc80",
+      "subject": "LR4: implement Strategy",
+      "url": "https://github.com/VladyslavCh412/labs/commit/42cb2c2ef1e092f603b6bd8677faff1cf43cfc80"
+    },
+    {
+      "commit": "c99e7d392c8eab0f4c17f9d1a94eef0d8709c7d3",
+      "subject": "LR4: implement Adapter",
+      "url": "https://github.com/VladyslavCh412/labs/commit/c99e7d392c8eab0f4c17f9d1a94eef0d8709c7d3"
+    },
+    {
+      "commit": "f37eefec2bee1542bddcbfb7247f7ccb51d4f06b",
+      "subject": "LR4: implement Factory",
+      "url": "https://github.com/VladyslavCh412/labs/commit/f37eefec2bee1542bddcbfb7247f7ccb51d4f06b"
+    },
+    {
+      "commit": "049296875496cc7773cb7e3b5b9a07d83f2d8e28",
+      "subject": "LR4: implement Observer",
+      "url": "https://github.com/VladyslavCh412/labs/commit/049296875496cc7773cb7e3b5b9a07d83f2d8e28"
+    }
+  ]
+}

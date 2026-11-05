@@ -1,0 +1,8 @@
+flowchart TB
+  browser["Браузер<br/>JWT у пам’яті"]
+  auth["Gateway / Auth<br/>Argon2id • login limiter"]
+  owners["Fleet / Trips<br/>JWT + RBAC у власника"]
+  files["Локальні файли та SQLite<br/>Права ОС • gitignore"]
+  browser -->|"HTTP loopback: пароль / JWT"| auth
+  auth -->|"JWT + DTO"| owners
+  owners -->|"SQL / ключ / audit"| files

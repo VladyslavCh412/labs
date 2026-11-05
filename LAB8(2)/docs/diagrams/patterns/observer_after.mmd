@@ -1,0 +1,9 @@
+classDiagram
+  class repo["TripsRepository"]
+  repo : +deliver_pending()
+  class pub["TripEventPublisher"]
+  pub : +publish(event)
+  class obs["«interface» TripCreatedObserver"]
+  obs : +on_trip_created(event)
+  repo ..> pub : publish
+  pub ..> obs : 1..* підписників

@@ -1,0 +1,83 @@
+{
+  "provider": "Fleet",
+  "consumer": "Trips",
+  "method": "POST",
+  "path": "/internal/trip-commands",
+  "timeout_seconds": 0.35,
+  "required_role": "trips-service",
+  "idempotency": {
+    "key": "trip_id + operation",
+    "same_payload": "same stored response; mileage increments once",
+    "different_payload_status": 409,
+    "recovery": "retry same command after timeout or local Trips failure"
+  },
+  "error_statuses": {
+    "401": "invalid token",
+    "403": "wrong role",
+    "404": "vehicle/driver missing",
+    "409": "domain/idempotency conflict",
+    "422": "invalid payload",
+    "503": "mapped by consumer for transport/provider failure"
+  },
+  "request_schema": {
+    "type": "object",
+    "required": [
+      "trip_id",
+      "operation",
+      "vehicle_id",
+      "driver_id"
+    ],
+    "properties": {
+      "trip_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "operation": {
+        "enum": [
+          "start",
+          "complete"
+        ]
+      },
+      "vehicle_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "driver_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "distance_km": {
+        "type": "integer",
+        "minimum": 0
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "mileage_km",
+      "version"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "status": {
+        "enum": [
+          "in_trip",
+          "available"
+        ]
+      },
+      "mileage_km": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "version": {
+        "type": "integer",
+        "minimum": 1
+      }
+    }
+  }
+}

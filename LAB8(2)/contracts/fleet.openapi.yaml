@@ -1,0 +1,52 @@
+openapi: 3.0.3
+info:
+  title: Fleet service (LR3)
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8101
+paths:
+  /vehicles/{vehicle_id}:
+    get:
+      summary: Read vehicle availability (idempotent); client timeout 350 ms
+      parameters:
+        - name: vehicle_id
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        '200':
+          description: Vehicle details
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [id, plate, status, version]
+                properties:
+                  id: {type: string}
+                  plate: {type: string}
+                  status: {type: string, enum: [available, in_trip, maintenance]}
+                  version: {type: integer, minimum: 1}
+        '404': {description: Vehicle does not exist}
+        '503': {description: Fleet unavailable at gateway/client boundary}
+  /drivers/{driver_id}:
+    get:
+      summary: Read driver admission (idempotent); client timeout 350 ms
+      parameters:
+        - name: driver_id
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        '200':
+          description: Driver record
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [id, name, active, license_valid]
+                properties:
+                  id: {type: string}
+                  name: {type: string}
+                  active: {type: boolean}
+                  license_valid: {type: boolean}
+        '404': {description: Driver does not exist}
