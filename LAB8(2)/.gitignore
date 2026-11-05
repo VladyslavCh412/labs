@@ -26,3 +26,7 @@ checks/*.txt
 # Keep the public submission documents in this standalone lab folder.
 !docs/submission/*.pdf
 !docs/submission/*.pptx
+
+# Publish the two project databases; keep local accounts and signing keys private.
+!data/fleet.sqlite
+!data/trips.sqlite
